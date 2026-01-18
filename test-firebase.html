@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>اختبار Firebase</title>
+</head>
+<body>
+    <h1>صفحة اختبار Firebase</h1>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+          apiKey: "AIzaSyCXg9Y-07jC1-21x4ODyW0Fg0EfgO8ydY",
+          authDomain: "sociolog-project.firebaseapp.com",
+          projectId: "sociolog-project",
+          storageBucket: "sociolog-project.appspot.com",
+          messagingSenderId: "232355212530",
+          appId: "1:232355212530:web:27d447ff8dd6e02c12f46b",
+          measurementId: "G-0QNFKW4YPJ"
+        };
+        
+        try {
+            firebase.initializeApp(firebaseConfig);
+            alert("تم الاتصال بـ Firebase بنجاح!");
+        } catch (error) {
+            alert("فشل الاتصال بـ Firebase. الكود: " + error.code + ". الرسالة: " + error.message);
+        }
+    </script>
+    <script src="auth-check.js"></script>
+
+</body>
+</html>

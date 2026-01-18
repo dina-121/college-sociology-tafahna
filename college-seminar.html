@@ -1,0 +1,2509 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>برامج الدراسات العليا - قسم علم الاجتماع</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a5fb4;
+            --primary-light: #e8f2ff;
+            --secondary-color: #5a6268;
+            --success-color: #00b06f;
+            --danger-color: #e63757;
+            --warning-color: #f6c343;
+            --info-color: #2d9cb5;
+            --light-color: #f9fafd;
+            --dark-color: #2c3e50;
+            --background-color: #f5f7fb;
+            --card-bg-color: #ffffff;
+            --text-color: #2c3e50;
+            --border-color: #e3ebf6;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+            --transition-slow: all 0.6s ease;
+            --transition-fast: all 0.15s ease;
+        }
+
+        /* الوضع الليلي */
+        body.dark-mode {
+            --primary-color: #4a90e2;
+            --primary-light: #1e2a3a;
+            --secondary-color: #a0aec0;
+            --success-color: #48bb78;
+            --danger-color: #f56565;
+            --warning-color: #ed8936;
+            --info-color: #38b2ac;
+            --light-color: #2d3748;
+            --dark-color: #e2e8f0;
+            --background-color: #1a202c;
+            --card-bg-color: #2d3748;
+            --text-color: #e2e8f0;
+            --border-color: #4a5568;
+            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Almarai', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            direction: rtl;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            transition: var(--transition-slow);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(26, 95, 180, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 176, 111, 0.05) 0%, transparent 20%),
+                linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(245,247,251,0.9) 100%);
+            background-attachment: fixed;
+        }
+
+        body.dark-mode {
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(26, 95, 180, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 176, 111, 0.1) 0%, transparent 20%),
+                linear-gradient(135deg, rgba(26, 32, 44, 0.9) 0%, rgba(26, 32, 44, 1) 100%);
+        }
+
+        /* ---------- Header ---------- */
+        header {
+            width: 100%;
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            color: #fff;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            transition: var(--transition);
+            position: sticky;
+            top: 0;
+        }
+
+        body.dark-mode header {
+            background: linear-gradient(135deg, #0f1a3a 0%, #1a237e 100%);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            transition: var(--transition);
+            filter: brightness(1.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo img:hover {
+            transform: scale(1.05) rotate(5deg);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text .college-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1.2;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-text .department-name {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-top: 3px;
+        }
+
+        /* ---------- Nav Links ---------- */
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .desktop-nav ul.nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            gap: 5px;
+        }
+
+        .desktop-nav ul.nav-links li {
+            position: relative;
+        }
+
+        .desktop-nav ul.nav-links li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            padding: 12px 15px;
+            border-radius: 6px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .desktop-nav ul.nav-links li a i {
+            width: 20px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .desktop-nav ul.nav-links li a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(to left, #ffc107, #ff9800);
+            transition: var(--transition);
+        }
+
+        .desktop-nav ul.nav-links li a:hover {
+            color: #ffc107;
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .desktop-nav ul.nav-links li a:hover::before {
+            width: 100%;
+        }
+
+        .desktop-nav ul.nav-links li a.active {
+            color: #ffc107;
+            background-color: rgba(255, 255, 255, 0.15);
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .desktop-nav ul.nav-links li a.active::before {
+            width: 100%;
+        }
+
+        /* ---------- Dropdown Menu ---------- */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-family: 'Almarai', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 6px;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+
+        .dropdown-btn:hover {
+            color: #ffc107;
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: rgba(13, 27, 42, 0.98);
+            border-radius: var(--border-radius);
+            padding: 10px 0;
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+            display: block;
+            box-shadow: var(--box-shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1001;
+        }
+
+        body.dark-mode .dropdown-menu {
+            background-color: rgba(13, 27, 42, 0.98);
+        }
+
+        .dropdown.active .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu li {
+            margin: 0;
+        }
+
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            color: #fff;
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            font-size: 0.85rem;
+        }
+
+        .dropdown-menu a i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .dropdown-menu a::before {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: 0;
+            width: 0;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
+
+        .dropdown-menu a:hover {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding-right: 25px;
+        }
+
+        .dropdown-menu a:hover::before {
+            width: 4px;
+            right: 0;
+        }
+
+        .login-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .log {
+            color: #fff;
+            background: none;
+            border: none;
+            font-family: 'Almarai', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: var(--transition);
+            gap: 8px;
+            backdrop-filter: blur(5px);
+        }
+
+        .log:hover {
+            color: #ffc107;
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .logout-btn {
+            background-color: var(--danger-color);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: 'Almarai', sans-serif;
+            transition: var(--transition);
+            display: none;
+            gap: 8px;
+            backdrop-filter: blur(5px);
+        }
+
+        .logout-btn:hover {
+            background-color: #d62a49;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 6px rgba(230, 55, 87, 0.3);
+        }
+
+        /* ---------- Theme Toggle ---------- */
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .theme-toggle i {
+            font-size: 1.1rem;
+            color: #fff;
+        }
+
+        /* ---------- Mobile Navigation ---------- */
+        .mobile-menu-btn {
+            display: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            width: 45px;
+            height: 45px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 80px;
+            right: 0;
+            width: 280px;
+            height: calc(100vh - 80px);
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            z-index: 999;
+            transform: translateX(100%);
+            transition: var(--transition);
+            overflow-y: auto;
+            padding: 20px;
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-nav.active {
+            transform: translateX(0);
+        }
+
+        .mobile-nav ul.nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .mobile-nav ul.nav-links li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            padding: 12px 15px;
+            border-radius: 6px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.9rem;
+        }
+
+        .mobile-nav ul.nav-links li a i {
+            width: 20px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .mobile-nav ul.nav-links li a::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(to left, #ffc107, #ff9800);
+            transition: var(--transition);
+            opacity: 0.2;
+        }
+
+        .mobile-nav ul.nav-links li a:hover {
+            color: #ffc107;
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateX(-5px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .mobile-nav ul.nav-links li a:hover::before {
+            width: 5px;
+        }
+
+        .mobile-nav ul.nav-links li a.active {
+            color: #ffc107;
+            background-color: rgba(255, 255, 255, 0.15);
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-nav ul.nav-links li a.active::before {
+            width: 5px;
+        }
+
+        .mobile-dropdown-menu {
+            background-color: rgba(13, 27, 42, 0.98);
+            border-radius: var(--border-radius);
+            padding: 10px 0;
+            margin: 5px 0 5px 15px;
+            display: none;
+            box-shadow: var(--box-shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-dropdown.active .mobile-dropdown-menu {
+            display: block;
+            animation: fadeInDown 0.3s ease;
+        }
+
+        .mobile-dropdown-menu li {
+            margin: 0;
+        }
+
+        .mobile-dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            color: #fff;
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            font-size: 0.85rem;
+        }
+
+        .mobile-dropdown-menu a i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .mobile-dropdown-menu a::before {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: 0;
+            width: 0;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
+
+        .mobile-dropdown-menu a:hover {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding-right: 25px;
+        }
+
+        .mobile-dropdown-menu a:hover::before {
+            width: 4px;
+            right: 0;
+        }
+
+        .mobile-dropdown-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-family: 'Almarai', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            border-radius: 6px;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+
+        .mobile-dropdown-btn:hover {
+            color: #ffc107;
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateX(-5px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ---------- Main Content ---------- */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        /* ---------- Hero Section ---------- */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(26, 95, 180, 0.1) 0%, rgba(45, 156, 181, 0.1) 100%);
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark-mode .hero-section {
+            background: linear-gradient(135deg, rgba(26, 95, 180, 0.15) 0%, rgba(45, 156, 181, 0.15) 100%);
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 20%, rgba(26, 95, 180, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(0, 176, 111, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-color), var(--info-color));
+            border-radius: 2px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+
+        /* ---------- Section Styles ---------- */
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 70px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-color), var(--info-color));
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: var(--secondary-color);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* ---------- Program Cards ---------- */
+        .programs-section {
+            padding: 60px 0;
+            background: var(--background-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .program-card {
+            background: var(--card-bg-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border-top: 5px solid var(--primary-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .program-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 95, 180, 0.03) 0%, transparent 50%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .program-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .program-card:hover::before {
+            opacity: 1;
+        }
+
+        .program-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            transition: var(--transition);
+        }
+
+        .program-card:hover .program-icon {
+            background: var(--primary-color);
+            color: white;
+            transform: rotateY(180deg) scale(1.1);
+            box-shadow: 0 6px 15px rgba(26, 95, 180, 0.3);
+        }
+
+        .program-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            position: relative;
+        }
+
+        .program-card p {
+            color: var(--secondary-color);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .program-features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .program-features li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .program-features li i {
+            color: var(--success-color);
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        .program-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-top: auto;
+            text-align: center;
+        }
+
+        .program-btn:hover {
+            background: #0f4a8f;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(26, 95, 180, 0.3);
+        }
+
+        /* ---------- Program Details ---------- */
+        .program-details-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, rgba(26, 95, 180, 0.05) 0%, rgba(45, 156, 181, 0.05) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark-mode .program-details-section {
+            background: linear-gradient(135deg, rgba(26, 95, 180, 0.1) 0%, rgba(45, 156, 181, 0.1) 100%);
+        }
+
+        .program-details-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 20%, rgba(26, 95, 180, 0.03) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(0, 176, 111, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .program-details-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .program-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .program-tab {
+            background: var(--card-bg-color);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-family: 'Almarai', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--secondary-color);
+            box-shadow: var(--box-shadow);
+        }
+
+        .program-tab.active {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(26, 95, 180, 0.3);
+        }
+
+        .program-tab:hover:not(.active) {
+            background: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        .program-content {
+            display: none;
+        }
+
+        .program-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .program-content-card {
+            background: var(--card-bg-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .program-content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--info-color));
+        }
+
+        .program-content-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .program-content-card h3 i {
+            font-size: 1.2rem;
+        }
+
+        .specifications-list {
+            list-style: none;
+        }
+
+        .specifications-list li {
+            margin-bottom: 15px;
+            padding-right: 20px;
+            position: relative;
+            line-height: 1.7;
+        }
+
+        .specifications-list li::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 10px;
+            width: 8px;
+            height: 8px;
+            background: var(--primary-color);
+            border-radius: 50%;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-category {
+            background: var(--primary-light);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .skill-category h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skill-category h4 i {
+            font-size: 1rem;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .skill-category li i {
+            color: var(--success-color);
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        /* ---------- Schedules Section ---------- */
+        .schedules-section {
+            padding: 60px 0;
+            background: var(--background-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .schedules-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .schedule-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .schedule-tab {
+            background: var(--card-bg-color);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-family: 'Almarai', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--secondary-color);
+            box-shadow: var(--box-shadow);
+        }
+
+        .schedule-tab.active {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(26, 95, 180, 0.3);
+        }
+
+        .schedule-tab:hover:not(.active) {
+            background: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        .schedule-content {
+            display: none;
+        }
+
+        .schedule-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+
+        .schedule-table th {
+            background: var(--primary-color);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .schedule-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .schedule-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .schedule-table tr:hover {
+            background: var(--primary-light);
+        }
+
+        .time-cell {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .course-cell {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .course-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .course-instructor {
+            font-size: 0.85rem;
+            color: var(--secondary-color);
+        }
+
+        /* ---------- Statistics Section ---------- */
+        .statistics-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #0f4a8f 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .statistics-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+            pointer-events: none;
+        }
+
+        .statistics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-item {
+            padding: 25px;
+            opacity: 0;
+            transform: translateY(30px);
+            position: relative;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            transform: scale(0.9);
+            transition: var(--transition);
+            opacity: 0;
+        }
+
+        .stat-item:hover::before {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .stat-item.animate {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ---------- Committee Section ---------- */
+        .committee-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, rgba(26, 95, 180, 0.05) 0%, rgba(45, 156, 181, 0.05) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark-mode .committee-section {
+            background: linear-gradient(135deg, rgba(26, 95, 180, 0.1) 0%, rgba(45, 156, 181, 0.1) 100%);
+        }
+
+        .committee-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 20%, rgba(26, 95, 180, 0.03) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(0, 176, 111, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .committee-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .committee-card {
+            background: var(--card-bg-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .committee-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 95, 180, 0.03) 0%, transparent 50%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .committee-card:hover::before {
+            opacity: 1;
+        }
+
+        .committee-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .committee-card h3 i {
+            font-size: 1.2rem;
+        }
+
+        .committee-tasks {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .committee-tasks li {
+            margin-bottom: 15px;
+            padding-right: 20px;
+            position: relative;
+            line-height: 1.7;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .committee-tasks li::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 10px;
+            width: 8px;
+            height: 8px;
+            background: var(--primary-color);
+            border-radius: 50%;
+        }
+
+        .committee-tasks li i {
+            color: var(--success-color);
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        /* ---------- Footer ---------- */
+        .site-footer {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            color: #fff;
+            padding: 50px 0 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark-mode .site-footer {
+            background: linear-gradient(135deg, #0f1a3a 0%, #1a237e 100%);
+        }
+
+        .site-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,100 L100,100 L100,0 Z" fill="rgba(255,255,255,0.03)"/></svg>');
+            background-size: cover;
+            pointer-events: none;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 45px;
+            height: 3px;
+            background: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .footer-col:hover h3::after {
+            width: 70px;
+        }
+
+        .footer-col p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a::before {
+            content: '';
+            position: absolute;
+            right: -4px;
+            top: 0;
+            width: 0;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: #ffc107;
+            gap: 10px;
+        }
+
+        .footer-links a:hover::before {
+            width: 3px;
+            right: 0;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-links a:hover::before {
+            transform: scale(1);
+        }
+
+        .social-links a i {
+            position: relative;
+            z-index: 1;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 25px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+            font-size: 0.85rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 5s ease-in-out infinite;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .header-right .login-section {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .programs-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .committee-tasks {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                height: 70px;
+            }
+            
+            .logo img {
+                height: 45px;
+                width: 45px;
+            }
+            
+            .logo-text .college-name {
+                font-size: 1rem;
+            }
+            
+            .logo-text .department-name {
+                font-size: 0.8rem;
+            }
+            
+            .hero-section {
+                padding: 40px 0;
+            }
+            
+            .programs-section, .program-details-section, .schedules-section, .statistics-section, .committee-section {
+                padding: 40px 0;
+            }
+            
+            .program-card, .program-content-card, .committee-card {
+                padding: 25px;
+            }
+            
+            .program-tabs, .schedule-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .program-tab, .schedule-tab {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .schedule-table {
+                font-size: 0.9rem;
+            }
+            
+            .schedule-table th, .schedule-table td {
+                padding: 10px;
+            }
+            
+            .statistics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 1.7rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.6rem;
+            }
+            
+            .program-card, .program-content-card, .committee-card {
+                padding: 20px;
+            }
+            
+            .program-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .program-card h3 {
+                font-size: 1.3rem;
+            }
+            
+            .statistics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container {
+                padding: 0 10px;
+            }
+            
+            .theme-toggle {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .theme-toggle i {
+                font-size: 1rem;
+            }
+            
+            .program-card, .program-content-card, .committee-card {
+                padding: 18px;
+            }
+            
+            .schedule-table {
+                font-size: 0.8rem;
+            }
+            
+            .schedule-table th, .schedule-table td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="header-left">
+                <div class="logo">
+                    <a href="main.html" aria-label="الصفحة الرئيسية">
+                        <img src="logo3.jpeg" alt="شعار الكلية" class="pulse">
+                    </a>
+                    <div class="logo-text">
+                        <div class="college-name">كلية الدراسات الإنسانية</div>
+                        <div class="department-name">قسم علم الاجتماع</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <!-- Desktop Navigation -->
+                <nav class="desktop-nav" aria-label="القائمة الرئيسية">
+                    <ul class="nav-links">
+                        <li><a href="main.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+                        <li><a href="dr.html"><i class="fas fa-chalkboard-teacher"></i> هيئة التدريس</a></li>
+                        <li class="dropdown">
+                            <button class="dropdown-btn" aria-expanded="false" aria-controls="dropdown-menu">
+                                <span><i class="fas fa-info-circle"></i> عن الكلية</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <ul class="dropdown-menu" id="dropdown-menu">
+                                <li><a href="quality.html" target="_blank"><i class="fas fa-award"></i> ضمان الجودة</a></li>
+                                <li><a href="graduates.html" target="_blank"><i class="fas fa-user-graduate"></i> الخريجين</a></li>
+                                <li><a href="college-seminar.html" target="_blank"><i class="fas fa-graduation-cap"></i> برامج دراسات عليا</a></li>
+                                <li><a href="youth.html" target="_blank"><i class="fas fa-users"></i> انشطه طلابيه</a></li>
+                                <li><a href="college-seminars.html" target="_blank"><i class="fas fa-handshake"></i> بروتوكلات وشراكات</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> تواصل معنا</a></li>
+                        <li><a href="news.html"><i class="fas fa-newspaper"></i> الأخبار والاعلانات</a></li>
+                        <li id="control-link-li" style="display:none;"><a href="control.html"><i class="fas fa-tasks"></i> الكنترول</a></li>
+                        <li id="admin-link-li" style="display:none;"><a href="admin.html"><i class="fas fa-cog"></i> الاداره</a></li>
+                    </ul>
+                </nav>
+
+                <div class="login-section">
+                    <a href="auth.html" class="log" id="loginBtn"><i class="fas fa-sign-in-alt"></i> تسجيل / دخول</a>
+                    <button class="logout-btn" id="logoutBtn" style="display:none;"><i class="fas fa-sign-out-alt"></i> خروج</button>
+                </div>
+
+                <!-- Theme Toggle -->
+                <div class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav" id="mobileNav">
+        <ul class="nav-links">
+            <li><a href="main.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+            <li><a href="dr.html"><i class="fas fa-chalkboard-teacher"></i> هيئة التدريس</a></li>
+            <li class="mobile-dropdown">
+                <button class="mobile-dropdown-btn" aria-expanded="false" aria-controls="mobile-dropdown-menu">
+                    <span><i class="fas fa-info-circle"></i> عن الكلية</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <ul class="mobile-dropdown-menu" id="mobile-dropdown-menu">
+                    <li><a href="quality.html" target="_blank"><i class="fas fa-award"></i> ضمان الجودة</a></li>
+                    <li><a href="graduates.html" target="_blank"><i class="fas fa-user-graduate"></i> الخريجين</a></li>
+                    <li><a href="college-seminar.html" target="_blank"><i class="fas fa-graduation-cap"></i> برامج دراسات عليا</a></li>
+                    <li><a href="youth.html" target="_blank"><i class="fas fa-users"></i> انشطه طلابيه</a></li>
+                    <li><a href="college-seminars.html" target="_blank"><i class="fas fa-handshake"></i> بروتوكلات وشراكات</a></li>
+                </ul>
+            </li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> تواصل معنا</a></li>
+            <li><a href="news.html"><i class="fas fa-newspaper"></i> الأخبار والاعلانات</a></li>
+            <li id="mobile-control-link-li" style="display:none;"><a href="control.html"><i class="fas fa-tasks"></i> الكنترول</a></li>
+            <li id="mobile-admin-link-li" style="display:none;"><a href="admin.html"><i class="fas fa-cog"></i> الاداره</a></li>
+            <li class="login-section">
+                <a href="auth.html" class="log" id="mobileLoginBtn"><i class="fas fa-sign-in-alt"></i> تسجيل / دخول</a>
+                <button class="logout-btn" id="mobileLogoutBtn" style="display:none;"><i class="fas fa-sign-out-alt"></i> خروج</button>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">برامج الدراسات العليا</h1>
+                <p class="hero-subtitle">
+                    تقديم تعليم متميز وإعداد باحثين مبدعين في مجال علم الاجتماع. نلتزم بتقديم خدمة تعليمية بحثية رقمية آمنة في مجال الدراسات الاجتماعية والإنسانية وخدمة المجتمع والبيئة، بإعداد كوادر بشرية مهنية مدربة ومؤهلة نظريًا ومهنيًا ودينيًا قادرة على المنافسة ومواكبة المستجدات العصرية.
+                </p>
+            </div>
+        </section>
+
+        <!-- Programs Section -->
+        <section class="programs-section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>برامجنا الأكاديمية</h2>
+                    <p>اكتشف برامج الدراسات العليا المتنوعة التي نقدمها في قسم علم الاجتماع</p>
+                </div>
+                <div class="programs-grid">
+                    <div class="program-card">
+                        <div class="program-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h3>دبلوم الدراسات العليا</h3>
+                        <p>برنامج متخصص يهدف إلى تأهيل الخريجين بالمهارات المهنية المتخصصة والمعارف النظرية والتطبيقية في مجال علم الاجتماع.</p>
+                        <ul class="program-features">
+                            <li><i class="fas fa-check"></i> مدة الدراسة: سنة واحدة</li>
+                            <li><i class="fas fa-check"></i> شروط القبول: الليسانس في علم الاجتماع أو ما يعادلها</li>
+                            <li><i class="fas fa-check"></i> التأهيل للممارسة المهنية المتخصصة</li>
+                        </ul>
+                        <a href="#diploma" class="program-btn">استكشف البرنامج</a>
+                    </div>
+                    <div class="program-card">
+                        <div class="program-icon">
+                            <i class="fas fa-mastercard"></i>
+                        </div>
+                        <h3>برنامج الماجستير</h3>
+                        <p>برنامج متقدم يهدف إلى إعداد باحثين قادرين على إجراء الدراسات العلمية المتخصصة والإضافة للمعارف في مجال علم الاجتماع.</p>
+                        <ul class="program-features">
+                            <li><i class="fas fa-check"></i> مدة الدراسة: سنتان</li>
+                            <li><i class="fas fa-check"></i> شروط القبول: دبلوم الدراسات العليا أو ما يعادلها</li>
+                            <li><i class="fas fa-check"></i> التأهيل للبحث العلمي المتقدم</li>
+                        </ul>
+                        <a href="#master" class="program-btn">استكشف البرنامج</a>
+                    </div>
+                    <div class="program-card">
+                        <div class="program-icon">
+                            <i class="fas fa-diploma"></i>
+                        </div>
+                        <h3>برنامج الدكتوراه</h3>
+                        <p>أعلى برامج التأهيل الأكاديمي الذي يهدف إلى إعداد باحثين متميزين قادرين على الإضافة للمعارف وتطوير المجال.</p>
+                        <ul class="program-features">
+                            <li><i class="fas fa-check"></i> مدة الدراسة: ثلاث سنوات</li>
+                            <li><i class="fas fa-check"></i> شروط القبول: الماجستير في علم الاجتماع أو ما يعادلها</li>
+                            <li><i class="fas fa-check"></i> التأهيل للقيادة الأكاديمية والبحثية</li>
+                        </ul>
+                        <a href="#phd" class="program-btn">استكشف البرنامج</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Program Details Section -->
+        <section class="program-details-section" id="program-details">
+            <div class="program-details-container">
+                <div class="section-title">
+                    <h2>مواصفات ومهارات الخريجين</h2>
+                    <p>اكتشف المهارات والمعارف التي يكتسبها خريجو برامجنا</p>
+                </div>
+                
+                <div class="program-tabs">
+                    <button class="program-tab active" data-tab="diploma">دبلوم الدراسات العليا</button>
+                    <button class="program-tab" data-tab="master">برنامج الماجستير</button>
+                    <button class="program-tab" data-tab="phd">برنامج الدكتوراه</button>
+                </div>
+                
+                <div class="program-content active" id="diploma">
+                    <div class="program-content-card">
+                        <h3><i class="fas fa-user-graduate"></i> مواصفات خريج الدبلوم</h3>
+                        <ul class="specifications-list">
+                            <li>تطبيق المعارف المتخصصة التي اكتسبها في ممارسته المهنية.</li>
+                            <li>تحديد المشكلات المهنية واقتراح حلول لها.</li>
+                            <li>إتقان المهارات المهنية واستخدام الوسائل التكنولوجية المناسبة في الممارسة المهنية.</li>
+                            <li>التواصل وقيادة فرق العمل من خلال العمل المهني المنظومي.</li>
+                            <li>اتخاذ القرار في ضوء المعلومات المتاحة.</li>
+                            <li>توظيف الموارد المتاحة بكفاءة.</li>
+                            <li>الوعي بدوره في تنمية المجتمع والحفاظ على البيئة.</li>
+                            <li>التصرف بما يعكس الالتزام بالنزاهة والمصداقية وقواعد المهنة وتقبل المسائلة والمحاسبة.</li>
+                            <li>إدراك ضرورة تنمية ذاته والانخراط في التعلم المستمر.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="program-content-card">
+                        <h3><i class="fas fa-cogs"></i> المهارات العامة للخريج</h3>
+                        <div class="skills-grid">
+                            <div class="skill-category">
+                                <h4><i class="fas fa-brain"></i> المعرفة والفهم</h4>
+                                <ul>
+                                    <li><i class="fas fa-check"></i> النظريات والأساسيات والمعارف المتخصصة في مجال التخصص</li>
+                                    <li><i class="fas fa-check"></i> المبادئ الأخلاقية والقانونية للممارسة المهنية</li>
+                                    <li><i class="fas fa-check"></i> مبادئ وأساسيات الجودة في الممارسة المهنية</li>
+                                    <li><i class="fas fa-check"></i> تأثير الممارسة المهنية على البيئة</li>
+                                </ul>
+                            </div>
+                            <div class="skill-category">
+                                <h4><i class="fas fa-lightbulb"></i> المهارات الذهنية</h4>
+                                <ul>
+                                    <li><i class="fas fa-check"></i> تحديد وتحليل المشكلات في مجال التخصص</li>
+                                    <li><i class="fas fa-check"></i> حل المشكلات المتخصصة في مجال المهنة</li>
+                                    <li><i class="fas fa-check"></i> القراءة التحليلية للأبحاث والمواضيع ذات العلاقة</li>
+                                    <li><i class="fas fa-check"></i> تقييم المخاطر في الممارسات المهنية</li>
+                                    <li><i class="fas fa-check"></i> اتخاذ القرارات المهنية في ضوء المعلومات المتاحة</li>
+                                </ul>
+                            </div>
+                            <div class="skill-category">
+                                <h4><i class="fas fa-tools"></i> المهارات المهنية</h4>
+                                <ul>
+                                    <li><i class="fas fa-check"></i> تطبيق المهارات المهنية في مجال التخصص</li>
+                                    <li><i class="fas fa-check"></i> كتابة التقارير المهنية</li>
+                                </ul>
+                            </div>
+                            <div class="skill-category">
+                                <h4><i class="fas fa-users"></i> المهارات العامة والمنتقلة</h4>
+                                <ul>
+                                    <li><i class="fas fa-check"></i> التواصل الفعال بأنواعه المختلفة</li>
+                                    <li><i class="fas fa-check"></i> استخدام تكنولوجيا المعلومات بما يخدم الممارسة المهنية</li>
+                                    <li><i class="fas fa-check"></i> التقييم الذاتي وتحديد الاحتياجات التعلمية</li>
+                                    <li><i class="fas fa-check"></i> استخدام المصادر المختلفة للحصول على المعلومات</li>
+                                    <li><i class="fas fa-check"></i> العمل في فريق وإدارة الوقت</li>
+                                    <li><i class="fas fa-check"></i> قيادة فريق في سياقات مهنية مألوفة</li>
+                                    <li><i class="fas fa-check"></i> التعلم الذاتي والمستمر</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="program-content" id="master">
+                    <div class="program-content-card">
+                        <h3><i class="fas fa-mastercard"></i> مواصفات خريج الماجستير</h3>
+                        <ul class="specifications-list">
+                            <li>إجادة تطبيق أساسيات ومنهجيات البحث العلمي واستخدام أدواته المختلفة.</li>
+                            <li>تطبيق المنهج التحليلي واستخدامه في مجال التخصص.</li>
+                            <li>تطبيق المعارف المتخصصة ودمجها مع المعارف ذات العلاقة في الممارسة المهنية.</li>
+                            <li>إظهار وعياً بالمشكلات الجارية والرؤى الحديثة في مجال التخصص.</li>
+                            <li>تحديد المشكلات المهنية وإيجاد حلول لها.</li>
+                            <li>إتقان نطاق مناسب من المهارات المهنية المتخصصة، واستخدام الوسائل التكنولوجية المناسبة.</li>
+                            <li>التواصل بفاعلية والقدرة على قيادة فرق العمل.</li>
+                            <li>اتخاذ القرار في سياقات مهنية مختلفة.</li>
+                            <li>توظيف الموارد المتاحة بما يحقق أعلى استفادة والحفاظ عليها.</li>
+                            <li>إظهار الوعي بدوره في تنمية المجتمع والحفاظ على البيئة في ضوء المتغيرات العالمية والإقليمية.</li>
+                            <li>التصرف بما يعكس الالتزام بالنزاهة والمصداقية والالتزام بقواعد المهنة.</li>
+                            <li>تنمية ذاته أكاديمياً ومهنياً وقادراً على التعلم المستمر.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="program-content-card">
+                        <h3><i class="fas fa-cogs"></i> المعايير القياسية العامة</h3>
+                        <div class="skills-grid">
+                            <div class="skill-category">
+                                <h4><i class="fas fa-brain"></i> المعرفة والفهم</h4>
+                                <ul>
+                                    <li><i class="fas fa-check"></i> النظريات والأساسيات المتعلقة بمجال التخصص والمجالات ذات العلاقة</li>
+                                    <li><i class="fas fa-check"></i> التأثير المتبادل بين الممارسة المهنية وانعكاسها على البيئة</li>
+                                    <li><i class="fas fa-check"></i> التطورات العلمية في مجال التخصص</li>
+                                    <li><i class="fas fa-check"></i> المبادئ الأخلاقية والقانونية للممارسة المهنية</li>
+                                    <li><i class="fas fa-check"></i> مبادئ وأساسيات الجودة في الممارسة المهنية</li>
+                                    <li><i class="fas fa-check"></i> أساسيات وأخلاقيات البحث العلمي</li>
+                                </ul>
+                            </div>
+                            <div class="skill-category">
+                                <h4><i class="fas fa-lightbulb"></i> المهارات الذهنية</h4>
+                                <ul>
+                                    <li><i class="fas fa-check"></i> تحليل وتقييم المعلومات في مجال التخصص والقياس عليها لحل المشكلات</li>
+                                    <li><i class="fas fa-check"></i> حل المشكلات المتخصصة مع عدم توافر بعض المعطيات</li>
+                                    <li><i class="fas fa-check"></i> الربط بين المعارف المختلفة لحل المشكلات المهنية</li>
+                                    <li><i class="fas fa-check"></i> إجراء دراسة بحثية و/أو كتابة دراسة علمية منهجية</li>
+                                    <li><i class="fas fa-check"></i> تقييم المخاطر في الممارسات المهنية في مجال التخصص</li>
+                                    <li><i class="fas fa-check"></i> التخطيط لتطوير الأداء في مجال التخصص</li>
+                                    <li><i class="fas fa-check"></i> اتخاذ القرارات المهنية في سياقات مهنية متنوعة</li>
+                                </ul>
+                            </div>
+                            <div class="skill-category">
+                                <h4><i class="fas fa-tools"></i> المهارات المهنية</h4>
+                                <ul>
+                                    <li><i class="fas fa-check"></i> إتقان المهارات المهنية الأساسية والحديثة في مجال التخصص</li>
+                                    <li><i class="fas fa-check"></i> كتابة وتقييم التقارير المهنية</li>
+                                    <li><i class="fas fa-check"></i> تقييم الطرق والأدوات القائمة في مجال التخصص</li>
+                                </ul>
+                            </div>
+                            <div class="skill-category">
+                                <h4><i class="fas fa-users"></i> المهارات العامة والمنتقلة</h4>
+                                <ul>
+                                    <li><i class="fas fa-check"></i> التواصل الفعال بأنواعه المختلفة</li>
+                                    <li><i class="fas fa-check"></i> استخدام تكنولوجيا المعلومات بما يخدم الممارسة المهنية</li>
+                                    <li><i class="fas fa-check"></i> التقييم الذاتي وتحديد الاحتياجات التعلمية</li>
+                                    <li><i class="fas fa-check"></i> استخدام المصادر المختلفة للحصول على المعلومات والمعارف</li>
+                                    <li><i class="fas fa-check"></i> وضع قواعد ومؤشرات تقييم أداء الآخرين</li>
+                                    <li><i class="fas fa-check"></i> العمل في فريق، وقيادة فرق في سياقات مهنية مختلفة</li>
+                                    <li><i class="fas fa-check"></i> إدارة الوقت بكفاءة</li>
+                                    <li><i class="fas fa-check"></i> التعلم الذاتي والمستمر</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="program-content" id="phd">
+                    <div class="program-content-card">
+                        <h3><i class="fas fa-diploma"></i> مواصفات خريج الدكتوراه</h3>
+                        <ul class="specifications-list">
+                            <li>إتقان أساسيات ومنهجيات البحث العلمي.</li>
+                            <li>العمل المستمر على الإضافة للمعارف في مجال التخصص.</li>
+                            <li>تطبيق المنهج التحليلي والناقد للمعارف في مجال التخصص والمجالات ذات العلاقة.</li>
+                            <li>دمج المعارف المتخصصة مع المعارف ذات العلاقة مستنبطاً ومطوراً للعلاقات البينية بينها.</li>
+                            <li>إظهار وعياً عميقاً بالمشاكل الجارية والنظريات الحديثة في مجال التخصص.</li>
+                            <li>تحديد المشكلات المهنية وإيجاد حلول مبتكرة لحلها.</li>
+                            <li>إتقان نطاقاً واسعاً من المهارات المهنية في مجال التخصص.</li>
+                            <li>التوجه نحو تطوير طرق وأدوات وأساليب جديدة للمزاولة المهنية.</li>
+                            <li>استخدام الوسائل التكنولوجية المناسبة بما يخدم الممارسة المهنية.</li>
+                            <li>التواصل بفاعلية وقيادة فريق عمل في سياقات مهنية مختلفة.</li>
+                            <li>اتخاذ القرار في ظل المعلومات المتاحة.</li>
+                            <li>توظيف الموارد المتاحة بكفاءة وتنميتها والعمل على إيجاد موارد جديدة.</li>
+                            <li>الوعي بدوره في تنمية المجتمع والحفاظ على البيئة.</li>
+                            <li>التصرف بما يعكس الالتزام بالنزاهة والمصداقية وقواعد المهنة.</li>
+                            <li>الالتزام بالتنمية الذاتية المستمرة ونقل علمه وخبراته للآخرين.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="program-content-card">
+                        <h3><i class="fas fa-cogs"></i> المعايير القياسية العامة</h3>
+                        <div class="skills-grid">
+                            <div class="skill-category">
+                                <h4><i class="fas fa-brain"></i> المعرفة والفهم</h4>
+                                <ul>
+                                    <li><i class="fas fa-check"></i> النظريات والأساسيات والحديث من المعارف في مجال التخصص والمجالات ذات العلاقة</li>
+                                    <li><i class="fas fa-check"></i> أساسيات ومنهجيات وأخلاقيات البحث العلمي وأدواته المختلفة</li>
+                                    <li><i class="fas fa-check"></i> المبادئ الأخلاقية والقانونية للممارسة المهنية في مجال التخصص</li>
+                                    <li><i class="fas fa-check"></i> مبادئ وأساسيات الجودة في الممارسة المهنية في مجال التخصص</li>
+                                    <li><i class="fas fa-check"></i> المعارف المتعلقة بآثار ممارسته المهنية على البيئة وطرق تنمية البيئة وصيانتها</li>
+                                </ul>
+                            </div>
+                            <div class="skill-category">
+                                <h4><i class="fas fa-lightbulb"></i> المهارات الذهنية</h4>
+                                <ul>
+                                    <li><i class="fas fa-check"></i> تحليل وتقييم المعلومات في مجال التخصص والقياس عليها والاستنباط منها</li>
+                                    <li><i class="fas fa-check"></i> حل المشكلات المتخصصة استناداً على المعطيات المتاحة</li>
+                                    <li><i class="fas fa-check"></i> إجراء دراسات بحثية تضيف إلى المعارف</li>
+                                    <li><i class="fas fa-check"></i> صياغة أوراق علمية</li>
+                                    <li><i class="fas fa-check"></i> تقييم المخاطر في الممارسات المهنية</li>
+                                    <li><i class="fas fa-check"></i> التخطيط لتطوير الأداء في مجال التخصص</li>
+                                    <li><i class="fas fa-check"></i> اتخاذ القرارات المهنية في سياقات مهنية مختلفة</li>
+                                    <li><i class="fas fa-check"></i> الابتكار والإبداع</li>
+                                    <li><i class="fas fa-check"></i> الحوار والنقاش المبني على البراهين والأدلة</li>
+                                </ul>
+                            </div>
+                            <div class="skill-category">
+                                <h4><i class="fas fa-tools"></i> المهارات المهنية</h4>
+                                <ul>
+                                    <li><i class="fas fa-check"></i> إتقان المهارات المهنية الأساسية والحديثة في مجال التخصص</li>
+                                    <li><i class="fas fa-check"></i> كتابة وتقييم التقارير المهنية</li>
+                                    <li><i class="fas fa-check"></i> تقييم وتطوير الطرق والأدوات القائمة في مجال التخصص</li>
+                                    <li><i class="fas fa-check"></i> استخدام الوسائل التكنولوجية بما يخدم الممارسة المهنية</li>
+                                    <li><i class="fas fa-check"></i> التخطيط لتطوير الممارسة المهنية وتنمية أداء الآخرين</li>
+                                </ul>
+                            </div>
+                            <div class="skill-category">
+                                <h4><i class="fas fa-users"></i> المهارات العامة والمنتقلة</h4>
+                                <ul>
+                                    <li><i class="fas fa-check"></i> التواصل الفعال بأنواعه المختلفة</li>
+                                    <li><i class="fas fa-check"></i> استخدام تكنولوجيا المعلومات بما يخدم تطوير الممارسة المهنية</li>
+                                    <li><i class="fas fa-check"></i> تعليم الآخرين وتقييم أداءهم</li>
+                                    <li><i class="fas fa-check"></i> التقييم الذاتي والتعلم المستمر</li>
+                                    <li><i class="fas fa-check"></i> استخدام المصادر المختلفة للحصول على المعلومات والمعارف</li>
+                                    <li><i class="fas fa-check"></i> العمل في فريق وقيادة فرق العمل</li>
+                                    <li><i class="fas fa-check"></i> إدارة اللقاءات العلمية والقدرة على إدارة الوقت</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Schedules Section -->
+        <section class="schedules-section">
+            <div class="schedules-container">
+                <div class="section-title">
+                    <h2>جداول المحاضرات</h2>
+                    <p>تعرف على جداول المحاضرات لبرامج الدراسات العليا</p>
+                </div>
+                
+                <div class="schedule-tabs">
+                    <button class="schedule-tab active" data-schedule="first-year">الفرقة الأولى</button>
+                    <button class="schedule-tab" data-schedule="second-year">الفرقة الثانية</button>
+                </div>
+                
+                <div class="schedule-content active" id="first-year">
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>اليوم/الوقت</th>
+                                <th>المحاضرة الأولى<br>4:2</th>
+                                <th>المحاضرة الثانية<br>6:4</th>
+                                <th>المحاضرة الثالثة<br>8:6</th>
+                                <th>المحاضرة الرابعة<br>10:8</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="time-cell">الأحد</td>
+                                <td>-</td>
+                                <td class="course-cell">
+                                    <span class="course-name">قراءات في مادة التخصص باللغة الأجنبية</span>
+                                    <span class="course-instructor">اد. محمد مبارك</span>
+                                </td>
+                                <td class="course-cell">
+                                    <span class="course-name">نظريات علم الاجتماع</span>
+                                    <span class="course-instructor">اد. أنعام فكار</span>
+                                </td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td class="time-cell">الاثنين</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td class="time-cell">الثلاثاء</td>
+                                <td class="course-cell">
+                                    <span class="course-name">نظريات علم الاجتماع</span>
+                                    <span class="course-instructor">اد. أنعام فكار</span>
+                                </td>
+                                <td class="course-cell">
+                                    <span class="course-name">تصميم بحوث اجتماعية</span>
+                                    <span class="course-instructor">اد. فاطمة علي أبو الحديد</span>
+                                </td>
+                                <td class="course-cell">
+                                    <span class="course-name">قراءات في مادة التخصص باللغة الإنجليزية</span>
+                                    <span class="course-instructor">اد. محمد مبارك</span>
+                                </td>
+                                <td class="course-cell">
+                                    <span class="course-name">تصميم بحوث اجتماعية</span>
+                                    <span class="course-instructor">اد. فاطمة علي أبو الحديد</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="time-cell">الأربعاء</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td class="time-cell">الخميس</td>
+                                <td>-</td>
+                                <td class="course-cell">
+                                    <span class="course-name">إحصاء اجتماعي متقدم</span>
+                                    <span class="course-instructor">اد. منال رجب</span>
+                                </td>
+                                <td class="course-cell">
+                                    <span class="course-name">التوجيه الإسلامي لعلم الاجتماع</span>
+                                    <span class="course-instructor">اد. زبيدة عزام</span>
+                                </td>
+                                <td class="course-cell">
+                                    <span class="course-name">التوجيه الإسلامي لعلم الاجتماع</span>
+                                    <span class="course-instructor">اد. زبيدة عزام</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="schedule-content" id="second-year">
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>اليوم/الوقت</th>
+                                <th>المحاضرة الأولى<br>4:2</th>
+                                <th>المحاضرة الثانية<br>6:4</th>
+                                <th>المحاضرة الثالثة<br>8:6</th>
+                                <th>المحاضرة الرابعة<br>10:8</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="time-cell">السبت</td>
+                                <td class="course-cell">
+                                    <span class="course-name">موضوع في علم الاجتماع</span>
+                                    <span class="course-instructor">اد. فاطمة أبو الحديد</span>
+                                </td>
+                                <td>-</td>
+                                <td class="course-cell">
+                                    <span class="course-name">قراءات في علم الاجتماع باللغة الإنجليزية</span>
+                                    <span class="course-instructor">اد. حنان أمين</span>
+                                </td>
+                                <td class="course-cell">
+                                    <span class="course-name">موضوع في علم الاجتماع</span>
+                                    <span class="course-instructor">اد. فاطمة أبو الحديد</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="time-cell">الاثنين</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td class="time-cell">الثلاثاء</td>
+                                <td class="course-cell">
+                                    <span class="course-name">علم اجتماع معرفة</span>
+                                    <span class="course-instructor">اد. زبيدة عزام</span>
+                                </td>
+                                <td class="course-cell">
+                                    <span class="course-name">منهج البحث في علم الاجتماع</span>
+                                    <span class="course-instructor">اد. أنعام فكار</span>
+                                </td>
+                                <td class="course-cell">
+                                    <span class="course-name">علم اجتماع معرفة</span>
+                                    <span class="course-instructor">اد. زبيدة عزام</span>
+                                </td>
+                                <td class="course-cell">
+                                    <span class="course-name">منهج البحث في علم الاجتماع</span>
+                                    <span class="course-instructor">اد. أنعام فكار</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="time-cell">الأربعاء</td>
+                                <td>-</td>
+                                <td class="course-cell">
+                                    <span class="course-name">قراءات في علم الاجتماع باللغة الإنجليزية</span>
+                                    <span class="course-instructor">اد. حنان أمين</span>
+                                </td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td class="time-cell">الخميس</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistics Section -->
+        <section class="statistics-section">
+            <div class="statistics-grid">
+                <div class="stat-item floating">
+                    <span class="stat-number">25</span>
+                    <span class="stat-label">طالبة بالفرقة الأولى</span>
+                </div>
+                <div class="stat-item floating">
+                    <span class="stat-number">16</span>
+                    <span class="stat-label">طالبة بالفرقة الثانية</span>
+                </div>
+                <div class="stat-item floating">
+                    <span class="stat-number">7</span>
+                    <span class="stat-label">أعضاء هيئة تدريس</span>
+                </div>
+                <div class="stat-item floating">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">برامج دراسات عليا</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Committee Section -->
+        <section class="committee-section">
+            <div class="committee-container">
+                <div class="section-title">
+                    <h2>لجنة الدراسات العليا</h2>
+                    <p>تعرف على مهام لجنة الدراسات العليا ودورها في تطوير البرامج الأكاديمية</p>
+                </div>
+                
+                <div class="committee-card">
+                    <h3><i class="fas fa-tasks"></i> مهام لجنة الدراسات العليا</h3>
+                    <ul class="committee-tasks">
+                        <li><i class="fas fa-check"></i> العمل على الخطة التشغيلية للجنة.</li>
+                        <li><i class="fas fa-check"></i> العمل على تحديث الخطة البحثية للقسم بناء على التغيرات الاجتماعية والمستجدات.</li>
+                        <li><i class="fas fa-check"></i> المراجعة الدورية لخطط الماجستير والدكتوراه في علم الاجتماع، واقتراح التعديلات اللازمة لمواكبة التطورات النظرية والمنهجية الحديثة في التخصص.</li>
+                        <li><i class="fas fa-check"></i> الإشراف على توصيف مقررات الدراسات العليا والتأكد من توافقها مع أهداف البرنامج ومعايير الجودة.</li>
+                        <li><i class="fas fa-check"></i> دراسة وتقييم ملفات المتقدمات لبرامج الدراسات العليا، وإجراء المقابلات الشخصية أو الاختبارات التحريرية، ورفع التوصيات الخاصة بقبولهم إلى مجلس القسم ثم الكلية.</li>
+                        <li><i class="fas fa-check"></i> متابعة معدلات نجاح الطالبات وتقديم تقرير عنها.</li>
+                        <li><i class="fas fa-check"></i> الإشراف على عملية الريادة الطلابية للطالبات في مرحلة الدراسات العليا، وتوجيههم لاختيار المسار البحثي المناسب.</li>
+                        <li><i class="fas fa-check"></i> دراسة مقترحات الرسائل والأطروحات العلمية المقدمة من الطالبات (العنوان، الأهداف، المنهجية)، والتأكد من أصالتها وقيمتها العلمية والاجتماعية والتزامها بالخطة البحثية للقسم، ورفع التوصية باعتماد.</li>
+                        <li><i class="fas fa-check"></i> اقتراح المشرفين الأكاديميين الرئيسيين والمشرفين المشاركين على الطلاب، بناءً على التخصص الدقيق وخبرة أعضاء هيئة التدريس والآليات المتبعة بالقسم.</li>
+                        <li><i class="fas fa-check"></i> اقتراح وتنسيق وتشكيل لجان الحكم والمناقشة لجميع الرسائل والأطروحات، طبقًا للوائح الجامعة.</li>
+                        <li><i class="fas fa-check"></i> جمع وتحليل بيانات تقييم برنامج الدراسات العليا من الطالبات والخريجات وأعضاء هيئة التدريس، وتحديد نقاط القوة والضعف.</li>
+                        <li><i class="fas fa-check"></i> تنظيم ورش عمل وندوات متقدمة تركز على المهارات البحثية المتخصصة (مثل: تحليل البيانات النوعية، النظريات المتقدمة، استخدام البرامج الإحصائية).</li>
+                        <li><i class="fas fa-check"></i> العمل على بناء شراكات بحثية مع مؤسسات أكاديمية أخرى أو مراكز بحثية متخصصة لتبادل الخبرات والاطلاع على أحدث الأبحاث في المجال.</li>
+                        <li><i class="fas fa-check"></i> اقتراح البرامج والملتقيات والزيارات والمشاريع التي تدعم حركة البحث العلمي بالقسم وتذليل العقبات وترفع من مستوى الوعي في قضاياه المتجددة.</li>
+                        <li><i class="fas fa-check"></i> تقديم تقرير فصلي عن إنجازات اللجنة شامل المرفقات من محاضر وشواهد.</li>
+                        <li><i class="fas fa-check"></i> رفع التقارير اللازمة نهاية كل فصل دراسي.</li>
+                        <li><i class="fas fa-check"></i> العمل على ما يحال إلى اللجنة من مجلس القسم أو رئيسة القسم.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer class="site-footer">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>عن القسم</h3>
+                    <p>قسم علم الاجتماع بكلية الدراسات الإنسانية يهدف إلى إعداد كوادر متخصصة في مجال العلوم الاجتماعية قادرة على المساهمة في تنمية المجتمع.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/share/1JPrwo31K4/"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://chat.whatsapp.com/K25My2O5Jj228s80zSvC6q?mode=ems_copy_c"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="main.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+                        <li><a href="dr.html"><i class="fas fa-chalkboard-teacher"></i> هيئة التدريس</a></li>
+                        <li><a href="news.html"><i class="fas fa-newspaper"></i> الأخبار</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> تواصل معنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>البرامج الأكاديمية</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-graduation-cap"></i> الليسانس</a></li>
+                        <li><a href="#"><i class="fas fa-mastercard"></i> الماجستير</a></li>
+                        <li><a href="#"><i class="fas fa-diploma"></i> الدكتوراه</a></li>
+                        <li><a href="#"><i class="fas fa-certificate"></i> الدبلومات</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>معلومات التواصل</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> قسم الدراسات الإنسانية، محافظة الدقهلية، تفهنا الأشراف</p>
+                    <p><i class="fas fa-phone"></i> 01033258639</p>
+                    <p><i class="fas fa-envelope"></i> info@fictitiousmail.com</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>جامعة الأزهر - كلية الدراسات الإنسانية - قسم علم الاجتماع - محافظة الدقهلية</p>
+                <p>©تصميم دينا محمد عبد المعبود 2025</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Theme Toggle ---
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = themeToggle.querySelector('i');
+            
+            // التحقق من الوضع المخزن
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+            
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                
+                if (document.body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                }
+            });
+            
+            // --- Mobile Menu Toggle ---
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileNav = document.getElementById('mobileNav');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileNav.classList.toggle('active');
+                mobileMenuBtn.innerHTML = mobileNav.classList.contains('active') 
+                    ? '<i class="fas fa-times"></i>' 
+                    : '<i class="fas fa-bars"></i>';
+            });
+            
+            // --- Desktop Dropdown Menu Logic ---
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            const dropdown = document.querySelector('.dropdown');
+            
+            dropdownBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dropdown.classList.toggle('active');
+                dropdownBtn.setAttribute('aria-expanded', dropdown.classList.contains('active'));
+            });
+            
+            document.addEventListener('click', (e) => {
+                if (!dropdown.contains(e.target)) {
+                    dropdown.classList.remove('active');
+                    dropdownBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // --- Mobile Dropdown Menu Logic ---
+            const mobileDropdownBtn = document.querySelector('.mobile-dropdown-btn');
+            const mobileDropdownMenu = document.querySelector('.mobile-dropdown-menu');
+            const mobileDropdown = document.querySelector('.mobile-dropdown');
+            
+            if (mobileDropdownBtn) {
+                mobileDropdownBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    mobileDropdown.classList.toggle('active');
+                    mobileDropdownBtn.setAttribute('aria-expanded', mobileDropdown.classList.contains('active'));
+                });
+                
+                document.addEventListener('click', (e) => {
+                    if (!mobileDropdown.contains(e.target)) {
+                        mobileDropdown.classList.remove('active');
+                        mobileDropdownBtn.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+
+            // --- Program Tabs ---
+            const programTabs = document.querySelectorAll('.program-tab');
+            const programContents = document.querySelectorAll('.program-content');
+            
+            programTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and contents
+                    programTabs.forEach(t => t.classList.remove('active'));
+                    programContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    tab.classList.add('active');
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            // --- Schedule Tabs ---
+            const scheduleTabs = document.querySelectorAll('.schedule-tab');
+            const scheduleContents = document.querySelectorAll('.schedule-content');
+            
+            scheduleTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and contents
+                    scheduleTabs.forEach(t => t.classList.remove('active'));
+                    scheduleContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    tab.classList.add('active');
+                    const scheduleId = tab.getAttribute('data-schedule');
+                    document.getElementById(scheduleId).classList.add('active');
+                });
+            });
+
+            // --- Animate on Scroll ---
+            const animateElements = document.querySelectorAll('.stat-item, .program-card');
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+
+            // --- Fictitious Login/Logout Logic ---
+            function checkLoginStatus() {
+                const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+                const isAdmin = localStorage.getItem('isAdmin') === 'true';
+
+                // إظهار وإخفاء أزرار تسجيل الدخول/الخروج
+                const loginBtns = document.querySelectorAll('#loginBtn, #mobileLoginBtn');
+                const logoutBtns = document.querySelectorAll('#logoutBtn, #mobileLogoutBtn');
+                
+                if (isLoggedIn) {
+                    loginBtns.forEach(btn => btn.style.display = 'none');
+                    logoutBtns.forEach(btn => btn.style.display = 'flex');
+                } else {
+                    loginBtns.forEach(btn => btn.style.display = 'flex');
+                    logoutBtns.forEach(btn => btn.style.display = 'none');
+                }
+
+                // إظهار وإخفاء رابط الإدارة والكنترول
+                const adminLinkLis = document.querySelectorAll('#admin-link-li, #mobile-admin-link-li');
+                const controlLinkLis = document.querySelectorAll('#control-link-li, #mobile-control-link-li');
+
+                // رابط الكنترول يظهر لأي مستخدم مسجل دخول
+                controlLinkLis.forEach(li => {
+                    if (isLoggedIn) {
+                        li.style.display = 'block';
+                    } else {
+                        li.style.display = 'none';
+                    }
+                });
+
+                // رابط الإدارة يظهر للأدمن فقط
+                adminLinkLis.forEach(li => {
+                    if (isAdmin) {
+                        li.style.display = 'block';
+                    } else {
+                        li.style.display = 'none';
+                    }
+                });
+            }
+
+            // Initial check on page load
+            checkLoginStatus();
+            
+            // Set active nav link
+            const currentPage = window.location.pathname.split('/').pop() || 'college-seminar.html';
+            const navLinksList = document.querySelectorAll('.nav-links a');
+            navLinksList.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // إضافة target="_blank" للروابط الخارجية
+            document.querySelectorAll('.dropdown-menu a, .mobile-dropdown-menu a').forEach(link => {
+                link.setAttribute('target', '_blank');
+            });
+        });
+
+        // Logout functionality
+        document.querySelectorAll('#logoutBtn, #mobileLogoutBtn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (typeof firebase !== 'undefined') {
+                    firebase.auth().signOut().then(() => {
+                        window.location.href = 'auth.html';
+                    }).catch((error) => {
+                        console.error('خطأ في تسجيل الخروج:', error);
+                    });
+                } else {
+                    localStorage.setItem('isLoggedIn', 'false');
+                    localStorage.setItem('isAdmin', 'false');
+                    window.location.href = 'auth.html';
+                }
+            });
+        });
+    </script>
+    <script src="auth-check.js"></script>
+</body>
+</html>

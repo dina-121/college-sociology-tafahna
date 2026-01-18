@@ -1,0 +1,3795 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم | إدارة الطلاب</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+ .back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #0d6efd;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+  text-decoration: none;
+  display: none; /* إخفاء الزر في البداية */
+  transition: opacity 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.back-to-top:hover {
+  background-color: #555;
+}
+
+.back-to-top.show {
+  display: block; /* إظهار الزر عند إضافة كلاس 'show' */
+}
+                /* أنماط جديدة لعرض المزيد */
+        .content-preview {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.6;
+            max-height: 3.2em; /* 2 lines * 1.6 line-height */
+            transition: max-height 0.3s ease;
+        }
+        
+        .content-full {
+            display: none;
+            line-height: 1.6;
+        }
+        
+        .content-full.show {
+            display: block;
+        }
+        
+        .read-more-btn {
+            background: transparent;
+            border: none;
+            color: #4361ee;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 0;
+            margin-top: 5px;
+            transition: color 0.3s;
+        }
+        
+        .read-more-btn:hover {
+            color: #3a56d4;
+        }
+        
+        .read-more-btn i {
+            font-size: 0.9rem;
+            transition: transform 0.3s;
+        }
+        
+        .read-more-btn.expanded i {
+            transform: rotate(180deg);
+        }
+        
+        .read-less {
+            display: none;
+        }
+        
+        /* تعديلات على بطاقات المحتوى */
+        .file-content-text {
+            margin-top: 0.5rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+            position: relative;
+        }
+        
+        .news-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .news-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .news-title {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .news-meta {
+            display: flex;
+            gap: 1rem;
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+        
+        .news-department {
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #6c757d;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --info: #17a2b8;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --white: #ffffff;
+            --sidebar-width: 250px;
+            --header-height: 70px;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* إضافة نمط لرسالة الزائر */
+        .visitor-message {
+            text-align: center;
+            padding: 3rem;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+        
+        .visitor-message i {
+            font-size: 4rem;
+            color: var(--danger);
+            margin-bottom: 1.5rem;
+        }
+        
+        .visitor-message h2 {
+            color: var(--danger);
+            margin-bottom: 1rem;
+        }
+        
+        .visitor-message p {
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .visitor-message .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .visitor-message .btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* الهيدر الرئيسي */
+        header {
+            background: var(--white);
+            box-shadow: var(--box-shadow);
+            padding: 0.8rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .user-info i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .search-bar {
+            position: relative;
+            width: 40%;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px 45px 10px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 30px;
+            background: var(--light);
+            transition: var(--transition);
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        /* المحتوى الرئيسي */
+        .content {
+            flex: 1;
+            padding: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* الشريط الجانبي */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--white);
+            box-shadow: var(--box-shadow);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            right: 0;
+            padding: 1.5rem 0;
+            z-index: 90;
+            transition: var(--transition);
+            overflow-y: auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 1.5rem 1.5rem;
+            border-bottom: 1px solid var(--light-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .logo span {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 0 1rem;
+        }
+
+        .tab-button {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            border: none;
+            background: transparent;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: right;
+            width: 100%;
+            color: var(--gray);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .tab-button:hover {
+            background: var(--light);
+            color: var(--primary);
+        }
+
+        .tab-button.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .logout-btn {
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            border: none;
+            background: transparent;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: right;
+            width: 100%;
+            color: var(--danger);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .logout-btn:hover {
+            background: rgba(220, 53, 69, 0.1);
+        }
+
+        /* محتوى التبويبات */
+        .tab-content {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tab-content h2 {
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--light-gray);
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* بطاقات الإحصائيات */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: var(--transition);
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(67, 97, 238, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .stats-info h3 {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .stats-info p {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        /* عناصر التحكم */
+        .controls-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-button {
+            padding: 8px 16px;
+            border: 1px solid var(--light-gray);
+            border-radius: 30px;
+            background: var(--white);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .filter-button.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .search-container {
+            position: relative;
+            width: 300px;
+            max-width: 100%;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 10px 45px 10px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 30px;
+            background: var(--light);
+            transition: var(--transition);
+        }
+
+        .search-container input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        .add-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            background: var(--primary);
+            color: var(--white);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .add-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* الجداول والقوائم */
+        .table-container {
+            overflow-x: auto;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+        }
+
+        thead {
+            background: var(--light);
+        }
+
+        th {
+            padding: 1rem;
+            text-align: right;
+            font-weight: 600;
+            color: var(--dark);
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--light-gray);
+            color: var(--dark);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* بطاقات الجوال */
+        .mobile-cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mobile-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+        }
+
+        .mobile-card-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .mobile-card-item:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-card-label {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .mobile-card-value {
+            color: var(--gray);
+            text-align: left;
+        }
+
+        /* الأزرار */
+        .actions-cell {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .delete-soft, .delete-hard, .edit-btn, .viewers-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+
+        .delete-soft {
+            background: var(--warning);
+            color: var(--dark);
+        }
+
+        .delete-hard {
+            background: var(--danger);
+            color: var(--white);
+        }
+
+        .edit-btn {
+            background: var(--info);
+            color: var(--white);
+        }
+
+        .viewers-btn {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        /* المودال */
+        .modal {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+            display: none;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-button {
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+            background: var(--light);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content h3 {
+            padding: 1.5rem;
+            padding-bottom: 0;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .modal-content form {
+            padding: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .save-btn, .cancel-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .save-btn {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .save-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .cancel-btn {
+            background: var(--light);
+            color: var(--dark);
+        }
+
+        .cancel-btn:hover {
+            background: var(--light-gray);
+        }
+
+        .images-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .image-preview-item {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .remove-image-btn {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            background: var(--danger);
+            color: var(--white);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        /* حالة فارغة */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--gray);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state p {
+            font-size: 1.1rem;
+        }
+
+        /* الطبقات المساعدة */
+        .hidden {
+            display: none !important;
+        }
+
+        .desktop-only {
+            display: block;
+        }
+
+        .mobile-only {
+            display: none;
+        }
+
+        /* التجاوب مع الشاشات المختلفة */
+        @media (max-width: 1200px) {
+            .sidebar {
+                transform: translateX(100%);
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .search-bar {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .stats-container {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+            
+            .controls-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .filter-buttons {
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 1rem;
+            }
+            
+            .tab-content {
+                padding: 1rem;
+            }
+            
+            .desktop-only {
+                display: none;
+            }
+            
+            .mobile-only {
+                display: block;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .actions-cell {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .save-btn, .cancel-btn {
+                width: 100%;
+            }
+            
+            /* تحسينات للهاتف */
+            .header-container {
+                padding: 0.5rem;
+            }
+            
+            .user-info {
+                font-size: 0.9rem;
+            }
+            
+            .search-bar, .search-container {
+                width: 100%;
+            }
+            
+            .modal-content {
+                margin: 0.5rem;
+                width: calc(100% - 1rem);
+            }
+            
+            .image-preview-item {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .mobile-card {
+                padding: 1rem;
+            }
+            
+            .mobile-card-item {
+                flex-direction: column;
+                gap: 0.3rem;
+            }
+            
+            .mobile-card-label, .mobile-card-value {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .user-info {
+                font-size: 0.9rem;
+            }
+            
+            .search-bar, .search-container {
+                width: 100%;
+            }
+            
+            .modal-content {
+                margin: 0.5rem;
+                width: calc(100% - 1rem);
+            }
+            
+            .image-preview-item {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .tab-button, .logout-btn {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+            
+            .stats-card {
+                padding: 1rem;
+            }
+            
+            .stats-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            
+            .stats-info p {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* زر القائمة للجوال */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 80;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 1200px) {
+            .menu-toggle {
+                display: flex;
+            }
+        }
+
+        .add-admin-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        
+        .add-admin-section h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        .add-admin-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .add-admin-form input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        
+        .add-admin-form button {
+            padding: 10px 20px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .add-admin-form button:hover {
+            background-color: #27ae60;
+        }
+
+        .admins-list-section h3 {
+            color: #2c3e50;
+        }
+        
+        .admin-card {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .admin-card .admin-name {
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .admin-card .admin-email {
+            font-size: 0.9em;
+            color: #777;
+            margin-right: 10px;
+        }
+        
+        .admin-card .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .admin-card .delete-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .admin-card .delete-btn i {
+            margin-left: 5px;
+        }
+        
+        .department-select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .department-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+        }
+        
+        .files-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .file-item {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .file-item span {
+            font-weight: 500;
+        }
+        
+        .file-content-text {
+            margin-top: 0.5rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* أنماط الوسائط المتعددة */
+        .media-options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .media-option-btn {
+            padding: 10px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            background: var(--white);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .media-option-btn:hover {
+            background: var(--light);
+        }
+
+        .media-option-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .media-input {
+            margin-top: 15px;
+            padding: 15px;
+            border: 1px dashed var(--light-gray);
+            border-radius: 8px;
+        }
+
+        .record-btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            background: var(--primary);
+            color: var(--white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-right: 10px;
+        }
+
+        .record-btn.stop {
+            background: var(--danger);
+        }
+
+        .record-btn:disabled {
+            background: var(--light-gray);
+            cursor: not-allowed;
+        }
+
+        .video-preview {
+            width: 100%;
+            max-height: 200px;
+            background: var(--dark);
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .video-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .media-preview {
+            margin-top: 15px;
+        }
+
+        .media-preview audio,
+        .media-preview video {
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+
+        .news-type-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .news-type-general {
+            background-color: rgba(40, 167, 69, 0.15);
+            color: #28a745;
+        }
+        
+        .news-type-private {
+            background-color: rgba(220, 53, 69, 0.15);
+            color: #dc3545;
+        }
+        
+        .news-type-filter {
+            display: flex;
+            gap: 0.5rem;
+            margin-right: 1rem;
+        }
+        
+        .news-type-filter-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--light-gray);
+            border-radius: 30px;
+            background: var(--white);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+        
+        .news-type-filter-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+        
+        /* تحسينات للهاتف - إضافية */
+        @media (max-width: 400px) {
+            .content {
+                padding: 0.5rem;
+            }
+            
+            .tab-content {
+                padding: 0.8rem;
+            }
+            
+            .stats-card {
+                padding: 0.8rem;
+            }
+            
+            .stats-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .stats-info p {
+                font-size: 1.3rem;
+            }
+            
+            .filter-button {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+            
+            .add-btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+            
+            .modal-content {
+                padding: 0.5rem;
+            }
+            
+            .modal-content form {
+                padding: 1rem;
+            }
+            
+            .form-group {
+                margin-bottom: 1rem;
+            }
+            
+            .form-group input, .form-group textarea, .form-group select {
+                padding: 8px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+     <a href="#" id="back-to-top" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+ <script>
+        // التحقق من حالة تسجيل الدخول ودور المستخدم
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const isAdmin = localStorage.getItem('isAdmin') === 'true';
+
+        // إذا لم يكن المستخدم أدمن، يتم توجيهه لصفحة أخرى
+        if (!isLoggedIn || !isAdmin) {
+            window.location.href = 'main.html'; // أو أي صفحة تريد توجيهه إليها
+        }
+            // هنا الكود هيشتغل وهيكون الزر موجود وجاهز للاستخدام
+        const backToTopBtn = document.getElementById('back-to-top');
+
+        // دالة لتحديد متى يظهر الزر أو يختفي
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 100) {
+            backToTopBtn.classList.add('show');
+          } else {
+            backToTopBtn.classList.remove('show');
+          }
+        });
+
+        // دالة للعودة لأعلى عند النقر على الزر
+        backToTopBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        });
+    </script>
+    
+    <div class="container">
+        </div>
+    <!-- رسالة للزوار -->
+    
+    <!-- رسالة للزوار -->
+    <div id="visitor-message" class="visitor-message hidden">
+        <i class="fas fa-exclamation-circle"></i>
+        <h2>وصول مرفوض</h2>
+        <p>عذراً، هذه الصفحة متاحة فقط للمشرفين المسجلين في النظام.</p>
+        <p>يجب عليك تسجيل الدخول للوصول إلى لوحة التحكم.</p>
+        <a href="auth.html" class="btn">تسجيل الدخول</a>
+        <a href="main.html" class="btn" style="background: var(--secondary); margin-right: 10px;">العودة للصفحة الرئيسية</a>
+    </div>
+
+    <button class="menu-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="sidebar" id="sidebar">
+        <div class="logo">
+            <i class="fas fa-university"></i>
+            <span>إدارة الكلية</span>
+        </div>
+        <nav>
+            <button class="tab-button active" onclick="showTab('dashboard')">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>لوحة القيادة</span>
+            </button>
+            <button class="tab-button" onclick="showTab('users')">
+                <i class="fas fa-users"></i>
+                <span>المستخدمون</span>
+            </button>
+            <button class="tab-button" onclick="showTab('news')">
+                <i class="fas fa-bullhorn"></i>
+                <span>الأخبار والإعلانات</span>
+            </button>
+            <button class="tab-button" onclick="showTab('schedules')">
+                <i class="fas fa-calendar-alt"></i>
+                <span>جداول الامتحانات/الدراسة</span>
+            </button>
+            <button class="tab-button" onclick="showTab('books')">
+                <i class="fas fa-book"></i>
+                <span>إدارة الكتب</span>
+            </button>
+            <button class="tab-button" onclick="showTab('admins')">
+                <i class="fas fa-user-shield"></i>
+                <span>إدارة المشرفين</span>
+            </button>
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>تسجيل الخروج</span>
+            </button>
+        </nav>
+    </div>
+
+    <div class="content">
+        <header>
+            <div class="header-container">
+                <div class="user-info">
+                    <span>مرحباً، المدير</span>
+                    <i class="fas fa-user-circle"></i>
+                </div>
+            </div>
+        </header>
+
+        <main id="admin-content" class="hidden">
+            <!-- محتوى لوحة التحكم -->
+            <div id="dashboard-tab" class="tab-content">
+                <h2><i class="fas fa-tachometer-alt"></i> لوحة القيادة</h2>
+                <div class="stats-container">
+                    <div class="stats-card">
+                        <div class="stats-icon"><i class="fas fa-users"></i></div>
+                        <div class="stats-info">
+                            <h3>إجمالي المستخدمين</h3>
+                            <p id="totalUsersCount">0</p>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-icon"><i class="fas fa-user-check"></i></div>
+                        <div class="stats-info">
+                            <h3>المستخدمون المتصلون</h3>
+                            <p id="onlineUsersCount">0</p>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-icon"><i class="fas fa-user-slash"></i></div>
+                        <div class="stats-info">
+                            <h3>المستخدمون المحظورون</h3>
+                            <p id="blockedUsersCount">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- تبويبات أخرى -->
+            <div id="users-tab" class="tab-content hidden">
+                <h2><i class="fas fa-users"></i> إدارة المستخدمين</h2>
+                <div class="controls-container">
+                    <div class="filter-buttons">
+                        <button class="filter-button active" data-department="all">الكل</button>
+                        <button class="filter-button" data-department="أولي">أولي</button>
+                        <button class="filter-button" data-department="تانية">تانية</button>
+                        <button class="filter-button" data-department="ثالثة">ثالثة</button>
+                        <button class="filter-button" data-department="رابعة">رابعة</button>
+                    </div>
+                    <div class="search-container">
+                        <input type="text" id="searchInput" placeholder="بحث بالاسم، الإيميل، أو الهاتف...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <div class="users-list">
+                    <div class="table-container desktop-only">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>الاسم</th>
+                                    <th>البريد الإلكتروني</th>
+                                    <th>رقم الهاتف</th>
+                                    <th>الفرقة الدراسية</th>
+                                    <th>القسم</th>
+                                    <th>آخر دخول</th>
+                                    <th>إجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="users-table-body-desktop"></tbody>
+                        </table>
+                    </div>
+                    <div class="mobile-cards-container mobile-only" id="users-table-body-mobile"></div>
+                </div>
+            </div>
+
+            <div id="news-tab" class="tab-content hidden">
+                <h2><i class="fas fa-bullhorn"></i> إدارة الأخبار والإعلانات</h2>
+                <div class="controls-container">
+                    <button class="add-btn" onclick="openAddNewsModal()"><i class="fas fa-plus"></i> إضافة خبر / إعلان</button>
+                </div>
+                <div id="news-list" class="news-list"></div>
+            </div>
+            
+            <div id="schedules-tab" class="tab-content hidden">
+                <h2><i class="fas fa-calendar-alt"></i> إدارة الجداول الدراسية/الامتحانات</h2>
+                <div class="controls-container">
+                    <button class="add-btn" onclick="openAddScheduleModal()"><i class="fas fa-plus"></i> إضافة جدول جديد</button>
+                </div>
+                <div id="schedules-list" class="files-list"></div>
+            </div>
+            
+            <div id="books-tab" class="tab-content hidden">
+                <h2><i class="fas fa-book"></i> إدارة الكتب والمراجع</h2>
+                <div class="controls-container">
+                    <button class="add-btn" onclick="openAddBooksModal()"><i class="fas fa-plus"></i> إضافة كتاب جديد</button>
+                </div>
+                <div id="books-list" class="files-list"></div>
+            </div>
+            
+            <div id="admins-tab" class="tab-content hidden">
+                <h2><i class="fas fa-user-shield"></i> إدارة المشرفين</h2>
+                <div class="add-admin-section">
+                    <h3>إضافة مشرف جديد</h3>
+                    <form id="addAdminForm" class="add-admin-form">
+                        <input type="email" id="adminEmail" placeholder="أدخل البريد الإلكتروني للمستخدم" required>
+                        <button type="submit"><i class="fas fa-user-plus"></i> إضافة</button>
+                    </form>
+                </div>
+                <div class="admins-list-section">
+                    <h3>المشرفون الحاليون</h3>
+                    <div id="admins-list"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- نافذة الأخبار -->
+    <div id="newsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('newsModal')">&times;</span>
+            <h3 id="newsModalTitle">إضافة خبر / إعلان جديد</h3>
+            <form id="newsForm">
+                <input type="hidden" id="newsId">
+                <div class="form-group">
+                    <label for="newsTitle">العنوان:</label>
+                    <input type="text" id="newsTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="newsContent">المحتوى:</label>
+                    <textarea id="newsContent" rows="5" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="newsDepartment">القسم (اختياري):</label>
+                    <select id="newsDepartment" class="department-select">
+                        <option value="">عام (لجميع الأقسام)</option>
+                        <option value="أولي">أولي</option>
+                        <option value="تانية">تانية</option>
+                        <option value="ثالثة">ثالثة</option>
+                        <option value="رابعة">رابعة</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="newsPublishedAt">تاريخ النشر:</label>
+                    <input type="datetime-local" id="newsPublishedAt" required>
+                </div>
+                <div class="form-group">
+                    <label for="newsExpiresAt">تاريخ الانتهاء (اختياري):</label>
+                    <input type="datetime-local" id="newsExpiresAt">
+                </div>
+                <div class="form-group">
+                    <label>نوع الخبر:</label>
+                    <div>
+                        <input type="radio" id="newsTypePublic" name="newsType" value="public" checked>
+                        <label for="newsTypePublic">عام (يظهر في news.html)</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="newsTypePrivate" name="newsType" value="private">
+                        <label for="newsTypePrivate">خاص (يظهر في control.html)</label>
+                    </div>
+                </div>
+                
+                <!-- قسم الوسائط المتعددة -->
+                <div class="form-group">
+                    <label>إضافة وسائط متعددة:</label>
+                    <div class="media-options">
+                        <button type="button" class="media-option-btn" onclick="showMediaOption('audio')">
+                            <i class="fas fa-microphone"></i> تسجيل صوتي
+                        </button>
+                        <button type="button" class="media-option-btn" onclick="showMediaOption('video')">
+                            <i class="fas fa-video"></i> تسجيل فيديو
+                        </button>
+                        <button type="button" class="media-option-btn" onclick="showMediaOption('file')">
+                            <i class="fas fa-file-upload"></i> رفع ملف
+                        </button>
+                    </div>
+
+                    <div id="audio-recorder" class="media-input hidden">
+                        <button type="button" id="start-recording" class="record-btn">
+                            <i class="fas fa-record-vinyl"></i> بدء التسجيل
+                        </button>
+                        <button type="button" id="stop-recording" class="record-btn stop hidden">
+                            <i class="fas fa-stop"></i> إيقاف التسجيل
+                        </button>
+                        <div class="media-preview">
+                            <audio id="recorded-audio" controls class="hidden"></audio>
+                        </div>
+                        <input type="hidden" id="audio-data" name="audioData">
+                    </div>
+
+                    <div id="video-recorder" class="media-input hidden">
+                        <video id="video-preview" autoplay muted class="video-preview"></video>
+                        <div class="video-controls">
+                            <button type="button" id="start-video" class="record-btn">
+                                <i class="fas fa-video"></i> بدء التسجيل
+                            </button>
+                            <button type="button" id="stop-video" class="record-btn stop hidden">
+                                <i class="fas fa-stop"></i> إيقاف التسجيل
+                            </button>
+                        </div>
+                        <div class="media-preview">
+                            <video id="recorded-video" controls class="hidden"></video>
+                        </div>
+                        <input type="hidden" id="video-data" name="videoData">
+                    </div>
+
+                    <div id="file-upload" class="media-input hidden">
+                        <input type="file" id="media-file" accept="audio/*,video/*">
+                        <div class="media-preview">
+                            <audio id="file-audio-preview" controls class="hidden"></audio>
+                            <video id="file-video-preview" controls class="hidden"></video>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="newsImages">الصور (اختياري):</label>
+                    <input type="file" id="newsImages" multiple accept="image/*">
+                    <div id="images-preview" class="images-preview"></div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="save-btn">حفظ</button>
+                    <button type="button" class="cancel-btn" onclick="closeModal('newsModal')">إلغاء</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- نافذة الجداول -->
+    <div id="scheduleModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('scheduleModal')">&times;</span>
+            <h3>إضافة جدول دراسي/امتحانات</h3>
+            <form id="scheduleForm">
+                <div class="form-group">
+                    <label for="scheduleName">اسم الجدول:</label>
+                    <input type="text" id="scheduleName" required>
+                </div>
+                <div class="form-group">
+                    <label for="scheduleDepartment">اختر القسم (اختياري):</label>
+                    <select id="scheduleDepartment" class="department-select">
+                        <option value="">عام (لجميع الأقسام)</option>
+                        <option value="أولي">أولي</option>
+                        <option value="تانية">تانية</option>
+                        <option value="ثالثة">ثالثة</option>
+                        <option value="رابعة">رابعة</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="scheduleFile">اختر ملف الجدول (PDF) (اختياري):</label>
+                    <input type="file" id="scheduleFile" accept=".pdf">
+                </div>
+                <div class="form-group">
+                    <label for="scheduleText">أو اكتب محتوى نصي:</label>
+                    <textarea id="scheduleText" rows="5" placeholder="اكتب هنا محتوى نصي حول الجدول أو إعلانًا..."></textarea>
+                </div>
+                
+                <!-- قسم الوسائط المتعددة للجداول -->
+                <div class="form-group">
+                    <label>إضافة وسائط متعددة:</label>
+                    <div class="media-options">
+                        <button type="button" class="media-option-btn" onclick="showMediaOption('audio', 'schedule')">
+                            <i class="fas fa-microphone"></i> تسجيل صوتي
+                        </button>
+                        <button type="button" class="media-option-btn" onclick="showMediaOption('video', 'schedule')">
+                            <i class="fas fa-video"></i> تسجيل فيديو
+                        </button>
+                        <button type="button" class="media-option-btn" onclick="showMediaOption('file', 'schedule')">
+                            <i class="fas fa-file-upload"></i> رفع ملف
+                        </button>
+                    </div>
+
+                    <div id="schedule-audio-recorder" class="media-input hidden">
+                        <button type="button" id="schedule-start-recording" class="record-btn">
+                            <i class="fas fa-record-vinyl"></i> بدء التسجيل
+                        </button>
+                        <button type="button" id="schedule-stop-recording" class="record-btn stop hidden">
+                            <i class="fas fa-stop"></i> إيقاف التسجيل
+                        </button>
+                        <div class="media-preview">
+                            <audio id="schedule-recorded-audio" controls class="hidden"></audio>
+                        </div>
+                        <input type="hidden" id="schedule-audio-data" name="audioData">
+                    </div>
+
+                    <div id="schedule-video-recorder" class="media-input hidden">
+                        <video id="schedule-video-preview" autoplay muted class="video-preview"></video>
+                        <div class="video-controls">
+                            <button type="button" id="schedule-start-video" class="record-btn">
+                                <i class="fas fa-video"></i> بدء التسجيل
+                            </button>
+                            <button type="button" id="schedule-stop-video" class="record-btn stop hidden">
+                                <i class="fas fa-stop"></i> إيقاف التسجيل
+                            </button>
+                        </div>
+                        <div class="media-preview">
+                            <video id="schedule-recorded-video" controls class="hidden"></video>
+                        </div>
+                        <input type="hidden" id="schedule-video-data" name="videoData">
+                    </div>
+
+                    <div id="schedule-file-upload" class="media-input hidden">
+                        <input type="file" id="schedule-media-file" accept="audio/*,video/*">
+                        <div class="media-preview">
+                            <audio id="schedule-file-audio-preview" controls class="hidden"></audio>
+                            <video id="schedule-file-video-preview" controls class="hidden"></video>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="save-btn">حفظ</button>
+                    <button type="button" class="cancel-btn" onclick="closeModal('scheduleModal')">إلغاء</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- نافذة الكتب -->
+    <div id="booksModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('booksModal')">&times;</span>
+            <h3>إضافة كتاب جديد</h3>
+            <form id="booksForm">
+                <div class="form-group">
+                    <label for="bookName">اسم الكتاب:</label>
+                    <input type="text" id="bookName" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookDepartment">اختر القسم (اختياري):</label>
+                    <select id="bookDepartment" class="department-select">
+                        <option value="">عام (لجميع الأقسام)</option>
+                        <option value="أولي">أولي</option>
+                        <option value="تانية">تانية</option>
+                        <option value="ثالثة">ثالثة</option>
+                        <option value="رابعة">رابعة</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="bookFile">اختر ملف الكتاب (PDF) (اختياري):</label>
+                    <input type="file" id="bookFile" accept=".pdf">
+                </div>
+                <div class="form-group">
+                    <label for="bookText">أو اكتب محتوى نصي:</label>
+                    <textarea id="bookText" rows="5" placeholder="اكتب هنا محتوى نصي حول الكتاب أو المرجع..."></textarea>
+                </div>
+                
+                <!-- قسم الوسائط المتعددة للكتب -->
+                <div class="form-group">
+                    <label>إضافة وسائط متعددة:</label>
+                    <div class="media-options">
+                        <button type="button" class="media-option-btn" onclick="showMediaOption('audio', 'book')">
+                            <i class="fas fa-microphone"></i> تسجيل صوتي
+                        </button>
+                        <button type="button" class="media-option-btn" onclick="showMediaOption('video', 'book')">
+                            <i class="fas fa-video"></i> تسجيل فيديو
+                        </button>
+                        <button type="button" class="media-option-btn" onclick="showMediaOption('file', 'book')">
+                            <i class="fas fa-file-upload"></i> رفع ملف
+                        </button>
+                    </div>
+
+                    <div id="book-audio-recorder" class="media-input hidden">
+                        <button type="button" id="book-start-recording" class="record-btn">
+                            <i class="fas fa-record-vinyl"></i> بدء التسجيل
+                        </button>
+                        <button type="button" id="book-stop-recording" class="record-btn stop hidden">
+                            <i class="fas fa-stop"></i> إيقاف التسجيل
+                        </button>
+                        <div class="media-preview">
+                            <audio id="book-recorded-audio" controls class="hidden"></audio>
+                        </div>
+                        <input type="hidden" id="book-audio-data" name="audioData">
+                    </div>
+
+                    <div id="book-video-recorder" class="media-input hidden">
+                        <video id="book-video-preview" autoplay muted class="video-preview"></video>
+                        <div class="video-controls">
+                            <button type="button" id="book-start-video" class="record-btn">
+                                <i class="fas fa-video"></i> بدء التسجيل
+                            </button>
+                            <button type="button" id="book-stop-video" class="record-btn stop hidden">
+                                <i class="fas fa-stop"></i> إيقاف التسجيل
+                            </button>
+                        </div>
+                        <div class="media-preview">
+                            <video id="book-recorded-video" controls class="hidden"></video>
+                        </div>
+                        <input type="hidden" id="book-video-data" name="videoData">
+                    </div>
+
+                    <div id="book-file-upload" class="media-input hidden">
+                        <input type="file" id="book-media-file" accept="audio/*,video/*">
+                        <div class="media-preview">
+                            <audio id="book-file-audio-preview" controls class="hidden"></audio>
+                            <video id="book-file-video-preview" controls class="hidden"></video>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="save-btn">حفظ</button>
+                    <button type="button" class="cancel-btn" onclick="closeModal('booksModal')">إلغاء</button>
+                </div>
+            </form>
+        </div>
+    </div>
+   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    
+    <script>
+        // === إعدادات Firebase ===
+const firebaseConfig = {
+  apiKey: "AIzaSyAfjeZnyxSnuatuX7dcXU8x6n0YssPUnvo",
+  authDomain: "college-management-syste-6a3a5.firebaseapp.com",
+  databaseURL: "https://college-management-syste-6a3a5-default-rtdb.firebaseio.com",
+  projectId: "college-management-syste-6a3a5",
+  storageBucket: "college-management-syste-6a3a5.firebasestorage.app",
+  messagingSenderId: "111562294226",
+  appId: "1:111562294226:web:4798af8021b0e234a23e0b"
+};
+
+// Initialize Firebase
+        
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // === نظام التحقق من الصلاحية - الإصدار المعدل ===
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                try {
+                    console.log("مستخدم مسجل:", user.uid, user.email);
+                    
+                    const userDoc = await db.collection('users').doc(user.uid).get();
+                    
+                    if (userDoc.exists) {
+                        const userData = userDoc.data();
+                        console.log("بيانات المستخدم:", userData);
+                        
+                        // التحقق من أن المستخدم أدمن
+                        const isAdminUser = userData.role === 'admin' || user.email === 'higjfc57@gmail.com';
+                        
+                        if (isAdminUser) {
+                            console.log("المستخدم هو أدمن، يتم عرض لوحة التحكم");
+                            document.getElementById('admin-content').classList.remove('hidden');
+                            document.getElementById('visitor-message').classList.add('hidden');
+                            
+                            // تحديث اسم المستخدم في الواجهة
+                            const userNameElement = document.querySelector('.user-info span');
+                            if (userNameElement && userData.name) {
+                                userNameElement.textContent = `مرحباً، ${userData.name}`;
+                            }
+                            
+                            // تحميل البيانات
+                            try {
+                                await fetchDashboardData();
+                                await fetchAndDisplayUsers();
+                            } catch (error) {
+                                console.error("Error loading data:", error);
+                                alert("تم الدخول ولكن حدث خطأ في تحميل بعض البيانات");
+                            }
+                        } else {
+                            // إذا كان مستخدم عادي، إظهار رسالة الزائر
+                            console.log("المستخدم ليس أدمن، يتم إظهار رسالة الزائر");
+                            document.getElementById('visitor-message').classList.remove('hidden');
+                            document.getElementById('admin-content').classList.add('hidden');
+                            // تأكد من توجيه المستخدمين غير المصرح لهم
+                            setTimeout(() => {
+                                window.location.href = "main.html";
+                            }, 3000);
+                        }
+                    } else {
+                        // إذا لم يكن المستخدم مسجلاً في النظام، إظهار رسالة الزائر
+                        console.log("المستخدم غير موجود في Firestore");
+                        document.getElementById('visitor-message').classList.remove('hidden');
+                        document.getElementById('admin-content').classList.add('hidden');
+                    }
+                } catch (error) {
+                    console.error("Error checking user role:", error);
+                    document.getElementById('visitor-message').classList.remove('hidden');
+                    document.getElementById('admin-content').classList.add('hidden');
+                }
+            } else {
+                // إذا لم يكن مسجلاً، إظهار رسالة الزائر
+                console.log("لا يوجد مستخدم مسجل");
+                document.getElementById('visitor-message').classList.remove('hidden');
+                document.getElementById('admin-content').classList.add('hidden');
+            }
+        });
+
+        // === الدوال الأساسية للوحة التحكم ===
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar) {
+                sidebar.classList.toggle('show');
+            }
+        }
+
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabName + '-tab').classList.remove('hidden');
+            document.querySelector(`button[onclick="showTab('${tabName}')"]`).classList.add('active');
+            
+            if (window.innerWidth <= 1200) {
+                toggleSidebar();
+            }
+        }
+
+        async function logout() {
+            try {
+                await auth.signOut();
+                window.location.href = "auth.html";
+            } catch (error) {
+                console.error("Logout error:", error);
+                alert("فشل تسجيل الخروج.");
+            }
+        }
+
+        // === وظائف إدارة المستخدمين ===
+        async function fetchDashboardData() {
+            try {
+                const totalUsersSnapshot = await db.collection('users').get();
+                document.getElementById('totalUsersCount').textContent = totalUsersSnapshot.size;
+            } catch (error) {
+                console.error("Error fetching dashboard data:", error);
+            }
+        }
+
+        async function fetchAndDisplayUsers() {
+            try {
+                const usersSnapshot = await db.collection('users').get();
+                const usersTableBodyDesktop = document.getElementById('users-table-body-desktop');
+                const usersTableBodyMobile = document.getElementById('users-table-body-mobile');
+                
+                usersTableBodyDesktop.innerHTML = '';
+                usersTableBodyMobile.innerHTML = '';
+                
+                if (usersSnapshot.empty) {
+                    const emptyStateHTML = `
+                        <tr>
+                            <td colspan="7" class="empty-state">
+                                <i class="fas fa-users-slash"></i>
+                                <p>لا يوجد مستخدمون لعرضهم</p>
+                            </td>
+                        </tr>
+                    `;
+                    usersTableBodyDesktop.innerHTML = emptyStateHTML;
+                    usersTableBodyMobile.innerHTML = `<div class="empty-state"><i class="fas fa-users-slash"></i><p>لا يوجد مستخدمون لعرضهم</p></div>`;
+                    return;
+                }
+                
+                usersSnapshot.forEach(doc => {
+                    const userData = doc.data();
+                    const lastLoginDate = userData.lastLogin ? userData.lastLogin.toDate().toLocaleString('ar-EG') : 'غير متوفر';
+                    
+                    // إضافة صف للجدول
+                    const tableRow = document.createElement('tr');
+                    tableRow.innerHTML = `
+                        <td>${userData.name || 'غير محدد'}</td>
+                        <td>${userData.email || 'غير محدد'}</td>
+                        <td>${userData.phone || 'غير محدد'}</td>
+                        <td>${userData.studentYear || 'غير محدد'}</td>
+                        <td>${userData.department || 'غير محدد'}</td>
+                        <td>${lastLoginDate}</td>
+                        <td class="actions-cell">
+                            <button class="delete-soft" onclick="deleteUserSoft('${doc.id}', '${userData.email}')"><i class="fas fa-trash-alt"></i> حذف مبدئي</button>
+                            <button class="delete-hard" onclick="deleteUserHard('${userData.email}')"><i class="fas fa-ban"></i> حذف نهائي</button>
+                        </td>
+                    `;
+                    usersTableBodyDesktop.appendChild(tableRow);
+                    
+                    // إضافة بطاقة للهاتف
+                    const mobileCard = document.createElement('div');
+                    mobileCard.className = 'mobile-card';
+                    mobileCard.innerHTML = `
+                        <div class="mobile-card-item"><div class="mobile-card-label">الاسم:</div><div class="mobile-card-value">${userData.name || 'غير محدد'}</div></div>
+                        <div class="mobile-card-item"><div class="mobile-card-label">البريد الإلكتروني:</div><div class="mobile-card-value">${userData.email || 'غير محدد'}</div></div>
+                        <div class="mobile-card-item"><div class="mobile-card-label">رقم الهاتف:</div><div class="mobile-card-value">${userData.phone || 'غير محدد'}</div></div>
+                        <div class="mobile-card-item"><div class="mobile-card-label">الفرقة الدراسية:</div><div class="mobile-card-value">${userData.studentYear || 'غير محدد'}</div></div>
+                        <div class="mobile-card-item"><div class="mobile-card-label">القسم:</div><div class="mobile-card-value">${userData.department || 'غير محدد'}</div></div>
+                        <div class="mobile-card-item"><div class="mobile-card-label">آخر دخول:</div><div class="mobile-card-value">${lastLoginDate}</div></div>
+                        <div class="actions-cell">
+                            <button class="delete-soft" onclick="deleteUserSoft('${doc.id}', '${userData.email}')"><i class="fas fa-trash-alt"></i> حذف مبدئي</button>
+                            <button class="delete-hard" onclick="deleteUserHard('${userData.email}')"><i class="fas fa-ban"></i> حذف نهائي</button>
+                        </div>
+                    `;
+                    usersTableBodyMobile.appendChild(mobileCard);
+                });
+            } catch (error) {
+                console.error("Error fetching users:", error);
+                alert("حدث خطأ أثناء جلب بيانات المستخدمين.");
+            }
+        }
+
+        async function deleteUserSoft(userId, userEmail) {
+            if (confirm(`هل أنت متأكد من حذف ${userEmail} حذفًا مبدئيًا؟`)) {
+                try {
+                    await db.collection('users').doc(userId).delete();
+                    alert("تم حذف المستخدم من قاعدة البيانات بنجاح.");
+                    fetchDashboardData();
+                    fetchAndDisplayUsers();
+                } catch (error) {
+                    console.error("Error deleting user:", error);
+                    alert("فشل حذف المستخدم.");
+                }
+            }
+        }
+
+        async function deleteUserHard(userEmail) {
+            if (confirm(`هل أنت متأكد من حذف ${userEmail} حذفًا نهائيًا؟ هذا الإجراء لا يمكن التراجع عنه!`)) {
+                try {
+                    await db.collection('blockedEmails').doc(userEmail).set({ permanentlyBlocked: true });
+                    alert("تم حظر المستخدم نهائيًا من التسجيل. يجب حذفه يدويًا من Firebase Authentication.");
+                    fetchDashboardData();
+                    fetchAndDisplayUsers();
+                } catch (error) {
+                    console.error("Error permanently blocking user:", error);
+                    alert("فشل الحظر النهائي للمستخدم.");
+                }
+            }
+        }
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            // إضافة مستمع للأزرار
+            document.querySelectorAll('.filter-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.filter-button').forEach(btn => btn.classList.remove('active'));
+                    e.target.classList.add('active');
+                    // تطبيق الفلتر حسب القسم
+                    // يمكنك إضافة هذا لاحقاً
+                });
+            });
+        });
+
+    // دالة إنشاء مستخدم الأدمن إذا لم يكن موجودًا
+    async function createAdminUser() {
+      try {
+        // 1. إنشاء المستخدم في Authentication
+        const userCredential = await auth.createUserWithEmailAndPassword(
+          'higjfc57@gmail.com', 
+          'temporaryPassword123' // كلمة مرور مؤقتة
+        );
+        
+        const user = userCredential.user;
+        
+        // 2. إضافة بيانات المستخدم في Firestore
+        await db.collection('users').doc(user.uid).set({
+          email: "higjfc57@gmail.com",
+          name: "المدير الرئيسي",
+          role: "admin",
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        
+        console.log("تم إنشاء مستخدم الأدمن بنجاح في Authentication و Firestore");
+        
+        // 3. إرسال بريد لإعادة تعيين كلمة المرور
+        await auth.sendPasswordResetEmail('higjfc57@gmail.com');
+        alert("تم إنشاء حساب الأدمن. تم إرسال رابط إعادة تعيين كلمة المرور إلى البريد الإلكتروني.");
+        
+      } catch (error) {
+        console.error("خطأ في إنشاء مستخدم الأدمن:", error);
+        
+        // إذا كان المستخدم موجودًا بالفعل في Authentication
+        if (error.code === 'auth/email-already-in-use') {
+          console.log("المستخدم موجود بالفعل في Authentication، يتم التحقق من Firestore");
+          
+          // البحث عن المستخدم بواسطة البريد الإلكتروني
+          const usersSnapshot = await db.collection('users')
+            .where('email', '==', 'higjfc57@gmail.com')
+            .get();
+          
+          if (usersSnapshot.empty) {
+            // المستخدم موجود في Authentication ولكن ليس في Firestore
+            const user = auth.currentUser;
+            if (!user) {
+              // تسجيل الدخول أولاً
+              const userCredential = await auth.signInWithEmailAndPassword(
+                'higjfc57@gmail.com', 
+                'temporaryPassword123'
+              );
+              user = userCredential.user;
+            }
+            
+            await db.collection('users').doc(user.uid).set({
+              email: "higjfc57@gmail.com",
+              name: "المدير الرئيسي",
+              role: "admin",
+              createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+              lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            
+            console.log("تم إضافة بيانات الأدمن إلى Firestore");
+            alert("تم تحديث حساب الأدمن في النظام.");
+          } else {
+            console.log("مستخدم الأدمن موجود بالفعل في Firestore");
+          }
+        } else {
+          alert("حدث خطأ في إنشاء مستخدم الأدمن: " + error.message);
+        }
+      }
+    }
+
+    // استدعاء الدالة عند النقر على زر في لوحة التحكم
+    // يمكنك إضافة زر في واجهة الأدمن لاستدعاء هذه الدالة
+    function setupAdminCreationButton() {
+      // البحث عن عنصر لوضع الزر فيه، أو إنشاء عنصر جديد
+      const dashboardTab = document.getElementById('dashboard-tab');
+      if (dashboardTab) {
+        const buttonContainer = document.createElement('div');
+        buttonContainer.style.marginTop = '20px';
+        buttonContainer.style.padding = '10px';
+        buttonContainer.style.backgroundColor = '#f8f9fa';
+        buttonContainer.style.borderRadius = '5px';
+        
+        buttonContainer.innerHTML = `
+          <h3><i class="fas fa-user-cog"></i> إدارة حسابات الأدمن</h3>
+          <button id="createAdminBtn" class="btn" style="background-color: #28a745; color: white;">
+            <i class="fas fa-user-plus"></i> إنشاء مستخدم الأدمن الرئيسي
+          </button>
+          <p style="font-size: 12px; margin-top: 10px;">
+            Use this only if the admin account doesn't exist in the system.
+          </p>
+        `;
+        
+        dashboardTab.appendChild(buttonContainer);
+        
+        // إضافة مستمع الحدث للزر
+        document.getElementById('createAdminBtn').addEventListener('click', createAdminUser);
+      }
+    }
+
+// التحقق من صلاحية المستخدم للوصول إلى صفحة الإدارة
+auth.onAuthStateChanged(async (user) => {
+  if (user) {
+    try {
+      console.log("مستخدم مسجل:", user.uid, user.email);
+      
+      // محاولة الوصول إلى بيانات المستخدم
+      const userDoc = await db.collection('users').doc(user.uid).get();
+      
+      if (userDoc.exists) {
+        const userData = userDoc.data();
+        console.log("بيانات المستخدم:", userData);
+        
+        // التحقق من أن المستخدم أدمن أو المشرف الرئيسي
+        const isAdminUser = userData.role === 'admin' || user.email === 'higjfc57@gmail.com';
+        
+        if (isAdminUser) {
+          console.log("المستخدم هو أدمن، يتم عرض لوحة التحكم");
+          document.getElementById('admin-content').classList.remove('hidden');
+          
+          // تحميل البيانات
+          try {
+            await fetchDashboardData();
+            await fetchAndDisplayUsers();
+            await fetchAndDisplayNews();
+          } catch (error) {
+            console.error("Error loading data:", error);
+            alert("تم الدخول ولكن حدث خطأ في تحميل بعض البيانات");
+          }
+        } else {
+          // إذا كان مستخدم عادي، توجيه إلى الصفحة الرئيسية
+          console.log("المستخدم ليس أدمن، يتم التوجيه إلى الصفحة الرئيسية");
+          alert('ليس لديك صلاحية للوصول إلى هذه الصفحة');
+          window.location.href = "main.html";
+        }
+      } else {
+        // إذا لم يكن المستخدم مسجلاً في النظام، توجيه إلى الصفحة الرئيسية
+        console.log("المستخدم غير موجود في Firestore");
+        alert('ليس لديك صلاحية للوصول إلى هذه الصفحة');
+        window.location.href = "main.html";
+      }
+    } catch (error) {
+      console.error("Error checking user role:", error);
+      alert('حدث خطأ في التحقق من الصلاحية: ' + error.message);
+      window.location.href = "main.html";
+    }
+  } else {
+    // إذا لم يكن مسجلاً، توجيه إلى صفحة التسجيل
+    console.log("لا يوجد مستخدم مسجل");
+    window.location.href = "auth.html";
+  }
+});
+    //     } catch (error) {
+    //       console.error("Error checking user role:", error);
+    //       alert('حدث خطأ في التحقق من الصلاحية: ' + error.message);
+    //       window.location.href = "main.html";
+    //     }
+    //   } else {
+    //     // إذا لم يكن مسجلاً، توجيه إلى صفحة التسجيل
+    //     console.log("لا يوجد مستخدم مسجل");
+    //     window.location.href = "auth.html";
+    //   }
+    // });
+// دالة لتعيين المستخدم الحالي كمسؤول
+async function makeCurrentUserAdmin() {
+  try {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('يجب تسجيل الدخول أولاً');
+      return;
+    }
+    
+    // تحديث بيانات المستخدم لتعيينه كمسؤول
+    await db.collection('users').doc(user.uid).update({
+      role: 'admin',
+      lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    
+    alert('تم تعيينك كمسؤول بنجاح! سيتم إعادة تحميل الصفحة.');
+    setTimeout(() => {
+      location.reload();
+    }, 1500);
+  } catch (error) {
+    console.error('Error making user admin:', error);
+    alert('حدث خطأ: ' + error.message);
+  }
+}
+
+// إضافة زر في واجهة الأدمن
+function addMakeAdminButton() {
+  const adminContent = document.getElementById('admin-content');
+  if (adminContent) {
+    const buttonContainer = document.createElement('div');
+    buttonContainer.style.textAlign = 'center';
+    buttonContainer.style.margin = '20px 0';
+    buttonContainer.innerHTML = `
+      <button id="makeAdminBtn" class="btn" style="background-color: #dc3545; color: white;">
+        <i class="fas fa-user-cog"></i> تعيين نفسك كمسؤول
+      </button>
+      <p style="font-size: 12px; margin-top: 10px;">
+        استخدم هذا الزر إذا كنت تواجه مشكلة في الوصول كمسؤول
+      </p>
+    `;
+    
+    adminContent.appendChild(buttonContainer);
+    
+    // إضافة مستمع الحدث للزر
+    document.getElementById('makeAdminBtn').addEventListener('click', makeCurrentUserAdmin);
+  }
+}
+
+// استدعاء الدالة عند تحميل الصفحة
+setTimeout(addMakeAdminButton, 1000);
+
+        let allUsers = [];
+        let allNews = [];
+        let currentDepartment = 'all';
+        let filesToUpload = [];
+        let mediaRecorder;
+        let audioStream;
+        let videoStream;
+        let recordedChunks = [];
+        let currentForm = 'news'; // لتحديد النموذج الحالي
+
+        /* === الدوال الأساسية للوحة التحكم === */
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar) {
+                sidebar.classList.toggle('show');
+            }
+        }
+
+
+        
+// التحقق من صلاحية المستخدم للوصول إلى صفحة الإدارة
+auth.onAuthStateChanged(async (user) => {
+  if (user) {
+    try {
+      console.log("مستخدم مسجل:", user.uid, user.email);
+      
+      // محاولة الوصول إلى بيانات المستخدم
+      const userDoc = await db.collection('users').doc(user.uid).get();
+      
+      if (userDoc.exists) {
+        const userData = userDoc.data();
+        console.log("بيانات المستخدم:", userData);
+        
+        // التحقق من أن المستخدم أدمن
+        const isAdminUser = userData.role === 'admin' || user.email === 'higjfc57@gmail.com';
+        
+        if (isAdminUser) {
+          console.log("المستخدم هو أدمن، يتم عرض لوحة التحكم");
+          document.getElementById('admin-content').classList.remove('hidden');
+          // إخفاء رسالة التحميل إذا كانت موجودة
+          const loadingElement = document.getElementById('loading');
+          if (loadingElement) loadingElement.style.display = 'none';
+          
+          // تحميل البيانات
+          try {
+            await fetchDashboardData();
+            await fetchAndDisplayUsers();
+            await fetchAndDisplayNews();
+          } catch (error) {
+            console.error("Error loading data:", error);
+            alert("تم الدخول ولكن حدث خطأ في تحميل بعض البيانات");
+          }
+        } else {
+          // إذا كان مستخدم عادي، توجيه إلى الصفحة الرئيسية
+          console.log("المستخدم ليس أدمن، يتم التوجيه إلى الصفحة الرئيسية");
+          alert('ليس لديك صلاحية للوصول إلى هذه الصفحة');
+          window.location.href = "main.html";
+        }
+      } else {
+        // إذا لم يكن المستخدم مسجلاً في النظام، توجيه إلى الصفحة الرئيسية
+        console.log("المستخدم غير موجود في Firestore");
+        alert('ليس لديك صلاحية للوصول إلى هذه الصفحة');
+        window.location.href = "main.html";
+      }
+    } catch (error) {
+      console.error("Error checking user role:", error);
+      alert('حدث خطأ في التحقق من الصلاحية: ' + error.message);
+      window.location.href = "main.html";
+    }
+  } else {
+    // إذا لم يكن مسجلاً، توجيه إلى صفحة التسجيل
+    console.log("لا يوجد مستخدم مسجل");
+    window.location.href = "auth.html";
+  }
+});
+
+console.log("تم تحميل صفحة الإدارة");
+console.log("Firebase App:", firebase.apps.length > 0 ? "متهيئ" : "غير متهيئ");
+
+
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabName + '-tab').classList.remove('hidden');
+            document.querySelector(`button[onclick="showTab('${tabName}')"]`).classList.add('active');
+            
+            if (tabName === 'admins') {
+                fetchAndDisplayAdmins();
+            }
+            if (tabName === 'schedules') {
+                fetchAndDisplaySchedules();
+            }
+            if (tabName === 'books') {
+                fetchAndDisplayBooks();
+            }
+            if (tabName === 'news') {
+                fetchAndDisplayNews();
+            }
+
+            if (window.innerWidth <= 1200) {
+                toggleSidebar();
+            }
+        }
+
+        // === وظائف إدارة النوافذ المنبثقة ===
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('show');
+            // تحديد النموذج الحالي
+            if (modalId === 'newsModal') currentForm = 'news';
+            else if (modalId === 'scheduleModal') currentForm = 'schedule';
+            else if (modalId === 'booksModal') currentForm = 'book';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+            // إيقاف أي تسجيل جاري
+            stopRecording();
+        }
+function openNewsModal() {
+    // إظهار النافذة المنبثقة لإضافة الأخبار
+    document.getElementById('newsModal').classList.remove('hidden');
+
+    // إعادة تعيين محتويات النموذج في حالة كان هناك محتوى سابق
+    document.getElementById('newsForm').reset();
+    document.getElementById('newsModalTitle').innerText = 'إضافة خبر / إعلان جديد';
+    document.getElementById('newsId').value = '';
+
+    // إخفاء الأزرار أو العناصر الخاصة بالتسجيل الصوتي أو الفيديو أو الملفات
+    document.querySelectorAll('.media-input').forEach(input => input.classList.add('hidden'));
+    document.getElementById('images-preview').innerHTML = ''; // مسح معاينة الصور
+}
+        function openAddNewsModal() {
+document.getElementById('newsModalTitle').textContent = 'إضافة خبر / إعلان جديد';
+            document.getElementById('newsForm').reset();
+            document.getElementById('newsId').value = '';
+            document.getElementById('images-preview').innerHTML = '';
+            filesToUpload = [];
+            // إخفاء جميع خيارات الوسائط
+            hideAllMediaOptions();
+            openModal('newsModal');
+        }
+
+        function openAddScheduleModal() {
+            document.getElementById('scheduleForm').reset();
+            // إخفاء جميع خيارات الوسائط
+            hideAllMediaOptions();
+            openModal('scheduleModal');
+        }
+
+        function openAddBooksModal() {
+            document.getElementById('booksForm').reset();
+            // إخفاء جميع خيارات الوسائمط
+            hideAllMediaOptions();
+            openModal('booksModal');
+        }
+
+        async function logout() {
+            try {
+                await auth.signOut();
+                window.location.href = "auth.html";
+            } catch (error) {
+                console.error("Logout error:", error);
+                alert("فشل تسجيل الخروج.");
+            }
+        }
+
+        /* === إدارة المستخدمين والأخبار === */
+        async function deleteUserSoft(userId, userEmail) {
+            if (confirm(`هل أنت متأكد من حذف ${userEmail} حذفًا مبدئيًا؟`)) {
+                try {
+                    await db.collection('users').doc(userId).delete();
+                    alert("تم حذف المستخدم من قاعدة البيانات بنجاح.");
+                    fetchDashboardData();
+                    fetchAndDisplayUsers();
+                } catch (error) {
+                    console.error("Error deleting user:", error);
+                    alert("فشل حذف المستخدم.");
+                }
+            }
+        }
+
+        async function deleteUserHard(userEmail) {
+            if (confirm(`هل أنت متأكد من حذف ${userEmail} حذفًا نهائيًا؟ هذا الإجراء لا يمكن التراجع عنه!`)) {
+                try {
+                    await db.collection('blockedEmails').doc(userEmail).set({ permanentlyBlocked: true });
+                    alert("تم حظر المستخدم نهائيًا من التسجيل. يجب حذفه يدويًا من Firebase Authentication.");
+                    fetchDashboardData();
+                    fetchAndDisplayUsers();
+                } catch (error) {
+                    console.error("Error permanently blocking user:", error);
+                    alert("فشل الحظر النهائي للمستخدم.");
+                }
+            }
+        }
+
+        async function fetchAndDisplayUsers() {
+            try {
+                const usersSnapshot = await db.collection('users').get();
+                allUsers = [];
+                usersSnapshot.forEach(doc => {
+                    const userData = doc.data();
+                    const lastLoginDate = userData.lastLogin ? userData.lastLogin.toDate().toLocaleString('ar-EG') : 'غير متوفر';
+                    allUsers.push({ id: doc.id, ...userData, lastLogin: lastLoginDate });
+                });
+                applyFilters();
+            } catch (error) {
+                console.error("Error fetching users:", error);
+                alert("حدث خطأ أثناء جلب بيانات المستخدمين.");
+            }
+        }
+
+        function displayUsers(usersToShow) {
+            const usersTableBodyDesktop = document.getElementById('users-table-body-desktop');
+            const usersTableBodyMobile = document.getElementById('users-table-body-mobile');
+            usersTableBodyDesktop.innerHTML = '';
+            usersTableBodyMobile.innerHTML = '';
+
+            if (usersToShow.length === 0) {
+                const emptyStateHTML = `
+                    <tr>
+                        <td colspan="7" class="empty-state">
+                            <i class="fas fa-users-slash"></i>
+                            <p>لا يوجد مستخدمون لعرضهم</p>
+                        </td>
+                    </tr>
+                `;
+                usersTableBodyDesktop.innerHTML = emptyStateHTML;
+                usersTableBodyMobile.innerHTML = `<div class="empty-state"><i class="fas fa-users-slash"></i><p>لا يوجد مستخدمون لعرضهم</p></div>`;
+                return;
+            }
+
+            usersToShow.forEach(user => {
+                const tableRow = document.createElement('tr');
+                tableRow.innerHTML = `
+                    <td>${user.name || 'غير محدد'}</td>
+                    <td>${user.email || 'غير محدد'}</td>
+                    <td>${user.phone || 'غير محدد'}</td>
+                    <td>${user.studentYear || 'غير محدد'}</td>
+                    <td>${user.department || 'غير محدد'}</td>
+                    <td>${user.lastLogin}</td>
+                    <td class="actions-cell">
+                        <button class="delete-soft" onclick="deleteUserSoft('${user.id}', '${user.email}')"><i class="fas fa-trash-alt"></i> حذف مبدئي</button>
+                        <button class="delete-hard" onclick="deleteUserHard('${user.email}')"><i class="fas fa-ban"></i> حذف نهائي</button>
+                    </td>
+                `;
+                usersTableBodyDesktop.appendChild(tableRow);
+                
+                const mobileCard = document.createElement('div');
+                mobileCard.className = 'mobile-card';
+                mobileCard.innerHTML = `
+                    <div class="mobile-card-item"><div class="mobile-card-label">الاسم:</div><div class="mobile-card-value">${user.name || 'غير محدد'}</div></div>
+                    <div class="mobile-card-item"><div class="mobile-card-label">البريد الإلكتروني:</div><div class="mobile-card-value">${user.email || 'غير محدد'}</div></div>
+                    <div class="mobile-card-item"><div class="mobile-card-label">رقم الهاتف:</div><div class="mobile-card-value">${user.phone || 'غير محدد'}</div></div>
+                    <div class="mobile-card-item"><div class="mobile-card-label">الفرقة الدراسية:</div><div class="mobile-card-value">${user.studentYear || 'غير محدد'}</div></div>
+                    <div class="mobile-card-item"><div class="mobile-card-label">القسم:</div><div class="mobile-card-value">${user.department || 'غير محدد'}</div></div>
+                    <div class="mobile-card-item"><div class="mobile-card-label">آخر دخول:</div><div class="mobile-card-value">${user.lastLogin}</div></div>
+                    <div class="actions-cell">
+                        <button class="delete-soft" onclick="deleteUserSoft('${user.id}', '${user.email}')"><i class="fas fa-trash-alt"></i> حذف مبدئي</button>
+                        <button class="delete-hard" onclick="deleteUserHard('${user.email}')"><i class="fas fa-ban"></i> حذف نهائي</button>
+                    </div>
+                `;
+                usersTableBodyMobile.appendChild(mobileCard);
+            });
+        }
+
+        function applyFilters() {
+            let filteredList = allUsers;
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+            if (currentDepartment !== 'all') {
+                filteredList = filteredList.filter(user => user.department === currentDepartment);
+            }
+
+            if (searchTerm) {
+                filteredList = filteredList.filter(user => 
+                    (user.name && user.name.toLowerCase().includes(searchTerm)) ||
+                    (user.email && user.email.toLowerCase().includes(searchTerm)) ||
+                    (user.phone && user.phone.includes(searchTerm))
+                );
+            }
+            displayUsers(filteredList);
+        }
+
+        async function fetchAndDisplayNews() {
+            try {
+                const newsSnapshot = await db.collection('newsAndAds').orderBy('publishedAt', 'desc').get();
+                allNews = [];
+                newsSnapshot.forEach(doc => {
+                    const newsData = doc.data();
+                    const publishedAt = newsData.publishedAt ? newsData.publishedAt.toDate().toLocaleString('ar-EG') : 'غير محدد';
+                    const expiresAt = newsData.expiresAt ? newsData.expiresAt.toDate() : null;
+                    
+
+                    let status = 'نشط';
+                    if (expiresAt) {
+                        const now = new Date();
+                        const diffHours = (expiresAt - now) / (1000 * 60 * 60);
+                        if (expiresAt < now) {
+                            status = 'منتهٍ';
+                        } else if (diffHours <= 1) {
+                            status = 'قريبًا ينتهي';
+                        }
+                    } else {
+                        status = 'مستمر';
+                    }
+
+                    allNews.push({
+                        id: doc.id,
+                        ...newsData,
+                        publishedAt: publishedAt,
+                        expiresAt: newsData.expiresAt ? newsData.expiresAt.toDate().toLocaleString('ar-EG') : 'مستمر',
+                        status: status
+                    });
+                });
+                displayNews(allNews);
+            } catch (error) {
+                console.error("Error fetching news:", error);
+            }
+        }
+
+        function displayNews(newsToShow) {
+            const newsTableBodyDesktop = document.getElementById('news-table-body-desktop');
+            const newsTableBodyMobile = document.getElementById('news-table-body-mobile');
+            newsTableBodyDesktop.innerHTML = '';
+            newsTableBodyMobile.innerHTML = '';
+
+            if (newsToShow.length === 0) {
+                const emptyStateHTML = `
+                    <tr>
+                        <td colspan="7" class="empty-state">
+                            <i class="fas fa-newspaper"></i>
+                            <p>لا يوجد أخبار أو إعلانات لعرضها</p>
+                        </td>
+                    </tr>
+                `;
+                newsTableBodyDesktop.innerHTML = emptyStateHTML;
+                newsTableBodyMobile.innerHTML = `<div class="empty-state"><i class="fas fa-newspaper"></i><p>لا يوجد أخبار أو إعلانات لعرضها</p></div>`;
+                return;
+            }
+
+            newsToShow.forEach(news => {
+                const tableRow = document.createElement('tr');
+                tableRow.innerHTML = `
+                    <td>${news.title || 'بدون عنوان'}</td>
+                    <td>${news.department || 'عام'}</td>
+                    <td>${news.status}</td>
+                    <td>${news.publishedAt}</td>
+                    <td>${news.expiresAt}</td>
+                    <td>${news.views || 0}</td>
+                    <td class="actions-cell">
+                        <button class="edit-btn" onclick="openEditModal('${news.id}')"><i class="fas fa-edit"></i> تعديل</button>
+                        <button class="viewers-btn" onclick="viewNewsViewers('${news.id}')"><i class="fas fa-eye"></i> المشاهدون</button>
+                        <button class="delete-hard" onclick="deleteNews('${news.id}')"><i class="fas fa-trash"></i> حذف</button>
+                    </td>
+                `;
+                newsTableBodyDesktop.appendChild(tableRow);
+                
+                const mobileCard = document.createElement('div');
+                mobileCard.className = 'mobile-card';
+                mobileCard.innerHTML = `
+                    <div class="mobile-card-item"><div class="mobile-card-label">العنوان:</div><div class="mobile-card-value">${news.title || 'بدون عنوان'}</div></div>
+                    <div class="mobile-card-item"><div class="mobile-card-label">القسم:</div><div class="mobile-card-value">${news.department || 'عام'}</div></div>
+                    <div class="mobile-card-item"><div class="mobile-card-label">الحالة:</div><div class="mobile-card-value">${news.status}</div></div>
+                    <div class="mobile-card-item"><div class="mobile-card-label">تاريخ النشر:</div><div class="mobile-card-value">${news.publishedAt}</div></div>
+                    <div class="mobile-card-item"><div class="mobile-card-label">تاريخ الانتهاء:</div><div class="mobile-card-value">${news.expiresAt}</div></div>
+                    <div class="mobile-card-item"><div class="mobile-card-label">المشاهدات:</div><div class="mobile-card-value">${news.views || 0}</div></div>
+                    <div class="actions-cell">
+                        <button class="edit-btn" onclick="openEditModal('${news.id}')"><i class="fas fa-edit"></i> تعديل</button>
+                        <button class="viewers-btn" onclick="viewNewsViewers('${news.id}')"><i class="fas fa-eye"></i> المشاهدون</button>
+                        <button class="delete-hard" onclick="deleteNews('${news.id}')"><i class="fas fa-trash"></i> حذف</button>
+                    </div>
+                `;
+                newsTableBodyMobile.appendChild(mobileCard);
+            });
+        }
+
+        async function openEditModal(id) {
+            const doc = await db.collection('newsAndAds').doc(id).get();
+            if (doc.exists) {
+                const newsData = doc.data();
+                document.getElementById('newsModalTitle').textContent = 'تعديل خبر / إعلان';
+                document.getElementById('newsId').value = doc.id;
+                document.getElementById('newsTitle').value = newsData.title;
+                document.getElementById('newsContent').value = newsData.content;
+                document.getElementById('newsDepartment').value = newsData.department || '';
+                
+                const imagesPreviewContainer = document.getElementById('images-preview');
+                imagesPreviewContainer.innerHTML = '';
+                filesToUpload = [];
+                if (newsData.images && newsData.images.length > 0) {
+                    newsData.images.forEach(imageUrl => {
+                        const previewItem = document.createElement('div');
+                        previewItem.className = 'image-preview-item';
+                        previewItem.innerHTML = `<img src="${imageUrl}"><button type="button" class="remove-image-btn" data-url="${imageUrl}">&times;</button>`;
+                        imagesPreviewContainer.appendChild(previewItem);
+                    });
+                }
+                
+                if (newsData.publishedAt) {
+                    const date = newsData.publishedAt.toDate();
+                    document.getElementById('newsPublishedAt').value = date.toISOString().slice(0, 16);
+                } else {
+                    document.getElementById('newsPublishedAt').value = '';
+                }
+
+                if (newsData.expiresAt) {
+                    const date = newsData.expiresAt.toDate();
+                    document.getElementById('newsExpiresAt').value = date.toISOString().slice(0, 16);
+                } else {
+                    document.getElementById('newsExpiresAt').value = '';
+                }
+
+                openModal('newsModal');
+            }
+        }
+
+        async function deleteNews(id) {
+            if (confirm("هل أنت متأكد من حذف هذا الخبر نهائيًا؟")) {
+                try {
+                    const doc = await db.collection('newsAndAds').doc(id).get();
+                    const newsData = doc.data();
+                    
+                    if (newsData.images && newsData.images.length > 0) {
+                        for (const imageUrl of newsData.images) {
+                            const imageRef = storage.refFromURL(imageUrl);
+                            await imageRef.delete().catch(e => console.error("Error deleting image:", e));
+                        }
+                    }
+                    await db.collection('newsAndAds').doc(id).delete();
+                    alert("تم حذف الخبر بنجاح.");
+                    fetchAndDisplayNews();
+                } catch (error) {
+                    console.error("Error deleting news:", error);
+                    alert("فشل حذف الخبر.");
+                }
+            }
+        }
+
+        async function viewNewsViewers(newsId) {
+            try {
+                const viewersSnapshot = await db.collection('newsAndAds').doc(newsId).collection('viewers').get();
+                let viewerList = 'قائمة المشاهدين:\n';
+                let count = 0;
+
+                for (const doc of viewersSnapshot.docs) {
+                    const viewerData = doc.data();
+                    const userId = viewerData.userId;
+                    const userDoc = await db.collection('users').doc(userId).get();
+                    if (userDoc.exists) {
+                        const userData = userDoc.data();
+                        viewerList += `${count + 1}. الاسم: ${userData.name || 'غير محدد'} | الإيميل: ${userData.email}\n`;
+                        count++;
+                    }
+                }
+
+                if (count > 0) {
+                    alert(viewerList);
+                } else {
+                    alert("لا توجد مشاهدات لهذا الخبر بعد.");
+                }
+            } catch (error) {
+                console.error("Error fetching viewers:", error);
+                alert("فشل جلب قائمة المشاهدين.");
+                }
+            }
+
+            /* === إدارة المشرفين === */
+            async function fetchAndDisplayAdmins() {
+                try {
+                    const adminsSnapshot = await db.collection('users').where('role', '==', 'admin').get();
+                    const adminsList = document.getElementById('admins-list');
+                    adminsList.innerHTML = '';
+                    
+                    if (adminsSnapshot.empty) {
+                        adminsList.innerHTML = `<p class="empty-state"><i class="fas fa-user-shield"></i> لا يوجد مشرفون حاليًا.</p>`;
+                        return;
+                    }
+
+                    adminsSnapshot.forEach(doc => {
+                        const adminData = doc.data();
+                        const adminCard = document.createElement('div');
+                        adminCard.className = 'admin-card';
+                        adminCard.innerHTML = `
+                            <div class="admin-info">
+                                <span class="admin-name">${adminData.name || 'غير محدد'}</span>
+                                <span class="admin-email">${adminData.email}</span>
+                            </div>
+                            <div class="admin-actions">
+                                <button class="delete-btn" onclick="deleteAdmin('${doc.id}', '${adminData.email}')"><i class="fas fa-trash"></i> حذف</button>
+                            </div>
+                        `;
+                        adminsList.appendChild(adminCard);
+                    });
+                } catch (error) {
+                    console.error("Error fetching admins:", error);
+                    alert("فشل جلب قائمة المشرفين.");
+                }
+            }
+
+            async function addAdmin(event) {
+                event.preventDefault();
+                const email = document.getElementById('adminEmail').value;
+                
+                if (!email) {
+                    alert("الرجاء إدخال البريد الإلكتروني للمشرف.");
+                    return;
+                }
+
+                try {
+                    const usersRef = db.collection('users');
+                    const userQuery = await usersRef.where('email', '==', email).get();
+
+                    if (userQuery.empty) {
+                        alert("المستخدم غير موجود. تأكد من أن المستخدم قام بالتسجيل أولاً.");
+                        return;
+                    }
+
+                    const userId = userQuery.docs[0].id;
+                    const userData = userQuery.docs[0].data();
+
+                    await db.collection('users').doc(userId).update({
+                        role: 'admin'
+                    });
+
+                    alert(`تمت ترقية المستخدم ${userData.name || email} إلى مشرف بنجاح.`);
+                    document.getElementById('adminEmail').value = '';
+                    fetchAndDisplayAdmins();
+                } catch (error) {
+                    console.error("Error adding admin:", error);
+                    alert("فشل إضافة المشرف: " + error.message);
+                }
+            }
+
+            async function deleteAdmin(adminId, adminEmail) {
+                if (confirm(`هل أنت متأكد من إزالة صلاحيات المشرف من ${adminEmail}؟`)) {
+                    try {
+                        await db.collection('users').doc(adminId).update({
+                            role: 'user'
+                        });
+                        alert("تم إزالة صلاحيات المشرف بنجاح.");
+                        fetchAndDisplayAdmins();
+                    } catch (error) {
+                        console.error("Error deleting admin:", error);
+                        alert("فشل إزالة صلاحيات المشرف.");
+                    }
+                }
+            }
+
+            /* === إدارة الجداول الدراسية/الامتحانات === */
+            async function addSchedule(event) {
+                event.preventDefault();
+                const name = document.getElementById('scheduleName').value;
+                const department = document.getElementById('scheduleDepartment').value;
+                const file = document.getElementById('scheduleFile').files[0];
+                const textContent = document.getElementById('scheduleText').value;
+
+                if (!name && !file && !textContent) {
+                    alert("الرجاء إدخال اسم أو اختيار ملف أو إدخال محتوى نصي.");
+                    return;
+                }
+                
+                try {
+                    let fileUrl = '';
+                    let fileName = '';
+                    if (file) {
+                        const storageRef = storage.ref(`schedules/${department || 'عام'}/${file.name}`);
+                        const uploadTask = await storageRef.put(file);
+                        fileUrl = await uploadTask.ref.getDownloadURL();
+                        fileName = file.name;
+                    }
+
+                    await db.collection('schedules').add({
+                        name: name || fileName || 'محتوى نصي',
+                        department: department || '',
+                        url: fileUrl,
+                        textContent: textContent || '',
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    alert("تم رفع الجدول/المحتوى بنجاح!");
+                    closeModal('scheduleModal');
+                    fetchAndDisplaySchedules();
+                } catch (error) {
+                    console.error("Error uploading schedule/content:", error);
+                    alert("فشل رفع الجدول/المحتوى: " + error.message);
+                }
+            }
+
+            async function fetchAndDisplaySchedules() {
+                try {
+                    const schedulesSnapshot = await db.collection('schedules').orderBy('createdAt', 'desc').get();
+                    const schedulesContainer = document.getElementById('schedules-list');
+                    schedulesContainer.innerHTML = '';
+                    
+                    if (schedulesSnapshot.empty) {
+                        schedulesContainer.innerHTML = '<p class="empty-state">لا توجد جداول حاليًا.</p>';
+                        return;
+                    }
+
+                    schedulesSnapshot.forEach(doc => {
+                        const schedule = doc.data();
+                        const scheduleCard = document.createElement('div');
+                        scheduleCard.className = 'file-item';
+                        
+                        let contentHTML = `<span>${schedule.name} - ${schedule.department || 'عام'}</span>`;
+                        if (schedule.textContent) {
+                            contentHTML += `<p class="file-content-text">${schedule.textContent}</p>`;
+                        }
+                        if (schedule.url) {
+                            contentHTML += `<div class="actions-cell">
+                                            <a href="${schedule.url}" target="_blank" class="viewers-btn"><i class="fas fa-eye"></i> عرض الملف</a>
+                                            <button class="delete-hard" onclick="deleteFile('schedules', '${doc.id}', '${schedule.url}')"><i class="fas fa-trash"></i> حذف</button>
+                                            </div>`;
+                        } else {
+                            contentHTML += `<div class="actions-cell">
+                                            <button class="delete-hard" onclick="deleteFile('schedules', '${doc.id}', '')"><i class="fas fa-trash"></i> حذف</button>
+                                            </div>`;
+                        }
+
+                        scheduleCard.innerHTML = contentHTML;
+                        schedulesContainer.appendChild(scheduleCard);
+                    });
+                } catch (error) {
+                    console.error("Error fetching schedules:", error);
+                }
+            }
+
+            /* === إدارة الكتب والمراجع === */
+            async function addBook(event) {
+                event.preventDefault();
+                const name = document.getElementById('bookName').value;
+                const department = document.getElementById('bookDepartment').value;
+                const file = document.getElementById('bookFile').files[0];
+                const textContent = document.getElementById('bookText').value;
+
+                if (!name && !file && !textContent) {
+                    alert("الرجاء إدخال اسم أو اختيار ملف أو إدخال محتوى نصي.");
+                    return;
+                }
+
+                try {
+                    let fileUrl = '';
+                    let fileName = '';
+                    if (file) {
+                        const storageRef = storage.ref(`books/${department || 'عام'}/${file.name}`);
+                        const uploadTask = await storageRef.put(file);
+                        fileUrl = await uploadTask.ref.getDownloadURL();
+                        fileName = file.name;
+                    }
+
+                    await db.collection('books').add({
+                        name: name || fileName || 'محتوى نصي',
+                        department: department || '',
+                        url: fileUrl,
+                        textContent: textContent || '',
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    alert("تم رفع الكتاب/المحتوى بنجاح!");
+                    closeModal('booksModal');
+                    fetchAndDisplayBooks();
+                } catch (error) {
+                    console.error("Error uploading book/content:", error);
+                    alert("فشل رفع الكتاب/المحتوى: " + error.message);
+                }
+            }
+
+async function fetchAndDisplayBooks() {
+    try {
+        const booksSnapshot = await db.collection('books').orderBy('createdAt', 'desc').get();
+        const booksContainer = document.getElementById('books-list');
+        booksContainer.innerHTML = '';
+        
+        if (booksSnapshot.empty) {
+            booksContainer.innerHTML = '<p class="empty-state">لا توجد كتب حاليًا.</p>';
+            return;
+        }
+
+        booksSnapshot.forEach(doc => {
+            const book = doc.data();
+            const bookCard = document.createElement('div');
+            bookCard.className = 'file-item';
+            
+            let contentHTML = `<span>${book.name} - ${book.department || 'عام'}</span>`;
+            if (book.textContent) {
+                contentHTML += `<p class="file-content-text">${book.textContent}</p>`;
+            }
+            if (book.url) {
+                contentHTML += `<div class="actions-cell">
+                                <a href="${book.url}" target="_blank" class="viewers-btn"><i class="fas fa-eye"></i> عرض الملف</a>
+                                <button class="delete-hard" onclick="deleteFile('books', '${doc.id}', '${book.url}')"><i class="fas fa-trash"></i> حذف</button>
+                                </div>`;
+            } else {
+                contentHTML += `<div class="actions-cell">
+                                <button class="delete-hard" onclick="deleteFile('books', '${doc.id}', '')"><i class="fas fa-trash"></i> حذف</button>
+                                </div>`;
+            }
+            bookCard.innerHTML = contentHTML;
+            booksContainer.appendChild(bookCard); // ✅ التصحيح هنا
+        });
+    } catch (error) {
+        console.error("Error fetching books:", error);
+    }
+}
+
+
+            // وظيفة حذف عامة للملفات (كتب وجداول)
+            async function deleteFile(collectionName, docId, fileUrl) {
+                if (confirm("هل أنت متأكد من حذف هذا المحتوى؟")) {
+                    try {
+                        if (fileUrl) {
+                            await storage.refFromURL(fileUrl).delete();
+                        }
+                        await db.collection(collectionName).doc(docId).delete();
+                        alert(`تم حذف المحتوى بنجاح من ${collectionName}.`);
+                        if (collectionName === 'schedules') fetchAndDisplaySchedules();
+                        if (collectionName === 'books') fetchAndDisplayBooks();
+                    } catch (error) {
+                        console.error('Error deleting file:', error);
+                        alert('فشل حذف المحتوى.');
+                    }
+                }
+            }
+
+            /* === وظائف الوسائط المتعددة === */
+            function showMediaOption(optionType, formType = 'news') {
+                // إخفاء جميع خيارات الوسائط أولاً
+                hideAllMediaOptions(formType);
+                
+                // إظهار الخيار المحدد
+                const elementId = formType === 'news' ? `${optionType}-recorder` : `${formType}-${optionType}-recorder`;
+                const element = document.getElementById(elementId);
+                if (element) {
+                    element.classList.remove('hidden');
+                }
+                
+                // إذا كان خيار رفع ملف، إعداد معالج الأحداث
+                if (optionType === 'file') {
+                    const fileInputId = formType === 'news' ? 'media-file' : `${formType}-media-file`;
+                    const fileInput = document.getElementById(fileInputId);
+                    if (fileInput) {
+                        fileInput.onchange = function(event) {
+                            handleFileSelect(event, formType);
+                        };
+                    }
+                }
+            }
+
+            function hideAllMediaOptions(formType = 'news') {
+                const options = ['audio', 'video', 'file'];
+                options.forEach(option => {
+                    const elementId = formType === 'news' ? `${option}-recorder` : `${formType}-${option}-recorder`;
+                    const element = document.getElementById(elementId);
+                    if (element) {
+                        element.classList.add('hidden');
+                    }
+                });
+            }
+
+            async function startRecording(type, formType = 'news') {
+                try {
+                    let stream;
+                    if (type === 'audio') {
+                        stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                        audioStream = stream;
+                    } else {
+                        stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+                        videoStream = stream;
+                        
+                        // عرض معاينة الفيديو
+                        const videoPreviewId = formType === 'news' ? 'video-preview' : `${formType}-video-preview`;
+                        const videoPreview = document.getElementById(videoPreviewId);
+                        if (videoPreview) {
+                            videoPreview.srcObject = stream;
+                        }
+                    }
+                    
+                    recordedChunks = [];
+                    mediaRecorder = new MediaRecorder(stream);
+                    
+                    mediaRecorder.ondataavailable = (event) => {
+                        if (event.data.size > 0) {
+                            recordedChunks.push(event.data);
+                        }
+                    };
+                    
+                    mediaRecorder.onstop = () => {
+                        const blob = new Blob(recordedChunks, { 
+                            type: type === 'audio' ? 'audio/webm' : 'video/webm' 
+                        });
+                        
+                        const url = URL.createObjectURL(blob);
+                        
+                        if (type === 'audio') {
+                            const recordedAudioId = formType === 'news' ? 'recorded-audio' : `${formType}-recorded-audio`;
+                            const recordedAudio = document.getElementById(recordedAudioId);
+                            if (recordedAudio) {
+                                recordedAudio.src = url;
+                                recordedAudio.classList.remove('hidden');
+                            }
+                            
+                            // تحويل Blob إلى قاعدة64 للتخزين
+                            const reader = new FileReader();
+                            reader.readAsDataURL(blob);
+                            reader.onloadend = function() {
+                                const base64data = reader.result;
+                                const audioDataId = formType === 'news' ? 'audio-data' : `${formType}-audio-data`;
+                                document.getElementById(audioDataId).value = base64data;
+                            };
+                        } else {
+                            const recordedVideoId = formType === 'news' ? 'recorded-video' : `${formType}-recorded-video`;
+                            const recordedVideo = document.getElementById(recordedVideoId);
+                            if (recordedVideo) {
+                                recordedVideo.src = url;
+                                recordedVideo.classList.remove('hidden');
+                            }
+                            
+                            // تحويل Blob إلى قاعدة64 للتخزين
+                            const reader = new FileReader();
+                            reader.readAsDataURL(blob);
+                            reader.onloadend = function() {
+                                const base64data = reader.result;
+                                const videoDataId = formType === 'news' ? 'video-data' : `${formType}-video-data`;
+                                document.getElementById(videoDataId).value = base64data;
+                            };
+                        }
+                    };
+                    
+                    mediaRecorder.start();
+                    
+                    // تبديل الأزرار
+                    const startBtnId = formType === 'news' ? `start-${type}` : `${formType}-start-${type}`;
+                    const stopBtnId = formType === 'news' ? `stop-${type}` : `${formType}-stop-${type}`;
+                    
+                    document.getElementById(startBtnId).classList.add('hidden');
+                    document.getElementById(stopBtnId).classList.remove('hidden');
+                    
+                } catch (error) {
+                    console.error(`Error starting ${type} recording:`, error);
+                    alert(`فشل بدء التسجيل: ${error.message}`);
+                }
+            }
+
+            function stopRecording(formType = 'news') {
+                if (mediaRecorder && mediaRecorder.state === 'recording') {
+                    mediaRecorder.stop();
+                    
+                    // إيقاف جميع المسارات
+                    if (audioStream) {
+                        audioStream.getTracks().forEach(track => track.stop());
+                    }
+                    if (videoStream) {
+                        videoStream.getTracks().forEach(track => track.stop());
+                        
+                        // إيقاف معاينة الفيديو
+                        const videoPreviewId = formType === 'news' ? 'video-preview' : `${formType}-video-preview`;
+                        const videoPreview = document.getElementById(videoPreviewId);
+                        if (videoPreview) {
+                            videoPreview.srcObject = null;
+                        }
+                    }
+                    
+                    // إعادة تعيين الأزرار
+                    const types = ['audio', 'video'];
+                    types.forEach(type => {
+                        const startBtnId = formType === 'news' ? `start-${type}` : `${formType}-start-${type}`;
+                        const stopBtnId = formType === 'news' ? `stop-${type}` : `${formType}-stop-${type}`;
+                        
+                        const startBtn = document.getElementById(startBtnId);
+                        const stopBtn = document.getElementById(stopBtnId);
+                        
+                        if (startBtn) startBtn.classList.remove('hidden');
+                        if (stopBtn) stopBtn.classList.add('hidden');
+                    });
+                }
+            }
+
+            function handleFileSelect(event, formType = 'news') {
+                const file = event.target.files[0];
+                if (!file) return;
+                
+                const fileURL = URL.createObjectURL(file);
+                
+                if (file.type.startsWith('audio/')) {
+                    const audioPreviewId = formType === 'news' ? 'file-audio-preview' : `${formType}-file-audio-preview`;
+                    const audioPreview = document.getElementById(audioPreviewId);
+                    if (audioPreview) {
+                        audioPreview.src = fileURL;
+                        audioPreview.classList.remove('hidden');
+                    }
+                    
+                    // إخفاء معاينة الفيديو إذا كانت ظاهرة
+                    const videoPreviewId = formType === 'news' ? 'file-video-preview' : `${formType}-file-video-preview`;
+                    const videoPreview = document.getElementById(videoPreviewId);
+                    if (videoPreview) {
+                        videoPreview.classList.add('hidden');
+                    }
+                    
+                } else if (file.type.startsWith('video/')) {
+                    const videoPreviewId = formType === 'news' ? 'file-video-preview' : `${formType}-file-video-preview`;
+                    const videoPreview = document.getElementById(videoPreviewId);
+                    if (videoPreview) {
+                        videoPreview.src = fileURL;
+                        videoPreview.classList.remove('hidden');
+                    }
+                    
+                    // إخفاء معاينة الصوت إذا كانت ظاهرة
+                    const audioPreviewId = formType === 'news' ? 'file-audio-preview' : `${formType}-file-audio-preview`;
+                    const audioPreview = document.getElementById(audioPreviewId);
+                    if (audioPreview) {
+                        audioPreview.classList.add('hidden');
+                    }
+                }
+            }
+
+            async function uploadMediaFile(file, path) {
+                try {
+                    const storageRef = storage.ref(`${path}/${Date.now()}_${file.name}`);
+                    const uploadTask = await storageRef.put(file);
+                    const downloadURL = await uploadTask.ref.getDownloadURL();
+                    return downloadURL;
+                } catch (error) {
+                    console.error("Error uploading media file:", error);
+                    throw new Error("فشل رفع الملف: " + error.message);
+                }
+            }
+
+            // --- هذا هو الكود الكامل لدالة handleNewsSubmit، استخدمه كما هو ---
+async function handleNewsSubmit(event) {
+    event.preventDefault(); // هذا السطر يمنع السلوك الافتراضي لإعادة تحميل الصفحة
+
+    // إظهار رسالة تحميل لمنع الضغط المتكرر
+    alert('جارٍ حفظ الخبر، يرجى الانتظار...');
+
+    try {
+        const id = document.getElementById('newsId').value;
+        const title = document.getElementById('newsTitle').value;
+        const content = document.getElementById('newsContent').value;
+        const department = document.getElementById('newsDepartment').value;
+        const publishedAt = document.getElementById('newsPublishedAt').value;
+        const expiresAt = document.getElementById('newsExpiresAt').value;
+        
+        // التحقق من أن أحد أزرار الراديو تم اختياره
+        // 🚨 انتبه: هذا هو السطر المهم! تأكد من أنه مكتوب بهذا الشكل.
+        const newsTypeElement = document.getElementById('newsForm').querySelector('input[name="newsType"]:checked');
+        
+        if (!newsTypeElement) {
+            alert('يجب تحديد نوع الخبر (عام أو خاص).');
+            return; // إيقاف الدالة إذا لم يتم الاختيار
+        }
+        const newsType = newsTypeElement.value;
+
+        // التحقق من وجود عنوان أو محتوى
+        if (!title && !content) {
+            alert("الرجاء إدخال عنوان أو محتوى.");
+            return;
+        }
+
+        // تحديد الصفحة المستهدفة بناءً على نوع الخبر
+        let targetPage = '';
+        if (newsType === 'public') {
+            targetPage = 'news.html'; // أو main.html
+        } else {
+            targetPage = 'control.html'; // أو admin.html
+        }
+        
+        // --- معالجة الوسائط المتعددة والصور ---
+        let mediaData = {};
+        let imageUrls = [];
+
+        // معالجة تسجيل الصوت
+        const audioData = document.getElementById('audio-data').value;
+        if (audioData) {
+            mediaData.audio = audioData;
+        }
+
+        // معالجة تسجيل الفيديو
+        const videoData = document.getElementById('video-data').value;
+        if (videoData) {
+            mediaData.video = videoData;
+        }
+
+        // معالجة الملف المرفوع (صوت/فيديو)
+        const mediaFile = document.getElementById('media-file').files[0];
+        if (mediaFile) {
+            const fileURL = await uploadMediaFile(mediaFile, 'news-media');
+            mediaData.file = {
+                url: fileURL,
+                name: mediaFile.name,
+                type: mediaFile.type
+            };
+        }
+        
+        // معالجة الصور
+        // رفع الصور الجديدة
+        if (filesToUpload.length > 0) {
+            for (const file of filesToUpload) {
+                const imageUrl = await uploadMediaFile(file, 'news-images');
+                imageUrls.push(imageUrl);
+            }
+        }
+        
+        // إذا كان تعديلاً، أضف الصور الموجودة مسبقًا
+        if (id) {
+            const doc = await db.collection('newsAndAds').doc(id).get();
+            const existingImages = doc.data().images || [];
+            
+            // احتفظ بالصور الموجودة التي لم يتم حذفها من العرض
+            const imagesToKeep = [];
+            document.querySelectorAll('#images-preview img').forEach(img => {
+                const url = img.src;
+                if (url && !url.startsWith('blob:')) {
+                    imagesToKeep.push(url);
+                }
+            });
+            imageUrls = [...imagesToKeep, ...imageUrls];
+        }
+        
+        // --- بناء كائن البيانات لإرساله إلى Firestore ---
+        const newsData = {
+            title: title || '',
+            content: content || '',
+            department: department || '',
+            publishedAt: publishedAt ? new Date(publishedAt) : firebase.firestore.FieldValue.serverTimestamp(),
+            expiresAt: expiresAt ? new Date(expiresAt) : null,
+            images: imageUrls,
+            media: mediaData,
+            views: 0,
+            type: newsType
+        };
+
+        // --- حفظ البيانات في Firestore ---
+        if (id) {
+            await db.collection('newsAndAds').doc(id).update(newsData);
+            alert("تم تعديل الخبر بنجاح.");
+        } else {
+            await db.collection('newsAndAds').add(newsData);
+            alert("تم إضافة الخبر بنجاح.");
+        }
+        
+        // --- إتمام العملية وإعادة التوجيه ---
+        closeModal('newsModal');
+        window.location.href = targetPage;
+        
+    } catch (error) {
+        console.error("Error saving news:", error);
+        alert("فشل حفظ الخبر: " + error.message);
+    }
+}
+
+            /* === معالجة النماذج مع الوسائط === */
+    //         async function handleNewsSubmit(event) {
+    // event.preventDefault();
+    // const id = document.getElementById('newsId').value;
+    // const title = document.getElementById('newsTitle').value;
+    // const content = document.getElementById('newsContent').value;
+    // const department = document.getElementById('newsDepartment').value;
+    // const publishedAt = document.getElementById('newsPublishedAt').value;
+    // const expiresAt = document.getElementById('newsExpiresAt').value;
+    // const newsType = document.querySelector('input[name="newsType"]:checked').value; // ✅ إضافة: الحصول على نوع الخبر
+
+    // // ✅ إضافة: تحديد الصفحة المستهدفة بناءً على نوع الخبر
+    // if (newsType === 'public') {
+    //     targetPage = 'news.html'; // سيتم توجيه الأخبار العامة إلى صفحة news.html
+    // } else {
+    //     targetPage = 'control.html'; // سيتم توجيه الأخبار الخاصة إلى صفحة control.html
+    // }
+
+
+    //             if (!title && !content) {
+    //                 alert("الرجاء إدخال عنوان أو محتوى.");
+    //                 return;
+    //             }
+                
+    //             try {
+    //                 // معالجة الوسائط المتعددة
+    //                 let mediaData = {};
+                    
+    //                 // التحقق من وجود تسجيل صوتي
+    //                 const audioData = document.getElementById('audio-data').value;
+    //                 if (audioData) {
+    //                     mediaData.audio = audioData;
+    //                 }
+                    
+    //                 // التحقق من وجود تسجيل فيديو
+    //                 const videoData = document.getElementById('video-data').value;
+    //                 if (videoData) {
+    //                     mediaData.video = videoData;
+    //                 }
+                    
+    //                 // التحقق من وجود ملف مرفوع
+    //                 const mediaFile = document.getElementById('media-file').files[0];
+    //                 if (mediaFile) {
+    //                     const fileURL = await uploadMediaFile(mediaFile, 'news-media');
+    //                     mediaData.file = {
+    //                         url: fileURL,
+    //                         name: mediaFile.name,
+    //                         type: mediaFile.type
+    //                     };
+    //                 }
+                    
+    //                 // معالجة الصور
+    //                 let imageUrls = [];
+    //                 if (filesToUpload.length > 0) {
+    //                     for (const file of filesToUpload) {
+    //                         const imageUrl = await uploadMediaFile(file, 'news-images');
+    //                         imageUrls.push(imageUrl);
+    //                     }
+    //                 }
+                    
+    //                 // إذا كان تعديلاً، أضف الصور الحالية
+    //                 if (id) {
+    //                     const doc = await db.collection('newsAndAds').doc(id).get();
+    //                     const existingImages = doc.data().images || [];
+    //                     const imagesToKeep = [];
+    //                     document.querySelectorAll('#images-preview img').forEach(img => {
+    //                         const url = img.src;
+    //                         if (url && !url.startsWith('blob:')) {
+    //                             imagesToKeep.push(url);
+    //                         }
+    //                     });
+    //                     imageUrls = [...imagesToKeep, ...imageUrls];
+    //                 }
+                    
+    //                 const newsData = {
+    //                     title: title || '',
+    //                     content: content || '',
+    //                     department: department || '',
+    //                     publishedAt: publishedAt ? new Date(publishedAt) : firebase.firestore.FieldValue.serverTimestamp(),
+    //                     expiresAt: expiresAt ? new Date(expiresAt) : null,
+    //                     images: imageUrls,
+    //                     media: mediaData, // إضافة الوسائط المتعددة
+    //                     views: 0,
+    //                     type: newsType // ✅ إضافة: حفظ نوع الخبر في قاعدة البيانات
+
+    //                 };
+
+    //                 if (id) {
+    //                     await db.collection('newsAndAds').doc(id).update(newsData);
+    //                     alert("تم تعديل الخبر بنجاح.");
+    //                 } else {
+    //                     await db.collection('newsAndAds').add(newsData);
+    //                     alert("تم إضافة الخبر بنجاح.");
+    //                 }
+                    
+    //                 closeModal('newsModal');
+    //                 fetchAndDisplayNews();
+
+    //                  window.location.href = targetPage;
+
+                    
+    //             } catch (error) {
+    //                 console.error("Error saving news:", error);
+    //                 alert("فشل حفظ الخبر: " + error.message);
+    //             }
+    //         }
+
+            /* === معالجات الأحداث (Event Listeners) === */
+            document.getElementById('addAdminForm').addEventListener('submit', addAdmin);
+            document.getElementById('searchInput').addEventListener('input', applyFilters);
+            document.getElementById('newsForm').addEventListener('submit', handleNewsSubmit);
+            document.getElementById('scheduleForm').addEventListener('submit', addSchedule);
+            document.getElementById('booksForm').addEventListener('submit', addBook);
+
+            // أحداث أزرار التسجيل
+            document.getElementById('start-recording').addEventListener('click', () => startRecording('audio'));
+            document.getElementById('stop-recording').addEventListener('click', () => stopRecording());
+            document.getElementById('start-video').addEventListener('click', () => startRecording('video'));
+            document.getElementById('stop-video').addEventListener('click', () => stopRecording());
+
+            // أحداث أزرار التسجيل للجداول
+            document.getElementById('schedule-start-recording').addEventListener('click', () => startRecording('audio', 'schedule'));
+            document.getElementById('schedule-stop-recording').addEventListener('click', () => stopRecording('schedule'));
+            document.getElementById('schedule-start-video').addEventListener('click', () => startRecording('video', 'schedule'));
+            document.getElementById('schedule-stop-video').addEventListener('click', () => stopRecording('schedule'));
+
+            // أحداث أزرار التسجيل للكتب
+            document.getElementById('book-start-recording').addEventListener('click', () => startRecording('audio', 'book'));
+            document.getElementById('book-stop-recording').addEventListener('click', () => stopRecording('book'));
+            document.getElementById('book-start-video').addEventListener('click', () => startRecording('video', 'book'));
+            document.getElementById('book-stop-video').addEventListener('click', () => stopRecording('book'));
+
+            document.querySelectorAll('.filter-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.filter-button').forEach(btn => btn.classList.remove('active'));
+                    e.target.classList.add('active');
+                    currentDepartment = e.target.dataset.department;
+                    applyFilters();
+                });
+            });
+
+            document.getElementById('newsSearchInput').addEventListener('input', () => {
+                const searchTerm = document.getElementById('newsSearchInput').value.toLowerCase();
+                const filteredNews = allNews.filter(news => 
+                    (news.title && news.title.toLowerCase().includes(searchTerm)) ||
+                    (news.content && news.content.toLowerCase().includes(searchTerm))
+                );
+                displayNews(filteredNews);
+            });
+
+            document.getElementById('newsImages').addEventListener('change', (event) => {
+                const imagesPreviewContainer = document.getElementById('images-preview');
+                imagesPreviewContainer.innerHTML = '';
+                filesToUpload = Array.from(event.target.files);
+                filesToUpload.forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const previewItem = document.createElement('div');
+                        previewItem.className = 'image-preview-item';
+                        previewItem.innerHTML = `<img src="${e.target.result}"><button type="button" class="remove-image-btn">&times;</button>`;
+                        imagesPreviewContainer.appendChild(previewItem);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            });
+
+            document.getElementById('images-preview').addEventListener('click', (event) => {
+                if (event.target.classList.contains('remove-image-btn')) {
+                    const previewItem = event.target.closest('.image-preview-item');
+                    const imageSrc = previewItem.querySelector('img').src;
+                    
+                    if (imageSrc.startsWith('blob:')) {
+                        const fileIndex = filesToUpload.findIndex(file => URL.createObjectURL(file) === imageSrc);
+                        if (fileIndex > -1) {
+                            filesToUpload.splice(fileIndex, 1);
+                        }
+                    }
+                    previewItem.remove();
+                }
+            });
+
+            /* === وظائف المراقبة والتهيئة عند التحميل === */
+           async function fetchDashboardData() {
+  try {
+    const totalUsersSnapshot = await db.collection('users').get();
+    document.getElementById('totalUsersCount').textContent = totalUsersSnapshot.size;
+
+    // إخفاء رسالة التحميل بعد اكتمال التحميل
+    const loadingElement = document.getElementById('loading');
+    if (loadingElement) loadingElement.style.display = 'none';
+    
+  } catch (error) {
+    console.error("Error fetching dashboard data:", error);
+    // إخفاء رسالة التحميل حتى في حالة الخطأ
+    const loadingElement = document.getElementById('loading');
+    if (loadingElement) loadingElement.style.display = 'none';
+  }
+}
+
+            function animateOnScroll() {
+                const cards = document.querySelectorAll('.stats-card, .mobile-card');
+                cards.forEach(card => {
+                    const cardPosition = card.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    if (cardPosition < screenPosition) {
+                        card.style.opacity = 1;
+                        card.style.transform = 'translateY(0)';
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', animateOnScroll);
+            setTimeout(animateOnScroll, 100);
+
+            document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('admin-content').classList.remove('hidden');
+            });
+
+            auth.onAuthStateChanged(async (user) => {
+                if (user) {
+                    const userDoc = await db.collection('users').doc(user.uid).get();
+                    if (userDoc.exists && userDoc.data().role === 'admin') {
+                        document.getElementById('admin-content').classList.remove('hidden');
+                        fetchDashboardData();
+                        fetchAndDisplayUsers();
+                        fetchAndDisplayNews();
+                    } else {
+                        alert("غير مصرح لك بالوصول إلى هذه الصفحة.");
+                        window.location.href = "main.html";
+                    }
+                } else {
+                    window.location.href = "auth.html";
+                }
+            });
+            
+            // التحقق من حالة تسجيل الدخول في كل صفحة
+            auth.onAuthStateChanged((user) => {
+                if (!user) {
+                    // إذا لم يكن المستخدم مسجلاً، توجيه إلى صفحة التسجيل
+                    window.location.href = 'auth.html';
+                }
+            });
+
+
+            // عرض طلبات التسجيل المعلقة
+async function fetchRegistrationRequests() {
+  try {
+    const requestsSnapshot = await db.collection('registrationRequests')
+      .where('status', '==', 'pending')
+      .get();
+    
+    // عرض الطلبات في واجهة الأدمن للمراجعة
+    displayRegistrationRequests(requestsSnapshot);
+  } catch (error) {
+    console.error("Error fetching registration requests:", error);
+  }
+}
+
+// الموافقة على طلب تسجيل
+async function approveRegistrationRequest(requestId) {
+  try {
+    const requestRef = db.collection('registrationRequests').doc(requestId);
+    const requestDoc = await requestRef.get();
+    
+    if (requestDoc.exists) {
+      const requestData = requestDoc.data();
+      
+      // إنشاء المستخدم في كوليكشن users
+      await db.collection('users').doc(requestData.uid).set({
+        uid: requestData.uid,
+        email: requestData.email,
+        name: requestData.name || '',
+        phone: requestData.phone || '',
+        studentYear: requestData.studentYear || '',
+        department: requestData.department || '',
+        role: 'user',
+        createdAt: new Date(),
+        lastLogin: null
+      });
+      
+      // تحديث حالة الطلب إلى "موافق"
+      await requestRef.update({
+        status: 'approved',
+        approvedAt: new Date(),
+        approvedBy: auth.currentUser.uid
+      });
+      
+      alert('تم الموافقة على طلب التسجيل بنجاح');
+    }
+  } catch (error) {
+    console.error("Error approving registration request:", error);
+  }
+}
+
+// رفض طلب تسجيل
+async function rejectRegistrationRequest(requestId, reason) {
+  try {
+    const requestRef = db.collection('registrationRequests').doc(requestId);
+    await requestRef.update({
+      status: 'rejected',
+      rejectedAt: new Date(),
+      rejectedBy: auth.currentUser.uid,
+      rejectionReason: reason
+    });
+    
+    alert('تم رفض طلب التسجيل');
+  } catch (error) {
+    console.error("Error rejecting registration request:", error);
+  }
+}
+
+// في قسم التحقق من صلاحية المستخدم في صفحة الإدارة
+auth.onAuthStateChanged(async (user) => {
+    if (user) {
+        try {
+            console.log("مستخدم مسجل:", user.uid, user.email);
+            
+            // محاولة الوصول إلى بيانات المستخدم
+            const userDoc = await db.collection('users').doc(user.uid).get();
+            
+            if (userDoc.exists) {
+                const userData = userDoc.data();
+                console.log("بيانات المستخدم:", userData);
+                
+                // التحقق من أن المستخدم أدمن أو المشرف الرئيسي
+                const isAdminUser = userData.role === 'admin' || user.email === 'higjfc57@gmail.com';
+                
+                if (isAdminUser) {
+                    console.log("المستخدم هو أدمن، يتم عرض لوحة التحكم");
+                    document.getElementById('admin-content').classList.remove('hidden');
+                    // إخفاء رسالة التحميل إذا كانت موجودة
+                    const loadingElement = document.getElementById('loading');
+                    if (loadingElement) loadingElement.style.display = 'none';
+                    
+                    // تحميل البيانات
+                    try {
+                        await fetchDashboardData();
+                        await fetchAndDisplayUsers();
+                        await fetchAndDisplayNews();
+                    } catch (error) {
+                        console.error("Error loading data:", error);
+                        alert("تم الدخول ولكن حدث خطأ في تحميل بعض البيانات");
+                    }
+                } else {
+                    // إذا كان مستخدم عادي، توجيه إلى الصفحة الرئيسية
+                    console.log("المستخدم ليس أدمن، يتم التوجيه إلى الصفحة الرئيسية");
+                    alert('ليس لديك صلاحية للوصول إلى هذه الصفحة');
+                    window.location.href = "main.html";
+                }
+            } else {
+                // إذا لم يكن المستخدم مسجلاً في النظام، توجيه إلى الصفحة الرئيسية
+                console.log("المستخدم غير موجود في Firestore");
+                alert('ليس لديك صلاحية للوصول إلى هذه الصفحة');
+                window.location.href = "main.html";
+            }
+        } catch (error) {
+            console.error("Error checking user role:", error);
+            alert('حدث خطأ في التحقق من الصلاحية: ' + error.message);
+            window.location.href = "main.html";
+        }
+    } else {
+        // إذا لم يكن مسجلاً، توجيه إلى صفحة التسجيل
+        console.log("لا يوجد مستخدم مسجل");
+        window.location.href = "auth.html";
+    }
+});
+
+auth.onAuthStateChanged(async (user) => {
+  if (user) {
+    try {
+      const userDoc = await db.collection('users').doc(user.uid).get();
+      
+      if (userDoc.exists) {
+        const userData = userDoc.data();
+        
+        // التحقق من أن المستخدم أدمن أو المشرف الرئيسي
+        const isAdminUser = userData.role === 'admin' || user.email === 'higjfc57@gmail.com';
+        
+        if (isAdminUser) {
+          // عرض لوحة التحكم
+          document.getElementById('admin-content').classList.remove('hidden');
+          // تحميل البيانات
+        } else {
+          alert('ليس لديك صلاحية للوصول إلى هذه الصفحة');
+          window.location.href = "main.html";
+        }
+      } else {
+        alert('ليس لديك صلاحية للوصول إلى هذه الصفحة');
+        window.location.href = "main.html";
+      }
+    } catch (error) {
+      console.error("Error checking user role:", error);
+      alert('حدث خطأ في التحقق من الصلاحية');
+      window.location.href = "main.html";
+    }
+  } else {
+    window.location.href = "auth.html";
+  }
+});
+
+        function toggleContent(btn) {
+            const container = btn.closest('.content-container');
+            const preview = container.querySelector('.content-preview');
+            const fullContent = container.querySelector('.content-full');
+            const readMore = container.querySelector('.read-more');
+            const readLess = container.querySelector('.read-less');
+            
+            if (fullContent.classList.contains('show')) {
+                // إخفاء المحتوى الكامل
+                fullContent.classList.remove('show');
+                preview.style.display = '-webkit-box';
+                readMore.style.display = 'block';
+                readLess.style.display = 'none';
+                btn.classList.remove('expanded');
+            } else {
+                // عرض المحتوى الكامل
+                fullContent.classList.add('show');
+                preview.style.display = 'none';
+                readMore.style.display = 'none';
+                readLess.style.display = 'block';
+                btn.classList.add('expanded');
+            }
+        }
+        
+        // دالة لتقصير النص إذا كان طويلاً
+        function truncateContent() {
+            document.querySelectorAll('.content-container').forEach(container => {
+                const contentElement = container.querySelector('.content-full');
+                const previewElement = container.querySelector('.content-preview');
+                const readMoreBtn = container.querySelector('.read-more-btn');
+                
+                if (contentElement) {
+                    const content = contentElement.textContent;
+                    const lineHeight = parseInt(getComputedStyle(contentElement).lineHeight);
+                    const maxHeight = lineHeight * 2; // سطرين
+                    
+                    // إذا كان المحتوى أطول من سطرين، نقوم بتقصيره
+                    if (contentElement.scrollHeight > maxHeight) {
+                        previewElement.textContent = content;
+                        contentElement.style.display = 'none';
+                        readMoreBtn.style.display = 'flex';
+                    } else {
+                        // إذا كان المحتوى قصيراً، نعرضه كاملاً ونخفي زر "عرض المزيد"
+                        previewElement.style.display = 'none';
+                        contentElement.classList.add('show');
+                        readMoreBtn.style.display = 'none';
+                    }
+                }
+            });
+        }
+          
+        // تحديث وظيفة عرض الأخبار لدعم ميزة "عرض المزيد"
+        function displayNews(newsToShow) {
+            const newsContainer = document.getElementById('news-list');
+            newsContainer.innerHTML = '';
+            
+            if (newsToShow.length === 0) {
+                newsContainer.innerHTML = '<p class="empty-state"><i class="fas fa-newspaper"></i> لا يوجد أخبار أو إعلانات لعرضها</p>';
+                return;
+            }
+            
+            newsToShow.forEach(news => {
+                const newsCard = document.createElement('div');
+                newsCard.className = 'news-card';
+                
+                newsCard.innerHTML = `
+                    <div class="news-card-header">
+                        <div>
+                            <div class="news-title">${news.title || 'بدون عنوان'}</div>
+                            <div class="news-meta">
+                                <span>${news.publishedAt}</span>
+                                ${news.department ? `<span class="news-department">${news.department}</span>` : ''}
+                                <span>المشاهدات: ${news.views || 0}</span>
+                            </div>
+                        </div>
+                        <span class="news-type-badge ${news.type === 'public' ? 'news-type-general' : 'news-type-private'}">
+                            ${news.type === 'public' ? 'عام' : 'خاص'}
+                        </span>
+                    </div>
+                    <div class="content-container">
+                        <div class="content-preview"></div>
+                        <div class="content-full">${news.content || ''}</div>
+                        <button class="read-more-btn" onclick="toggleContent(this)">
+                            <span class="read-more">عرض المزيد <i class="fas fa-chevron-down"></i></span>
+                            <span class="read-less">عرض أقل <i class="fas fa-chevron-up"></i></span>
+                        </button>
+                    </div>
+                    <div class="actions-cell">
+                        <button class="edit-btn" onclick="openEditNewsModal('${news.id}')"><i class="fas fa-edit"></i> تعديل</button>
+                        <button class="viewers-btn" onclick="viewNewsViewers('${news.id}')"><i class="fas fa-eye"></i> المشاهدون</button>
+                        <button class="delete-hard" onclick="deleteNews('${news.id}')"><i class="fas fa-trash"></i> حذف</button>
+                    </div>
+                `;
+                
+                newsContainer.appendChild(newsCard);
+            });
+            
+            // بعد إضافة المحتوى، نقوم بتقصير النصوص الطويلة
+            setTimeout(truncateContent, 100);
+        }
+        
+        // استدعاء الدالة عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            truncateContent();
+        });
+        </script>
+        <script src="path/to/your/javascript/file.js"></script>
+
+    </body>
+    </html>

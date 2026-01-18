@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>أعضاء هيئة التدريس</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Tajawal:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+  /* تنسيق زر الرجوع للأعلى */
+  .back-to-top {
+    position: fixed; /* يجعل الزر ثابتًا في مكانه */
+    bottom: 20px; /* المسافة من أسفل الشاشة */
+    right: 20px; /* المسافة من يمين الشاشة */
+    background-color: #007bff; /* لون الخلفية: أزرق */
+    color: #fff; /* لون الأيقونة: أبيض */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* شكل دائري */
+    text-align: center;
+    line-height: 40px; /* لمحاذاة الأيقونة في المنتصف */
+    font-size: 20px;
+    text-decoration: none;
+    display: none; /* إخفاء الزر بشكل افتراضي */
+    transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    z-index: 9999; /* لضمان ظهور الزر فوق العناصر الأخرى */
+  }
+
+  /* لون الزر عند تمرير الماوس فوقه */
+  .back-to-top:hover {
+    background-color: #0056b3; /* لون أزرق أغمق عند التفاعل */
+  }
+
+  /* كلاس لإظهار الزر */
+  .back-to-top.show {
+    display: block;
+  }
+        
+        :root {
+            /* الألوان */
+            --primary-color: #1b3a57;
+            --secondary-color: #ffc107;
+            --background-light: #f5f8fa;
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --heading-color: #1a1a1a;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --header-bg-color: #ffffff;
+            --header-height: 100px;
+        }
+
+        /*==========================================================
+          2. تنسيقات عامة
+          ==========================================================*/
+        body {
+            font-family: 'Tajawal', 'Cairo', sans-serif;
+            background-color: var(--background-light);
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            color: var(--text-color);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /*==========================================================
+          3. شريط الرأس (Header) - التصميم المطلوب
+          ==========================================================*/
+        .main-header {
+            display: flex;
+            justify-content: space-between; /* يدفع العناصر إلى الأطراف */
+            align-items: center;
+            height: var(--header-height);
+            background-color: var(--header-bg-color);
+            box-shadow: 0 2px 5px var(--shadow-color);
+            padding: 0 2rem; /* مسافة من الجوانب */
+            position: sticky; /* لجعل الهيدر ثابتاً في الأعلى عند التمرير */
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-and-text {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .uni-name, .college-name, .dept-name, .supervisor {
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        .uni-name {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        .college-name {
+            font-size: 1em;
+            color: var(--secondary-color);
+        }
+
+        .dept-name {
+            font-size: 0.95em;
+            color: var(--text-color);
+        }
+
+        .supervisor {
+            font-size: 0.85em;
+            color: #888;
+        }
+
+        /*==========================================================
+          4. أيقونة البحث (الدائرية)
+          ==========================================================*/
+        .search-icon-container {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(0, 102, 204, 0.1); /* لون الخلفية الفاتح */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .search-icon-container:hover {
+            background-color: rgba(0, 102, 204, 0.2);
+        }
+
+        #searchButton {
+            background: transparent;
+            border: none;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        /*==========================================================
+          5. شريط البحث المنبثق
+          ==========================================================*/
+        .search-bar-container {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            display: none; /* مخفي افتراضياً */
+        }
+
+        #searchInput {
+            width: 80%;
+            max-width: 600px;
+            padding: 12px 20px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 1em;
+            text-align: right;
+            transition: box-shadow 0.3s ease;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /*==========================================================
+          6. المحتوى الرئيسي (أسفل الهيدر)
+          ==========================================================*/
+        .page-title {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            color: var(--heading-color);
+            font-weight: 700;
+            font-size: 2.5em;
+            padding: 0 20px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding-top: 50px;
+            text-align: center;
+            padding: 15px; /* مسافة داخلية */
+            text-align: center;
+             position: relative; /* نحتاجها للتموضع */
+            display: flex;
+           justify-content: center;
+           align-items: center;
+            min-height: 100px; /* لإعطاء مساحة كافية للصورة */
+
+        }
+
+        .card-header img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid var(--secondary-color);
+            object-fit: cover;
+            /* position: absolute; */
+            /* top: -50px; */
+            /* left: 50%; */
+            /* transform: translateX(-50%); */
+            z-index: 2;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* إضافة ظل خفيف للصورة */
+           margin-top: -40px; /* سحب الصورة للأعلى قليلاً */
+
+
+        }
+
+        .card-body {
+            padding: 1px;
+            padding-top: 15px;
+            text-align: center;
+                /* margin-top: -40px; استخدم هامش علوي سالب لرفع المحتوى الأبيض للأعلى */
+
+        }
+
+        .name {
+            font-size: 1em;
+            font-weight: bold;
+            margin-bottom: 3px;
+            color: var(--heading-color);
+        }
+
+        .title {
+            color: #555;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            font-size: 0.85em;
+            color: #666;
+        }
+        
+        .info-item i {
+            color: var(--primary-color);
+            margin-left: 8px;
+            width: 18px;
+            text-align: center;
+        }
+
+        .profile-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 8px 20px;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+            transition: background-color 0.2s ease;
+        }
+        
+        .profile-link:hover {
+            background-color: #e0ac00;
+        }
+
+        /*==========================================================
+          7. الاستجابة (Responsive Design)
+          ==========================================================*/
+        @media (max-width: 768px) {
+            .main-header {
+                flex-direction: column;
+                height: auto;
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+            }
+
+            .search-icon-container {
+                margin-top: 1rem;
+            }
+
+            .logo-and-text {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#" id="back-to-top" class="back-to-top">
+  <i class="fas fa-arrow-up"></i>
+</a>
+    <header class="main-header">
+        <div class="logo-and-text">
+            <a href="main.html" class="logo-link">
+                <img src="icon.png" alt="شعار جامعة الأزهر" class="logo-img">
+                <div class="logo-text">
+                    <span class="uni-name">جامعة الأزهر</span>
+                    <span class="college-name">كلية الدراسات الإنسانية</span>
+                    <span class="dept-name">قسم علم الاجتماع</span>
+                    <span class="supervisor">تفهنا الأشراف</span>
+                </div>
+            </a>
+        </div>
+        <div class="search-icon-container">
+            <button id="searchButton" aria-label="بحث"><i class="fas fa-search"></i></button>
+        </div>
+    </header>
+
+    <div class="search-bar-container">
+        <input type="text" id="searchInput" onkeyup="filterFaculty()" placeholder="ابحث باسم العضو، التخصص، أو المكتب...">
+    </div>
+
+    <h1 class="page-title"><i class="fas fa-users"></i> هيئة التدريس</h1>
+    
+    <div class="container" id="facultyContainer"></div>
+
+    <script>
+        const facultyData = [
+            {
+                name: " أ د.محمد احمد مبارك",
+                title: "أستاذ - علم الاجتماع التنميه ",
+                email: "mailto:mubarak1eg@yahoo.com",
+                office: "مكتب ....",
+                img: "dr1.png",
+                page: "mobark.html"
+            },
+            {
+                name: " أ د. زبيدة محمد محمد عزام",
+                title: "أستاذ - علم الاجتماع",
+                email: "Drzobida1@gmail.com",
+                office: "مكتب ..",
+                img: "zobaeda.png",
+                page: "zobaeda.html"
+            },
+             {
+                name: "أد. سوزان عبد الحميد الحسيني",
+                title: "أستاذ -  علم الاجتماع",
+                email: "S.Elhusseini@azhar.edu.eg",
+                office: "مكتب ..",
+                img: "sozan.jpeg",
+                page: "sozan.html"
+            },
+            {
+                name: "أ د. إنعام إسماعيل محمد فكار",
+                title: "أستاذ - أستاذ متفرغ بقسم الاجتماع  ",
+                email: "Totysaad2020@yahoo.com",
+                office: "مكتب ..",
+                img: "anham.png",
+                page: "anham.html"
+            },
+            
+            {
+                name: "أ د. حنان أمين إسماعيل",
+                title: "أستاذ - علم الاجتماع",
+                email: "hananamin71@hotmail.com",
+                office: "مكتب ..",
+                img: "hanan-amen.jpeg",
+                page: "hanan-amin.html"
+            },
+               {
+                name: "أد.فاطمة علي أبو الحديد",
+                title: "أستاذ  -  علم الاجتماع",
+                email: "fatma.aboulhadid@example.com",
+                office: "مكتب ..",
+                img: "fatma.jpg",
+                page: "fatma.html"
+            },
+            {
+                name: " د. امل سعيد يوسف",
+                title: "مدرس -  علم الاجتماع التربوي",
+                email: "sara@example.com",
+                office: "مكتب ...",
+                img: "aml.jpg",
+                page: "aml.html"
+            },
+            {
+                name: "د. دينا علم الشربيني",
+                title: "أستاذ - علم الاجتماع",
+                email: "d.dinaalsherbiny85@gmail.com",
+                office: "مكتب ...",
+                img: "dina.jpeg",
+                page: "dina.html"
+            },
+            {
+                name: "د. سلمي محمد الشيخ",
+                title: "أستاذ - علم الاجتماع",
+                email: "Naserabdo2000@yahoo.com",
+                office: "مكتب ..",
+                img: "salma.png",
+                page: "salama.html"
+            },
+            {
+                name: "د. رضوي عبد اللطيف عبد العزيز",
+                title: "أستاذ -  علم الاجتماع",
+                email: "alasororon5@gmail.com",
+                office: "مكتب ..",
+                img: "radwa.jpeg",
+                page: "radwa.html"
+            },
+            {
+                name: "د. إيمان إبراهيم الشبكي مجاهد ",
+                title: "أستاذ -  علم الاجتماع",
+                email: "Emanelshopaky370@gmail.com",
+                office: "مكتب ..",
+                img: "eman.jpeg",
+                page: "eman.html"
+            },
+            {
+                name: "د. فاتن السيد منصور الجندي ",
+                title: "أستاذ -  علم الاجتماع",
+                email: "Tona757@yahoo.com",
+                office: "مكتب ..",
+                img: "faten.png",
+                page: "faten.html"
+            },
+            {
+                name: "د. رنا عزت أبو النجا",
+                title: "أستاذ -  علم الاجتماع",
+                email: "ranaabuelnagaoazhar.edu.eg",
+                office: "مكتب ..",
+                img: "rana.jpg",
+                page: "rana.html"
+            },
+            {
+                name: "د. عفاف فرج بدوي محمود",
+                title: "أستاذ -  علم الاجتماع",
+                email: "afafmahmoud1906.el@azhar.edu.eg",
+                office: "مكتب ..",
+                img: "afaf.jpeg",
+                page: "afaf.html"
+            },
+            {
+                name: "د. حنان عوض مختار محمد",
+                title: "أستاذ -  علم الاجتماع",
+                email: "Totysaad2020@yahoo.com",
+                office: "مكتب ..",
+                img: "hanan-awad.jpeg",
+                page: "hanan-awad.html"
+            },
+            {
+                name: "د. منال رجب عبد الله عبد الجليل",
+                title: "أستاذ -  علم الاجتماع",
+                email: "Dr.manalragab@yahoo.com",
+                office: "مكتب ..",
+                img: "manal.png",
+                page: "manal.html"
+            },
+            {
+                name: "م.م سارة إبراهيم على عبدالواحد",
+                title: "مدرس مساعد -  علم الاجتماع",
+                email: "SarahEbrahem1989@gmail.com",
+                office: "مكتب ..",
+                img: "sara.jpeg",
+                page: "sara.html"
+            },
+            {
+                name: "م.م سمر عوض عبدالحميد مصطفى",
+                title: "مدرس مساعد -  علم الاجتماع",
+                email: "example@email.com",
+                office: "مكتب ..",
+                img: "samar.png",
+                page: "samar.html"
+            },
+           
+            {
+                name: "أسماء السقا",
+                // title: "مدرس مساعد -  علم اجتماع",
+                // email: "example@email.com",
+                // office: "مكتب ..",
+                img: "asma.jpeg",
+                // page: "samar.html"
+            },
+           
+         
+
+            // يمكنك إضافة باقي أعضاء هيئة التدريس هنا بنفس النمط
+        ];
+
+        const container = document.getElementById("facultyContainer");
+        const searchInput = document.getElementById("searchInput");
+  // تأكد من وضع هذا الكود في نهاية الصفحة بعد كود HTML للزر
+  const backToTopBtn = document.getElementById('back-to-top');
+
+  // إظهار وإخفاء الزر عند التمرير
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      backToTopBtn.classList.add('show');
+    } else {
+      backToTopBtn.classList.remove('show');
+    }
+  });
+
+  // العودة لأعلى الصفحة عند النقر على الزر
+  backToTopBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' /* تأثير التمرير السلس */
+    });
+  });
+        // دالة لعرض جميع الأعضاء في الصفحة
+        function renderFaculty(facultyList) {
+            container.innerHTML = '';
+            facultyList.forEach(member => {
+                const card = document.createElement("div");
+                card.className = "card";
+                card.innerHTML = `
+                    <div class="card-header">
+                        <img src="${member.img}" alt="${member.name}">
+                    </div>
+                    <div class="card-body">
+                        <div class="name">${member.name}</div>
+                        <div class="title">${member.title}</div>
+                        <div class="info-item"><i class="fas fa-envelope"></i> ${member.email}</div>
+                        <div class="info-item"><i class="fas fa-map-marker-alt"></i> ${member.office}</div>
+                        <a href="${member.page}" class="profile-link">السيرة الذاتية</a>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+        
+        // دالة تصفية الأعضاء
+        function filterFaculty() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const filteredList = facultyData.filter(member => {
+                const searchString = `${member.name.toLowerCase()} ${member.title.toLowerCase()} ${member.email.toLowerCase()} ${member.office.toLowerCase()}`;
+                return searchString.includes(searchTerm);
+            });
+            renderFaculty(filteredList);
+        }
+
+        // عرض القائمة الكاملة عند تحميل الصفحة
+        renderFaculty(facultyData);
+        
+        // إظهار/إخفاء شريط البحث عند الضغط على الأيقونة
+        document.getElementById('searchButton').addEventListener('click', function() {
+            const searchBar = document.querySelector('.search-bar-container');
+            if (searchBar.style.display === 'none' || searchBar.style.display === '') {
+                searchBar.style.display = 'block';
+                searchInput.focus(); // نقل التركيز إلى شريط البحث
+            } else {
+                searchBar.style.display = 'none';
+            }
+        });
+    </script>
+
+    <script src="auth-check.js"></script>
+
+</body>
+</html>

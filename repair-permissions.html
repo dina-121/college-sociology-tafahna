@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إصلاح صلاحيات الأدمن</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: #0d47a1;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .form-container {
+            padding: 20px;
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .input-group input:focus {
+            border-color: #1a73e8;
+            outline: none;
+        }
+        
+        .btn {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background: #0d47a1;
+        }
+        
+        .btn-fix {
+            background: #28a745;
+        }
+        
+        .btn-fix:hover {
+            background: #218838;
+        }
+        
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+        
+        .error {
+            background: #ffebee;
+            color: #c62828;
+        }
+        
+        .success {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>إصلاح صلاحيات الأدمن</h1>
+            <p>أدخل بياناتك لتعيين نفسك كمسؤول</p>
+        </div>
+        
+        <div class="form-container">
+            <div class="info-box">
+                <p><i class="fas fa-info-circle"></i> استخدم هذه الصفحة إذا كنت تواجه مشكلة "غير مصرح لك" بعد تسجيل الدخول بحساب الأدمن.</p>
+            </div>
+            
+            <div id="message" class="message"></div>
+            
+            <div class="input-group">
+                <label for="email">البريد الإلكتروني</label>
+                <input type="email" id="email" placeholder="example@email.com" value="higjfc57@gmail.com">
+            </div>
+            
+            <div class="input-group">
+                <label for="password">كلمة المرور</label>
+                <input type="password" id="password" placeholder="أدخل كلمة المرور">
+            </div>
+            
+            <button id="loginBtn" class="btn">تسجيل الدخول</button>
+            <button id="fixPermissionsBtn" class="btn btn-fix">إصلاح الصلاحيات</button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <script>
+        // التهيئة
+        const firebaseConfig = {
+            apiKey: "AIzaSyDINU4yQT2bCwtIqZLHQo9bFgOiECp8byQ",
+            authDomain: "sociolog-project.firebaseapp.com",
+            databaseURL: "https://sociolog-project-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "sociolog-project",
+            storageBucket: "sociolog-project.firebasestorage.app",
+            messagingSenderId: "232355212530",
+            appId: "1:232355212530:web:27d447ff8dd6e02c12f46b",
+            measurementId: "G-0QNFKW4YPJ"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // عرض الرسائل
+        function showMessage(message, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = message;
+            messageDiv.className = 'message ' + type;
+            messageDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // تسجيل الدخول
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                showMessage('يرجى ملء جميع الحقول', 'error');
+                return;
+            }
+            
+            // إظهار loading
+            this.innerHTML = 'جاري التسجيل...';
+            this.disabled = true;
+            
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    showMessage('تم تسجيل الدخول بنجاح!', 'success');
+                    
+                    // إعادة تعيين الزر
+                    this.innerHTML = 'تسجيل الدخول';
+                    this.disabled = false;
+                })
+                .catch((error) => {
+                    console.error("خطأ في التسجيل:", error);
+                    
+                    // إعادة زر الدخول لحالته الطبيعية
+                    this.innerHTML = 'تسجيل الدخول';
+                    this.disabled = false;
+                    
+                    if (error.code === 'auth/user-not-found') {
+                        showMessage('الحساب غير موجود', 'error');
+                    } else if (error.code === 'auth/wrong-password') {
+                        showMessage('كلمة المرور غير صحيحة', 'error');
+                    } else if (error.code === 'auth/invalid-login-credentials') {
+                        showMessage('بيانات الدخول غير صحيحة', 'error');
+                    } else {
+                        showMessage('حدث خطأ: ' + error.message, 'error');
+                    }
+                });
+        });
+
+        // إصلاح الصلاحيات
+        document.getElementById('fixPermissionsBtn').addEventListener('click', async function() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                showMessage('يرجى ملء جميع الحقول', 'error');
+                return;
+            }
+            
+            try {
+                // إظهار loading
+                this.innerHTML = 'جاري إصلاح الصلاحيات...';
+                this.disabled = true;
+                
+                // 1. تسجيل الدخول
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                
+                // 2. التحقق من وجود المستخدم في Firestore
+                const userDoc = await db.collection('users').doc(user.uid).get();
+                
+                if (userDoc.exists) {
+                    // 3. تحديث الصلاحيات إذا كان المستخدم موجوداً
+                    await db.collection('users').doc(user.uid).update({
+                        role: 'admin',
+                        lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    
+                    showMessage('تم تحديث صلاحياتك كمسؤول بنجاح!', 'success');
+                } else {
+                    // 4. إنشاء مستخدم جديد إذا لم يكن موجوداً
+                    await db.collection('users').doc(user.uid).set({
+                        email: email,
+                        name: 'المدير الرئيسي',
+                        role: 'admin',
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                        lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    
+                    showMessage('تم إنشاء حسابك كمسؤول بنجاح!', 'success');
+                }
+                
+                // 5. الانتقال إلى صفحة الإدارة بعد ثانيتين
+                setTimeout(() => {
+                    window.location.href = 'admin.html';
+                }, 2000);
+                
+            } catch (error) {
+                console.error("خطأ في إصلاح الصلاحيات:", error);
+                showMessage('حدث خطأ: ' + error.message, 'error');
+                
+                // إعادة تعيين الزر
+                this.innerHTML = 'إصلاح الصلاحيات';
+                this.disabled = false;
+            }
+        });
+
+        // السماح بالإدخال بالزر Enter
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('loginBtn').click();
+            }
+        });
+
+    </script>
+</body>
+</html>

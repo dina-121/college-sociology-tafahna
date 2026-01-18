@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل / دخول</title>
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --background-color: #f8f9fa;
+            --card-background: #ffffff;
+            --text-color: #333;
+        }
+        body {
+            font-family: 'Almarai', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: right;
+            direction: rtl;
+        }
+        .auth-container {
+            max-width: 500px;
+            padding: 30px;
+            background-color: var(--card-background);
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+        }
+        .auth-container h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        form input, form select, form button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        form button {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        form button:hover {
+            background-color: #0056b3;
+        }
+        form p {
+            text-align: center;
+        }
+        form a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .hidden {
+            display: none;
+        }
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .error {
+            background: #ffebee;
+            color: #c62828;
+        }
+        .success {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        .password-strength {
+            height: 5px;
+            margin-top: -10px;
+            margin-bottom: 15px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        .weak {
+            background-color: #ff4d4d;
+            width: 33%;
+        }
+        .medium {
+            background-color: #ffa64d;
+            width: 66%;
+        }
+        .strong {
+            background-color: #2ecc71;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <form id="signup-form">
+            <h2>تسجيل حساب جديد</h2>
+            <input type="text" name="name" placeholder="الاسم الكامل" required>
+            <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+            <input type="password" name="password" placeholder="كلمة المرور" required>
+            <div id="password-strength" class="password-strength"></div>
+            <input type="tel" name="phone" placeholder="رقم الهاتف (واتساب)" required>
+            <select name="studentYear" required>
+                <option value="" disabled selected>اختر السنة الدراسية</option>
+                <option value="أولى">أولى</option>
+                <option value="ثانية">ثانية</option>
+                <option value="ثالثة">ثالثة</option>
+                <option value="رابعة">رابعة</option>
+            </select>
+            <select name="department" required>
+                <option value="" disabled selected>اختر القسم</option>
+                <option value="علم اجتماع">علم اجتماع</option>
+                <option value="تاريخ">تاريخ</option>
+                <option value="علم نفس">علم نفس</option>
+                <option value="رياض أطفال">رياض أطفال</option>
+                <option value="تربية إنجليزي">تربية إنجليزي</option>
+            </select>
+            <button type="submit">تسجيل</button>
+            <p>لديك حساب بالفعل؟ <a href="#" class="toggle-link">سجل دخول</a></p>
+        </form>
+        <form id="login-form" class="hidden">
+            <h2>تسجيل الدخول</h2>
+            <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+            <input type="password" name="password" placeholder="كلمة المرور" required>
+            <button type="submit">دخول</button>
+            <p>ليس لديك حساب؟ <a href="#" class="toggle-link">سجل الآن</a></p>
+        </form>
+        <div id="message" class="message hidden"></div>
+    </div>
+
+    <!-- إضافة Firebase SDKs الحديثة (بدون 'compat') -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        
+        console.log("صفحة المصادقة محملة");
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAfjeZnyxSnuatuX7dcXU8x6n0YssPUnvo",
+            authDomain: "college-management-syste-6a3a5.firebaseapp.com",
+            projectId: "college-management-syste-6a3a5",
+            storageBucket: "college-management-syste-6a3a5.firebasestorage.app",
+            messagingSenderId: "111562294226",
+            appId: "1:111562294226:web:4798af8021b0e234a23e0b"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        
+        console.log("Firebase initialized");
+
+        // إظهار الرسائل
+        function showMessage(message, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = message;
+            messageDiv.className = 'message ' + type;
+            messageDiv.classList.remove('hidden');
+            
+            setTimeout(() => {
+                messageDiv.classList.add('hidden');
+            }, 5000);
+        }
+
+        // التحقق من قوة كلمة المرور
+        function checkPasswordStrength(password) {
+            const strengthBar = document.getElementById('password-strength');
+            let strength = 0;
+            
+            if (password.length >= 8) strength++;
+            if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) strength++;
+            if (password.match(/([0-9])/)) strength++;
+            if (password.match(/([!,@,#,$,%,^,&,*,?,_,~])/)) strength++;
+            
+            if (!strengthBar) return;
+            
+            switch(strength) {
+                case 0:
+                case 1:
+                    strengthBar.className = 'password-strength weak';
+                    break;
+                case 2:
+                case 3:
+                    strengthBar.className = 'password-strength medium';
+                    break;
+                case 4:
+                    strengthBar.className = 'password-strength strong';
+                    break;
+                default:
+                    strengthBar.className = 'password-strength';
+            }
+        }
+
+        // تسجيل مستخدم جديد
+        async function registerUser(email, password, userData) {
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                
+                let userRole = 'user';
+                if (email === 'higjfc57@gmail.com') {
+                    userRole = 'admin';
+                }
+
+                await setDoc(doc(db, 'users', user.uid), {
+                    name: userData.name,
+                    email: email,
+                    phone: userData.phone,
+                    studentYear: userData.studentYear,
+                    department: userData.department,
+                    role: userRole,
+                    createdAt: new Date()
+                });
+
+                // تخزين حالة تسجيل الدخول في الذاكرة المحلية
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('isAdmin', (userRole === 'admin').toString());
+                
+                showMessage("تم التسجيل بنجاح! سيتم توجيهك الآن...", "success");
+                
+                setTimeout(() => {
+                    window.location.href = "main.html";
+                }, 1500);
+            } catch (error) {
+                console.error("Registration Error:", error);
+                let errorMessage = "فشل التسجيل: ";
+                if (error.code === 'auth/email-already-in-use') {
+                    errorMessage += "هذا البريد الإلكتروني مستخدم بالفعل";
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage += "البريد الإلكتروني غير صحيح";
+                } else if (error.code === 'auth/weak-password') {
+                    errorMessage += "كلمة المرور ضعيفة جداً";
+                } else {
+                    errorMessage += error.message;
+                }
+                showMessage(errorMessage, "error");
+            }
+        }
+
+        // تسجيل الدخول
+        async function loginUser(email, password) {
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                const userDocRef = doc(db, 'users', user.uid);
+                const userDocSnap = await getDoc(userDocRef);
+                
+                let userRole = 'user';
+                if (userDocSnap.exists()) {
+                    userRole = userDocSnap.data().role;
+                }
+
+                // تخزين حالة تسجيل الدخول ودور المستخدم في الذاكرة المحلية
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('isAdmin', (userRole === 'admin').toString());
+
+                showMessage("تم تسجيل الدخول بنجاح! سيتم توجيهك الآن...", "success");
+                
+                setTimeout(() => {
+                    window.location.href = "main.html";
+                }, 1500);
+            } catch (error) {
+                console.error("Login Error:", error);
+                let errorMessage = "فشل تسجيل الدخول: ";
+                if (error.code === 'auth/user-not-found') {
+                    errorMessage += "الحساب غير موجود";
+                } else if (error.code === 'auth/wrong-password') {
+                    errorMessage += "كلمة المرور غير صحيحة";
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage += "البريد الإلكتروني غير صحيح";
+                } else {
+                    errorMessage += error.message;
+                }
+                showMessage(errorMessage, "error");
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const toggleLinks = document.querySelectorAll('.toggle-link');
+            
+            toggleLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    loginForm.classList.toggle('hidden');
+                    signupForm.classList.toggle('hidden');
+                });
+            });
+            
+            const passwordInput = document.querySelector('#signup-form input[name="password"]');
+            if(passwordInput) {
+                passwordInput.addEventListener('input', (e) => {
+                    checkPasswordStrength(e.target.value);
+                });
+            }
+            
+            if(signupForm) {
+                signupForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const name = signupForm.name.value;
+                    const email = signupForm.email.value;
+                    const password = signupForm.password.value;
+                    const phone = signupForm.phone.value;
+                    const studentYear = signupForm.studentYear.value;
+                    const department = signupForm.department.value;
+                    
+                    const userData = {
+                        name: name,
+                        phone: phone,
+                        studentYear: studentYear,
+                        department: department
+                    };
+                    
+                    registerUser(email, password, userData);
+                });
+            }
+            
+            if(loginForm) {
+                loginForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const email = loginForm.email.value;
+                    const password = loginForm.password.value;
+                    loginUser(email, password);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

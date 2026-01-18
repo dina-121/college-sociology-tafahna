@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حنان أمين إسماعيل يوسف | سيرة ذاتية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #0d47a1; /* أزرق داكن */
+            --secondary-color: #e3f2fd; /* أزرق فاتح */
+            --text-color: #212121;
+            --sub-text-color: #757575;
+            --section-title-color: #1a237e; /* أزرق أغمق للعناوين */
+            --border-color: #e0e0e0;
+            --highlight-color: #007bff; /* لون التمييز */
+            --modal-bg: rgba(0, 0, 0, 0.7);
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            text-align: right;
+            overflow-x: hidden;
+        }
+
+        /* --- الهيدر (شريط التنقل) --- */
+        .main-header {
+            background-color: #fff;
+            padding: 15px 5%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: 600;
+            transition: color 0.3s, transform 0.3s;
+            position: relative;
+        }
+        .nav-link:hover {
+            color: var(--section-title-color);
+            transform: scale(1.05);
+        }
+
+        /* --- الحركات --- */
+        @keyframes fadeInSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .animated {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .animated.visible {
+            animation: fadeInSlideUp 0.8s ease-out forwards;
+        }
+
+        /* --- الحاوية الرئيسية --- */
+        .cv-container {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 40px;
+        }
+        
+        /* --- قسم المعلومات الشخصية --- */
+        .header-profile {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--primary-color);
+            margin-bottom: 30px;
+        }
+        .profile-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 4px solid var(--primary-color);
+            object-fit: cover;
+            margin-bottom: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .profile-img:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+        .header-profile h1 {
+            font-size: 2.8em;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin: 0;
+        }
+        .header-profile h2 {
+            font-size: 1.4em;
+            color: var(--section-title-color);
+            font-weight: 500;
+            margin: 5px 0 10px;
+        }
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 1em;
+            color: var(--sub-text-color);
+        }
+        .contact-info span {
+            display: flex;
+            align-items: center;
+        }
+        .contact-info i {
+            margin-left: 8px;
+            color: var(--primary-color);
+        }
+        .contact-info a {
+            color: var(--sub-text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .contact-info a:hover {
+            color: var(--highlight-color);
+        }
+        .contact-info .fa-location-dot {
+            color: #d32f2f; /* لون مميز للموقع */
+        }
+        .download-btn {
+            background-color: var(--highlight-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .download-btn:hover {
+            background-color: #0056b3;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        /* --- أقسام السيرة الذاتية --- */
+        .section {
+            margin-bottom: 40px;
+        }
+        .section-title {
+            font-size: 1.8em;
+            color: var(--section-title-color);
+            font-weight: 700;
+            border-right: 4px solid var(--primary-color);
+            padding-right: 15px;
+            margin-bottom: 20px;
+        }
+        
+        /* --- القوائم والعناصر --- */
+        ul {
+            list-style-type: none;
+            padding-right: 0;
+            margin: 0;
+        }
+        ul li {
+            margin-bottom: 15px;
+            padding-right: 20px;
+            position: relative;
+        }
+        ul li::before {
+            content: "\f058"; /* أيقونة صح */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--primary-color);
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: 1.1em;
+        }
+        
+        .cv-item {
+            margin-bottom: 25px;
+            border-right: 2px solid var(--border-color);
+            padding-right: 15px;
+            transition: border-color 0.3s ease;
+        }
+        .cv-item:hover {
+            border-color: var(--highlight-color);
+        }
+        .cv-item h3, .cv-item h4 {
+            font-size: 1.2em;
+            color: var(--text-color);
+            font-weight: 600;
+            margin: 0 0 5px;
+        }
+        .cv-item p {
+            margin: 0;
+            color: var(--sub-text-color);
+        }
+        .cv-item span {
+            font-style: italic;
+            font-size: 0.9em;
+            color: var(--sub-text-color);
+        }
+        
+        .show-more-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .show-more-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.01);
+        }
+
+        /* --- تصميم النافذة المنبثقة (Modal) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--modal-bg);
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            animation: fadeIn 0.3s ease-out;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes popIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .close-btn {
+            color: #aaa;
+            font-size: 35px;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.3s;
+        }
+        .close-btn:hover {
+            color: var(--primary-color);
+            transform: rotate(90deg);
+        }
+        
+        /* تصميم الاستجابة للهواتف */
+        @media (max-width: 768px) {
+            body { font-size: 14px; }
+            .cv-container { padding: 20px; margin: 20px auto; }
+            .header-profile h1 { font-size: 2em; }
+            .header-profile h2 { font-size: 1.2em; }
+            .contact-info { flex-direction: column; gap: 10px; }
+            .nav-link { font-size: 0.9em; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="main-header">
+    <nav class="nav-links">
+        <a href="main.html" class="nav-link" id="nav-home">الرئيسية</a>
+        <a href="dr.html" class="nav-link" id="nav-faculty">أعضاء هيئة التدريس</a>
+        <a href="call.html" class="nav-link" id="nav-contact">استفسار</a>
+    </nav>
+</header>
+
+<div class="cv-container">
+    <div class="header-profile animated" style="--animation-delay: 0.2s;">
+        <img src="hanan-amen.jpeg" alt="صورة حنان أمين إسماعيل يوسف" class="profile-img">
+        <h1>حنان أمين إسماعيل يوسف</h1>
+        <h2>أستاذ مساعد بقسم الاجتماع</h2>
+        <div class="contact-info">
+            <span><i class="fas fa-envelope"></i> <a href="mailto:hananamin0071@gmail.com">hananamin0071@gmail.com</a></span>
+            <span><i class="fas fa-phone"></i> <a href="tel:+201066693290">٠١٠٦٦٦٩٣٢٩٠</a></span>
+            <span><i class="fas fa-location-dot"></i> مدينة الشيخ زايد – الحي التاسع – المجاورة الأولى - فيلاد (2)</span>
+        </div>
+        <a href="#" download class="download-btn">
+            <i class="fas fa-download"></i> تنزيل السيرة الذاتية (PDF)
+        </a>
+    </div>
+
+    <div class="section animated" style="--animation-delay: 0.4s;">
+        <h3 class="section-title">نبذة شخصية</h3>
+        <p style="font-size: 1em; color: var(--main-text); margin-top: 10px;">
+            أستاذ مساعد متخصص في علم الاجتماع، بخبرة أكاديمية وبحثية واسعة. حاصلة على الدكتوراه في علم الاجتماع بتقدير مرتبة الشرف الأولى. شغلت منصب رئيس مجلس قسم الاجتماع ووكيل كلية الدراسات الإنسانية بنات للدراسات العليا والبحوث بجامعة الأزهر. شاركت في العديد من المؤتمرات والندوات المحلية والدولية، وأشرفت على العديد من الرسائل العلمية. أسعى إلى تطبيق المعرفة السوسيولوجية في خدمة المجتمع وحل قضاياه المعاصرة.
+        </p>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 0.6s;">
+        <h3 class="section-title" id="education-title">الدرجات العلمية</h3>
+        <div class="cv-item">
+            <h4>ليسانس علم الاجتماع</h4>
+            <p>كلية الدراسات الإنسانية "بنات القاهرة" – جامعة الأزهر</p>
+            <span>التقدير: جيد - عام: غير محدد</span>
+        </div>
+        <div class="cv-item">
+            <h4>ماجستير علم الاجتماع</h4>
+            <p>كلية الدراسات الإنسانية "بنات القاهرة" – جامعة الأزهر</p>
+            <span>التقدير: ممتاز - عام: ٢٠٠٤</span>
+        </div>
+        <div class="cv-item">
+            <h4>دكتوراه علم الاجتماع</h4>
+            <p>كلية الدراسات الإنسانية "بنات القاهرة" – جامعة الأزهر</p>
+            <span>التقدير: مرتبة الشرف الأولى - عام: ٢٠١٥</span>
+        </div>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 0.8s;">
+        <h3 class="section-title">الأبحاث والرسائل</h3>
+        <div class="cv-item">
+            <h4>عنوان رسالة الماجستير:</h4>
+            <p>الصندوق الاجتماعي للتنمية ودوره في مواجهة مشكلات الشباب</p>
+        </div>
+        <div class="cv-item">
+            <h4>عنوان رسالة الدكتوراه:</h4>
+            <p>التنمية الاجتماعية للمجتمعات المحلية – دراسة مقارنة لتجارب الصندوق الاجتماعي للتنمية</p>
+        </div>
+    </div>
+
+    <div class="section animated" style="--animation-delay: 1s;">
+        <h3 class="section-title" id="experience-title">الخبرة المهنية</h3>
+        <div class="cv-item">
+            <h4>مدرس مساعد</h4>
+            <p>جامعة الأزهر</p>
+            <span>الفترة الزمنية: غير محددة</span>
+        </div>
+        <div class="cv-item">
+            <h4>مدرس</h4>
+            <p>جامعة الأزهر</p>
+            <span>الفترة الزمنية: غير محددة</span>
+        </div>
+        <div class="cv-item">
+            <h4>أستاذ مساعد</h4>
+            <p>جامعة الأزهر</p>
+            <span>الفترة الزمنية: من ١١/١١/٢٠٢٣ حتى الآن</span>
+        </div>
+        <div class="cv-item">
+            <h4>رئيس مجلس قسم الاجتماع</h4>
+            <p>كلية الدراسات الإنسانية بنات بتفهنا الأشراف - جامعة الأزهر</p>
+            <span>الفترة الزمنية: ديسمبر ٢٠٢٢ - نوفمبر ٢٠٢٣</span>
+        </div>
+        <div class="cv-item">
+            <h4>وكيل كلية الدراسات الإنسانية بنات</h4>
+            <p>تفهنا الأشراف للدراسات العليا والبحوث - جامعة الأزهر</p>
+            <span>الفترة الزمنية: من ١١/١١/٢٠٢٣ حتى الآن</span>
+        </div>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 1.2s;">
+        <h3 class="section-title">الدورات والأنشطة التدريبية</h3>
+        <button class="show-more-btn" id="toggle-training-btn">عرض المزيد</button>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 1.4s;">
+        <h3 class="section-title">المشاركات العلمية والعملية (المؤتمرات والندوات)</h3>
+        <button class="show-more-btn" id="toggle-participations-btn">عرض المزيد</button>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 1.6s;">
+        <h3 class="section-title">إشراف على الرسائل العلمية (ماجستير - دكتوراه)</h3>
+        <div class="cv-item">
+            <h4>القضايا المجتمعية كما تعكسها صحافة المواطن وعلاقتها بالوعى الاجتماعى – تحليل مضمون</h4>
+            <p>نوع النشاط: إشراف على رسالة دكتوراه - الكلية: دراسات إنسانية - الجامعة: جامعة الأزهر</p>
+            <span>تم التسجيل: ٢٠١٧ - أجيزت: ١٢/٢/٢٠٢١</span>
+        </div>
+        <div class="cv-item">
+            <h4>دور منظمات المجتمع المدني في تمكنين المرأة سياسياً</h4>
+            <p>نوع النشاط: إشراف على رسالة ماجستير - الكلية: دراسات إنسانية - الجامعة: جامعة الأزهر</p>
+            <span>تم التسجيل: ١٨/١٢/٢٠١٦ - أجيزت: ٢٧/٨/٢٠٢٢</span>
+        </div>
+        <div class="cv-item">
+            <h4>دور الخطاب الديني في الاستقرار الأسرى – دراسة مقارنة بين مبادرات الأزهر والبرامج الدينية في الاعلام</h4>
+            <p>نوع النشاط: إشراف على رسالة ماجستير - الكلية: دراسات إنسانية - الجامعة: جامعة الأزهر</p>
+            <span>تم التسجيل: ٩/٧/٢٠٢٢ - ما زالت تحت التسجيل</span>
+        </div>
+        <div class="cv-item">
+            <h4>المدارس التكنولوجية التطبيقية والمكاسبها على المجتمع المصرى في ضوء رؤية مصر 2030</h4>
+            <p>نوع النشاط: إشراف على رسالة ماجستير - الكلية: دراسات إنسانية - الجامعة: جامعة الأزهر</p>
+            <span>تم التسجيل: ٢٤/١٢/٢٠٢٤ - ما زالت تحت التسجيل</span>
+        </div>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 1.8s;">
+        <h3 class="section-title">المساهمات العلمية المنشورة</h3>
+        <div class="cv-item">
+            <h4>الصندوق الاجتماعي للتنمية ودوره في مواجهة مشكلات الشباب</h4>
+            <p>دار المعرفة الجامعية - 2016</p>
+        </div>
+        <div class="cv-item">
+            <h4>التنمية الاجتماعية للمجتمعات المحلية – دراسة مقارنة لتجارب الصندوق الاجتماعي للتنمية</h4>
+            <p>دار المعرفة الجامعية - 2016</p>
+        </div>
+        <button class="show-more-btn" id="toggle-publications-btn">عرض المزيد من الأبحاث</button>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 2s;">
+        <h3 class="section-title">اللغات</h3>
+        <div class="cv-item">
+            <h4>العربية</h4>
+            <p>اللغة الأم</p>
+        </div>
+        <div class="cv-item">
+            <h4>الإنجليزية</h4>
+            <p>مستوى: جيد</p>
+        </div>
+    </div>
+</div>
+
+<div id="training-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" id="close-training-btn">&times;</span>
+        <h3 class="section-title">جميع الدورات والأنشطة التدريبية</h3>
+        <div class="cv-item research-item">
+            <h4>دورة رفع مستوى الكفاءة العلمية للمعيدين والمدرسين المساعدين والباحثين في علم الاجتماع والانتروبولوجيا</h4>
+            <p>مكان الانعقاد: مركز البحوث والدراسات الاجتماعية، كلية الآداب – جامعة القاهرة</p>
+            <span>التاريخ: ٢٠٠٥</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>دورة التحليل الإحصائي باستخدام برنامج (SPSS)</h4>
+            <p>مكان الانعقاد: مركز القياس والتقويم– كلية الدراسات العليا للتربية - جامعة القاهرة</p>
+            <span>التاريخ: ٢٠١٦</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>دورة تدريبية بعنوان بنك المعرفة المصرى</h4>
+            <p>مكان الانعقاد: كلية الدراسات الانسانية تفهنا الأشراف، جامعة الأزهر</p>
+            <span>التاريخ: ٢٠١٦</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>دورة إعداد الدراسة الذاتية لمؤسسات التعليم العالي</h4>
+            <p>مكان الانعقاد: مركز ضمان الجودة والتدريب – جامعة الأزهر</p>
+            <span>التاريخ: ٢٠١٩</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>دورة مهارات العرض الفعال</h4>
+            <p>مكان الانعقاد: مركز ضمان الجودة والتدريب – جامعة الأزهر</p>
+            <span>التاريخ: ٢٠١٩</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>دورة تقنيات تصميم وإعداد البحوث</h4>
+            <p>مكان الانعقاد: مركز ضمان الجودة والتدريب – جامعة الأزهر</p>
+            <span>التاريخ: ٢٠١٩</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>دورة نظم الامتحانات وتقويم الطلاب</h4>
+            <p>مكان الانعقاد: مركز ضمان الجودة والتدريب – جامعة الأزهر</p>
+            <span>التاريخ: ٢٠١٩</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>دورة خرائط المنهج وتوصيف المقررات</h4>
+            <p>مكان الانعقاد: مركز ضمان الجودة والتدريب – جامعة الأزهر</p>
+            <span>التاريخ: ٢٠١٩</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>دورة تصميم المناهج لإعداد دبلومة اللاجئين الممولة من الاتحاد الأوروبي</h4>
+            <p>مكان الانعقاد: جامعة الأزهر</p>
+            <span>التاريخ: ٢٠١٩</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>دورة تنمية مهارات أعضاء هيئة التدريس</h4>
+            <p>مكان الانعقاد: جامعة الأزهر</p>
+            <span>التاريخ: ٢٠١٩</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>دورة أساسيات نشر البحوث والتمويل بالتعاون مع بنك المعرفة المصري</h4>
+            <p>مكان الانعقاد: جامعة الأزهر</p>
+            <span>التاريخ: ٢٠١٩</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>ورشة عمل في الدبلومة العامة للاجئين لأعضاء هيئة التدريس والهيئة المعاونة</h4>
+            <p>مكان الانعقاد: كلية العلوم بنين جامعة الأزهر</p>
+            <span>التاريخ: ٢٠١٩</span>
+        </div>
+    </div>
+</div>
+
+<div id="participations-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" id="close-participations-btn">&times;</span>
+        <h3 class="section-title">جميع المشاركات العلمية والعملية</h3>
+        <div class="cv-item research-item">
+            <h4>مؤتمر مشكلات الشباب وعوامة الظواهر الاجتماعية</h4>
+            <p>المجال: اجتماع - نوع المشاركة: ورقة بحثية بعنوان "البطالة ظاهرة عالمية وليست محلية"</p>
+            <span>مكان الانعقاد: مركز صالح كامل للمؤتمرات بجامعة الأزهر - التاريخ: ٢٠٠٣</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>مؤتمر ادماج ومشاركة المرأة في العملية التنموية</h4>
+            <p>المجال: اجتماع - نوع المشاركة: المشاركة في الإعداد والتنظيم</p>
+            <span>مكان الانعقاد: مركز صالح كامل للمؤتمرات بجامعة الأزهر - التاريخ: ٢٠٠٤</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>مؤتمر الجامعة والتحول المجتمعي</h4>
+            <p>المجال: اجتماع - نوع المشاركة: المشاركة ببحث</p>
+            <span>مكان الانعقاد: جامعة المنصورة - شرم الشيخ - التاريخ: ٢٠١٦</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>مؤتمر إتحاد الجامعات الإفريقية</h4>
+            <p>المجال: اجتماع - نوع المشاركة: حضور</p>
+            <span>مكان الانعقاد: جامعة الأزهر - التاريخ: ٢٠١٩</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>مؤتمر الإسلام والغرب</h4>
+            <p>المجال: اجتماع - نوع المشاركة: حضور</p>
+            <span>مكان الانعقاد: مركز المؤتمرات، جامعة الأزهر، القاهرة - التاريخ: ٢٠١٨</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>مؤتمر إتحاد الجامعات الإفريقية</h4>
+            <p>المجال: اجتماع - نوع المشاركة: حضور</p>
+            <span>مكان الانعقاد: مركز المؤتمرات جامعة الأزهر، القاهرة - التاريخ: ٢٠١٩</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>ملتقى المشاركة المجتمعية والطريق إلى الاعتماد</h4>
+            <p>المجال: اجتماع - نوع المشاركة: حضور</p>
+            <span>مكان الانعقاد: كلية الدراسات الانسانية بنات – تفهنا الأشراف – جامعة الأزهر - التاريخ: ٢٠١٨</span>
+        </div>
+    </div>
+</div>
+
+<div id="publications-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" id="close-publications-btn">&times;</span>
+        <h3 class="section-title">جميع الأبحاث المنشورة في دوريات علمية محكمة</h3>
+        <div class="cv-item research-item">
+            <h4>هجرة العقول العلمية إلى الخارج والتنمية المستدامة</h4>
+            <p>المجلة المصرية للدراسات التجارية</p>
+            <span>التاريخ: ٢٠١٦</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>العوامل المؤثرة في مشاركة الناخب المصري في الانتخابات البرلمانية لعام 2015</h4>
+            <p>مجلة شئون اجتماعية، العدد (141) ربيع 2019</p>
+            <span>التاريخ: ٢٠١٩</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>ملامح العنف ضد المرأة: عربياً وعالمياً: استعراض لبعض الأديبات البحثية في العلوم الاجتماعية</h4>
+            <p>مجلة بحوث الشرق الأوسط، العدد (56)، يوليو 2020</p>
+            <span>التاريخ: ٢٠٢٠</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>المسؤولية الاجتماعية للشركات الخاصة في ظل جائحة كورونا بمصر – دراسة حالة لشركتي سيراميكا كليوباترا والنساجون الشرقيون</h4>
+            <p>مجلة شئون اجتماعية، العدد (149)، ربيع 2021</p>
+            <span>التاريخ: ٢٠٢١</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>واقع انتهاكات حقوق عاملات خدمة المنازل في المجتمع المصري – رؤية سوسيولوجية</h4>
+            <p>مجلة كلية الدراسات الاساسية بنات، العدد (27)، يوليو 2021</p>
+            <span>التاريخ: ٢٠٢١</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>التباعد الاجتماعي – الجسدي – وانعكاساته على العلاقات الاجتماعية في زمن الكورونا</h4>
+            <p>مجلة بحوث الشرق الأوسط، العدد 80 أكتوبر 2022</p>
+            <span>التاريخ: ٢٠٢٢</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>المشاركة السياسية للمرأة: عربياً وعالمياً: استعراض لبعض الأديبات البحثية في العلوم الاجتماعية والسياسية</h4>
+            <p>مجلة بحوث الشرق الأوسط، العدد 85 مارس 2023</p>
+            <span>التاريخ: ٢٠٢٣</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>دور المنشآت الصناعية وحماية المجتمع من التلوث البيئي في ظل التغيرات المناخية</h4>
+            <p>حوليات آداب عين شمس، العدد 4 اكتوبر–ديسمبر، المجلد 51، 2023</p>
+            <span>التاريخ: ٢٠٢٣</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>تطبيقات الذكاء الاصطناعي وانعكاساتها التنموية اجتماعياً واقتصادياً على المجتمع المصري</h4>
+            <p>حوليات آداب عين شمس، العدد يناير-مارس، المجلد 53، 2025</p>
+            <span>التاريخ: ٢٠٢٥</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>العلاقات الاجتماعية وإتجاهاتها على الانجاز في بيئة العمل</h4>
+            <p>مجلة الدراسات الإنسانية والأدبية – كلية الآداب جامعة كفر الشيخ – تحت النشر</p>
+            <span>التاريخ: ٢٠٢٥</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Intersection Observer for fade-in animations
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animated').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Modal functionality
+        const toggleTrainingBtn = document.getElementById('toggle-training-btn');
+        const trainingModal = document.getElementById('training-modal');
+        const closeTrainingBtn = document.getElementById('close-training-btn');
+
+        const toggleParticipationsBtn = document.getElementById('toggle-participations-btn');
+        const participationsModal = document.getElementById('participations-modal');
+        const closeParticipationsBtn = document.getElementById('close-participations-btn');
+
+        const togglePublicationsBtn = document.getElementById('toggle-publications-btn');
+        const publicationsModal = document.getElementById('publications-modal');
+        const closePublicationsBtn = document.getElementById('close-publications-btn');
+
+        const openModal = (modal) => {
+            modal.style.display = 'flex';
+        };
+
+        const closeModal = (modal) => {
+            modal.style.display = 'none';
+        };
+
+        toggleTrainingBtn.addEventListener('click', () => {
+            openModal(trainingModal);
+        });
+
+        closeTrainingBtn.addEventListener('click', () => {
+            closeModal(trainingModal);
+        });
+
+        toggleParticipationsBtn.addEventListener('click', () => {
+            openModal(participationsModal);
+        });
+
+        closeParticipationsBtn.addEventListener('click', () => {
+            closeModal(participationsModal);
+        });
+
+        togglePublicationsBtn.addEventListener('click', () => {
+            openModal(publicationsModal);
+        });
+
+        closePublicationsBtn.addEventListener('click', () => {
+            closeModal(publicationsModal);
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === trainingModal) {
+                closeModal(trainingModal);
+            }
+            if (event.target === participationsModal) {
+                closeModal(participationsModal);
+            }
+            if (event.target === publicationsModal) {
+                closeModal(publicationsModal);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

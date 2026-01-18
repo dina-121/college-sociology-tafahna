@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تواصل معنا - كلية الدراسات الإنسانية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #004d99;
+            --primary-light: #e6f0ff;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --background-color: #f0f4f8;
+            --card-bg-color: #ffffff;
+            --text-color: #344050;
+            --border-color: #dee2e6;
+            --border-radius: 12px;
+            --box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* New and improved styles for mobile menu overlay */
+        .page-wrapper {
+            transition: filter 0.5s ease;
+        }
+
+        .page-wrapper.blurred {
+            filter: blur(8px); /* Increased blur value */
+            pointer-events: none;
+        }
+        
+        /* Updated mobile menu overlay */
+        .mobile-nav-overlay {
+            position: absolute; /* Changed to absolute to position relative to header */
+            top: 100%; /* Positions it right below the header */
+            right: 0;
+            width: 100%; /* Full width */
+            background: rgba(0, 0, 0, 0.5); /* A darker, more transparent overlay */
+            padding: 20px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            overflow-y: auto;
+            max-height: 0; /* Starts hidden */
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth slide down */
+            visibility: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .mobile-nav-overlay.active {
+            max-height: 500px; /* Expands to show content */
+            visibility: visible;
+        }
+
+        .mobile-nav-overlay ul {
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            padding: 0;
+            list-style: none;
+        }
+
+        .mobile-nav-overlay ul li a {
+            font-size: 1.2rem;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 15px 25px;
+            text-align: center;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            border-radius: 10px;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .mobile-nav-overlay ul li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .mobile-nav-overlay .close-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease, color 0.3s ease;
+            display: none; /* Hide if not needed for this design */
+        }
+        
+        /* Original styles below */
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1a68d9 100%);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative; /* Add position relative to the container for the mobile menu */
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text h1 {
+            font-family: 'Almarai', sans-serif;
+            font-size: 1.5rem;
+            margin: 0;
+            font-weight: 800;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            margin: 0;
+            opacity: 0.9;
+        }
+        
+        /* Navigation Styles */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background-color: white;
+            transition: width 0.3s ease-in-out;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Hamburger Menu Button */
+        .menu-toggle {
+            display: none;
+            font-size: 1.8rem;
+            color: white;
+            cursor: pointer;
+        }
+        
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(rgba(0, 77, 153, 0.8), rgba(26, 104, 217, 0.8)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .page-header h1 {
+            font-family: 'Almarai', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            animation: fadeInDown 1s ease-in-out;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            animation: fadeInUp 1.2s ease-in-out;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .contact-card {
+            background-color: var(--card-bg-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            text-align: center;
+            border-bottom: 5px solid transparent;
+            animation: slideIn 1s ease-out;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .contact-icon {
+            width: 70px;
+            height: 70px;
+            background-color: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            transition: var(--transition);
+        }
+        
+        .contact-card:hover .contact-icon {
+            transform: rotateY(180deg);
+        }
+
+        .contact-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .contact-card p {
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .contact-card a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: bold;
+        }
+
+        .contact-card a:hover {
+            color: #1a68d9;
+            text-decoration: underline;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: #f0f4f8;
+            border-radius: 50%;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1a68d9 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(44, 123, 229, 0.3);
+        }
+
+        .btn i {
+            margin-left: 8px;
+        }
+
+        /* Form & Map Sections */
+        .form-section, .map-section, .faq-section {
+            background-color: var(--card-bg-color);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 50px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            position: relative;
+            padding-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            transform: translateX(50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--info-color));
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: var(--light-color);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 77, 153, 0.15);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Map Section */
+        .map-container {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            height: 400px;
+            position: relative;
+            transform: scale(0.98);
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        .map-container:hover {
+            transform: scale(1);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* FAQ Section */
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--primary-light);
+            padding: 15px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        .faq-question:hover {
+            background-color: #d9e6f2;
+        }
+
+        .faq-question i {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            color: var(--secondary-color);
+            line-height: 1.7;
+            padding: 10px 15px;
+            background-color: #f8f9fa;
+            border-radius: 0 0 8px 8px;
+            display: none;
+            animation: slideDown 0.4s ease-out;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: linear-gradient(135deg, #0a1623 0%, #143052 100%);
+            color: #fff;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            nav {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+            
+            /* Remove the close button as it's not needed for this transition */
+            .mobile-nav-overlay .close-btn {
+                display: none;
+            }
+
+            .header-container {
+                justify-content: space-between;
+            }
+            
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-section, .map-section, .faq-section {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .page-header p {
+                font-size: 0.9rem;
+            }
+            
+            .map-container {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>كلية الدراسات الإنسانية</h1>
+                    <p>قسم علم الاجتماع</p>
+                </div>
+            </div>
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="main.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+                    <!-- <li><a href="control.html"><i class="fas fa-tasks"></i> الكنترول</a></li> -->
+                    <li><a href="dr.html"><i class="fas fa-chalkboard-teacher"></i> هيئة التدريس</a></li>
+                    <li><a href="news.html"><i class="fas fa-newspaper"></i> الأخبار</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle" id="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="mobile-nav-overlay" id="mobile-nav">
+                <ul>
+                    <li><a href="main.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+                    <!-- <li><a href="control.html"><i class="fas fa-tasks"></i> الكنترول</a></li> -->
+                    <li><a href="dr.html"><i class="fas fa-chalkboard-teacher"></i> هيئة التدريس</a></li>
+                    <li><a href="news.html"><i class="fas fa-newspaper"></i> الأخبار</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-wrapper">
+        <div class="page-header">
+            <h1>تواصل معنا</h1>
+            <p>يسعدنا تواصلكم معنا، نحن هنا للإجابة على جميع استفساراتكم</p>
+        </div>
+
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>عنوان الكلية</h3>
+                    <p>قسم الدراسات الإنسانية، محافظة الدقهلية، تفهنا الأشراف</p>
+                    <a href="https://maps.app.goo.gl/K15jGrbw65ZU1EkbA" class="btn" target="_blank">عرض على الخريطة</a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3>اتصل بنا</h3>
+                    <p><a href="tel:01033258639">01033258639</a></p>
+                    <p>من السبت إلى الخميس: 8 صباحاً - 4 مساءً</p>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>البريد الإلكتروني</h3>
+                    <p><a href="mailto:info@azhar.edu.eg">info@azhar.edu.eg</a></p>
+                    <div class="social-links">
+
+                                            <div class="social-links">
+    <a href="https://www.facebook.com/share/1JPrwo31K4/"><i class="fab fa-facebook-f"></i></a>
+
+    <a href="https://chat.whatsapp.com/K25My2O5Jj228s80zSvC6q?mode=ems_copy_c"><i class="fab fa-whatsapp"></i></a>
+</div>
+                        <!-- <a href="https://www.facebook.com/groups/AzharHumanities" target="_blank" title="فيسبوك">
+                            <i class="fab fa-facebook-f"></i>
+                        </a> -->
+                        <!-- <a href="https://www.twitter.com/" target="_blank" title="تويتر">
+                            <i class="fab fa-twitter"></i>
+                        </a> -->
+                        <!-- <a href="https://www.instagram.com/" target="_blank" title="انستجرام">
+                            <i class="fab fa-instagram"></i>
+                        </a> -->
+                        <!-- <a href="https://www.youtube.com/" target="_blank" title="يوتيوب">
+                            <i class="fab fa-youtube"></i>
+                        </a> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2 class="section-title">أرسل رسالة</h2>
+                <form id="contactForm" action="https://formspree.io/f/mqkvvzzk" method="POST">
+                    <div class="form-group">
+                        <label for="name">الاسم بالكامل</label>
+                        <input type="text" id="name" name="الاسم" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">البريد الإلكتروني</label>
+                        <input type="email" id="email" name="البريد الإلكتروني" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">رقم الهاتف (اختياري)</label>
+                        <input type="tel" id="phone" name="رقم الهاتف">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="department">القسم/الجهة</label>
+                        <select id="department" name="القسم">
+                            <option value="">اختر القسم</option>
+                            <option value="علم الاجتماع">علم الاجتماع</option>
+                            <option value="الخدمة الاجتماعية">الخدمة الاجتماعية</option>
+                            <option value="الفلسفة">الفلسفة</option>
+                            <option value="شئون الطلاب">شئون الطلاب</option>
+                            <option value="شئون الخريجين">شئون الخريجين</option>
+                            <option value="أخرى">أخرى</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">الرسالة</label>
+                        <textarea id="message" name="الرسالة" rows="6" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> إرسال الرسالة</button>
+                </form>
+            </div>
+
+            <div class="map-section">
+                <h2 class="section-title">موقعنا على الخريطة</h2>
+                <div class="map-container">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3431.6719634007945!2d31.347894104128176!3d30.67136451030498!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f7ebfc228108d5%3A0xa730817f664f4cbe!2sFaculty%20of%20Human%20Studies%2C%20Al-Azhar%20University%2C%20Tafahnah%20Al%20Ashraf!5e0!3m2!1sen!2seg!4v1756796621053!5m2!1sen!2seg" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                </div>
+            </div>
+
+            <div class="faq-section">
+                <h2 class="section-title">أسئلة متكررة</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        ما هي أوقات العمل الرسمية؟
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        أوقات العمل الرسمية من السبت إلى الخميس من الساعة 8 صباحاً حتى 4 مساءً، ويوم الجمعة إجازة رسمية.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        كيف يمكنني التقديم للكلية؟
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        يمكن التقديم للكلية من خلال الموقع الإلكتروني أو الحضور شخصياً إلى مقر الكلية خلال أوقات العمل الرسمية مع استكمال الأوراق المطلوبة.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        ما هي المستندات المطلوبة للتسجيل؟
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        المستندات المطلوبة تشمل: صورة من شهادة الثانوية العامة، صورة من بطاقة الرقم القومي، عدد 4 صور شخصية، واستمارة 2 جند للذكور.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        هل توجد سكن طلابي؟
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        نعم، تتوفر سكن طلابي للطلاب والطالبات، ويمكن الاستعلام عن شروط القبول والإجراءات المطلوبة من خلال مكتب شئون الطلاب.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <footer class="site-footer">
+        <p>جامعة الأزهر - كلية الدراسات الإنسانية - قسم علم الاجتماع - محافظة الدقهلية</p>
+        <p>© 2025 تصميم دينا محمد عبد المعبود</p>
+    </footer>
+
+    <script>
+        // FAQ Toggle
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+            const icon = question.querySelector('i');
+
+            question.addEventListener('click', () => {
+                const isExpanded = question.classList.toggle('active');
+                if (isExpanded) {
+                    answer.style.display = 'block';
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                } else {
+                    answer.style.display = 'none';
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            });
+        });
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById("menu-toggle");
+        const mobileNav = document.getElementById("mobile-nav");
+        const pageWrapper = document.querySelector(".page-wrapper");
+
+        function openMenu() {
+            mobileNav.classList.add("active");
+            pageWrapper.classList.add("blurred");
+            document.body.style.overflow = "hidden"; // منع التمرير
+        }
+
+        function closeMenu() {
+            mobileNav.classList.remove("active");
+            pageWrapper.classList.remove("blurred");
+            document.body.style.overflow = "auto"; // إعادة التمرير
+        }
+
+        menuToggle.addEventListener("click", (e) => {
+            e.stopPropagation(); // يمنع إغلاق القائمة عند النقر على الزر
+            openMenu();
+        });
+
+        // Close mobile menu when a link is clicked
+        const navLinks = document.querySelectorAll('.mobile-nav-overlay a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                closeMenu();
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener("click", (e) => {
+            if (mobileNav.classList.contains("active") && !mobileNav.contains(e.target) && !menuToggle.contains(e.target)) {
+                closeMenu();
+            }
+        });
+
+        // التحقق من حالة تسجيل الدخول في كل صفحة
+auth.onAuthStateChanged((user) => {
+    if (!user) {
+        // إذا لم يكن المستخدم مسجلاً، توجيه إلى صفحة التسجيل
+        window.location.href = 'auth.html';
+    }
+});
+    </script>
+
+    <script src="auth-check.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>د. إيمان إبراهيم الشيكي مجاهد | سيرة ذاتية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #0d47a1; /* أزرق داكن */
+            --secondary-color: #e3f2fd; /* أزرق فاتح */
+            --text-color: #212121;
+            --sub-text-color: #757575;
+            --section-title-color: #1a237e; /* أزرق أغمق للعناوين */
+            --border-color: #e0e0e0;
+            --highlight-color: #007bff; /* لون التمييز */
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            text-align: right;
+            overflow-x: hidden;
+        }
+
+        /* --- الهيدر (شريط التنقل) --- */
+        .main-header {
+            background-color: #fff;
+            padding: 15px 5%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: 600;
+            transition: color 0.3s, transform 0.3s;
+            position: relative;
+        }
+        .nav-link:hover {
+            color: var(--section-title-color);
+            transform: scale(1.05);
+        }
+
+        /* --- الحركات --- */
+        @keyframes fadeInSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animated {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .animated.visible {
+            animation: fadeInSlideUp 0.8s ease-out forwards;
+        }
+
+        /* --- الحاوية الرئيسية --- */
+        .cv-container {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 40px;
+        }
+        
+        /* --- قسم المعلومات الشخصية --- */
+        .header-profile {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--primary-color);
+            margin-bottom: 30px;
+        }
+        .profile-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 5px solid var(--primary-color);
+            object-fit: cover;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+        .header-profile h1 {
+            font-size: 2.8em;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin: 0;
+        }
+        .header-profile h2 {
+            font-size: 1.4em;
+            color: var(--section-title-color);
+            font-weight: 500;
+            margin: 5px 0 10px;
+        }
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 1em;
+            color: var(--sub-text-color);
+        }
+        .contact-info span {
+            display: flex;
+            align-items: center;
+        }
+        .contact-info i {
+            margin-left: 8px;
+            color: var(--primary-color);
+        }
+        .contact-info a {
+            color: var(--sub-text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .contact-info a:hover {
+            color: var(--highlight-color);
+        }
+        .contact-info .fa-linkedin, .contact-info .fa-flask {
+            color: var(--highlight-color);
+        }
+
+        /* --- أقسام السيرة الذاتية --- */
+        .section {
+            margin-bottom: 40px;
+        }
+        .section-title {
+            font-size: 1.8em;
+            color: var(--section-title-color);
+            font-weight: 700;
+            border-right: 4px solid var(--primary-color);
+            padding-right: 15px;
+            margin-bottom: 20px;
+        }
+        
+        /* --- القوائم والعناصر --- */
+        ul {
+            list-style-type: none;
+            padding-right: 0;
+            margin: 0;
+        }
+        ul li {
+            margin-bottom: 15px;
+            padding-right: 20px;
+            position: relative;
+        }
+        ul li::before {
+            content: "\f058"; /* أيقونة صح */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--primary-color);
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: 1.1em;
+        }
+        
+        .cv-item {
+            margin-bottom: 25px;
+        }
+        .cv-item h3, .cv-item h4 {
+            font-size: 1.2em;
+            color: var(--text-color);
+            font-weight: 600;
+            margin: 0 0 5px;
+        }
+        .cv-item p {
+            margin: 0;
+            color: var(--sub-text-color);
+        }
+        .cv-item span {
+            font-style: italic;
+            font-size: 0.9em;
+            color: var(--sub-text-color);
+        }
+        
+        /* --- مهارات --- */
+        .skill-tag {
+            background-color: var(--border-color);
+            color: var(--text-color);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            transition: background-color 0.3s, color 0.3s;
+            margin: 4px;
+        }
+        .skill-tag:hover {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        /* --- زر عرض المزيد --- */
+        .show-more-btn {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            font-size: 1em;
+        }
+        .show-more-btn:hover {
+            background-color: var(--section-title-color);
+            transform: translateY(-2px);
+        }
+
+        /* --- النافذة المنبثقة (Modal) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeInSlideUp 0.5s ease-out;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: fadeInSlideUp 0.6s ease-out;
+        }
+        .close-btn {
+            color: var(--sub-text-color);
+            font-size: 30px;
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .close-btn:hover {
+            color: var(--primary-color);
+        }
+
+        /* --- تنسيق الأزرار --- */
+        .download-btn {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .download-btn:hover {
+            background-color: var(--section-title-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* تصميم الاستجابة للهواتف */
+        @media (max-width: 768px) {
+            body { font-size: 14px; }
+            .cv-container { padding: 20px; margin: 20px auto; }
+            .header-profile h1 { font-size: 2em; }
+            .header-profile h2 { font-size: 1.2em; }
+            .contact-info { flex-direction: column; gap: 10px; }
+            .nav-link { font-size: 0.9em; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="main-header">
+    <nav class="nav-links">
+        <a href="main.html" class="nav-link" id="nav-home">الرئيسية</a>
+        <a href="dr.html" class="nav-link" id="nav-faculty">أعضاء هيئة التدريس</a>
+        <a href="call.html" class="nav-link" id="nav-contact">استفسار</a>
+    </nav>
+</header>
+
+<div class="cv-container">
+    <div class="header-profile animated" style="--animation-delay: 0.2s;">
+        <img src="eman.jpeg" alt="صورة د. إيمان إبراهيم الشيكي مجاهد" class="profile-img">
+        <h1>د. إيمان إبراهيم الشبكي مجاهد</h1>
+        <h2>مدرس بقسم الاجتماع - جامعة الأزهر</h2>
+        <div class="contact-info">
+            <span><i class="fas fa-envelope"></i> <a href="mailto:Emanelshopaky370@gmail.com">Emanelshopaky370@gmail.com</a></span>
+            <span><i class="fas fa-phone"></i> <a href="tel:+201093952700">+201093952700</a></span>
+            <span><i class="fab fa-linkedin"></i> <a href="#" target="_blank">LinkedIn</a></span>
+            <span><i class="fas fa-flask"></i> <a href="#" target="_blank">ResearchGate</a></span>
+        </div>
+        <a href="#" download class="download-btn">
+            <i class="fas fa-download"></i> تنزيل السيرة الذاتية (PDF)
+        </a>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 0.4s;">
+        <h3 class="section-title">نبذة عني</h3>
+        <p style="font-size: 1em; color: var(--text-color); margin-top: 5px;">
+            مدرس متخصص في علم اجتماع التنمية، بخبرة أكاديمية تزيد عن 10 سنوات في مجال البحث والتدريس. أركز على دراسة القضايا الاجتماعية المعاصرة مثل التغيرات الثقافية، الأمن الاجتماعي، والتحديات المجتمعية، مع السعي لتقديم حلول قائمة على البحث العلمي.
+        </p>
+    </div>
+
+    <div class="section animated" style="--animation-delay: 0.6s;">
+        <h3 class="section-title" id="education-title">الدرجات العلمية</h3>
+        <div class="cv-item">
+            <h3>الإجازة العالية (ليسانس)، اجتماع</h3>
+            <p>جامعة الأزهر</p>
+            <span>2005 - جيد جداً مع مرتبة الشرف</span>
+        </div>
+        <div class="cv-item">
+            <h3>ماجستير، علم الاجتماع</h3>
+            <p>جامعة الأزهر</p>
+            <span>2017 - امتياز</span>
+        </div>
+        <div class="cv-item">
+            <h3>دكتوراه، علم اجتماع التنمية</h3>
+            <p>جامعة الأزهر</p>
+            <span>2022 - امتياز مع التوصية بتبادل الرسالة بين الجامعات</span>
+        </div>
+    </div>
+
+    <div class="section animated" style="--animation-delay: 0.8s;">
+        <h3 class="section-title" id="experience-title">الخبرة المهنية</h3>
+        <div class="cv-item">
+            <h3>مدرس</h3>
+            <p>قسم الاجتماع بالكلية</p>
+            <span>من 2022/10 حتى الآن</span>
+        </div>
+        <div class="cv-item">
+            <h3>مدرس مساعد</h3>
+            <p>قسم الاجتماع بالكلية</p>
+            <span>من 14/5/2017 إلى 2022</span>
+        </div>
+        <div class="cv-item">
+            <h3>معيدة</h3>
+            <p>قسم الاجتماع بالكلية</p>
+            <span>من 2012 إلى 2017</span>
+        </div>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 1s;">
+        <h3 class="section-title">المهارات</h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span class="skill-tag">البحث العلمي المنهجي</span>
+            <span class="skill-tag">تطبيقات SPSS</span>
+            <span class="skill-tag">إدارة الجودة في التعليم العالي</span>
+            <span class="skill-tag">تصميم البحوث</span>
+            <span class="skill-tag">مهارات العرض الفعال</span>
+        </div>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 1.2s;">
+        <h3 class="section-title">الاهتمامات البحثية</h3>
+        <p style="font-size: 1em; color: var(--text-color); margin-top: 5px;">
+            تتمحور اهتماماتي البحثية حول التغيرات الاجتماعية والثقافية في المجتمع المصري، الأمن الاجتماعي، والعلاقة بين الظواهر المجتمعية المعاصرة وعلم الاجتماع، بالإضافة إلى القضايا المتعلقة بالمرأة والأسرة.
+        </p>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 1.4s;">
+        <h3 class="section-title" id="research-title">الأبحاث والمنشورات</h3>
+        <button class="show-more-btn" id="toggle-research-btn">عرض المزيد</button>
+    </div>
+</div>
+
+<div id="research-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" id="close-research-btn">&times;</span>
+        <h3 class="section-title">جميع الأنشطة والمنشورات</h3>
+        
+        <div class="cv-item research-item">
+            <h4>رسائل علمية</h4>
+            <p><b>رسالة الماجستير:</b> "ظاهرة انتشار المقاهي والإقبال عليها في ضوء التغيرات الثقافية في المجتمع المصري"</p>
+            <p><b>رسالة الدكتوراه:</b> "سياسات التنمية الاجتماعية ودورها في تحقيق الأمن الاجتماعي"</p>
+            <p><b>بحث:</b> "المسئولية الاجتماعية لجامعة الأزهر في تنمية مواردها البشرية"</p>
+        </div>
+        
+        <div class="cv-item research-item">
+            <h4>الدورات والأنشطة التدريبية</h4>
+            <p><b>2015:</b> "البحث الكيفي العلوم الاجتماعية" - مركز البحوث والدراسات الاجتماعية</p>
+            <p><b>2016:</b> "التأسيس المنهجي في العلوم الاجتماعية" - مركز البحوث والدراسات الاجتماعية</p>
+            <p><b>2016:</b> "بنك المعرفة المصري" - كلية الدراسات الإنسانية</p>
+            <p><b>2017:</b> "مرجعة التراث البحثي" - مركز البحوث والدراسات الاجتماعية</p>
+            <p><b>2017:</b> "إعداد الدراسة الذاتية لمؤسسات التعليم العالي" - مركز ضمان الجودة بجامعة الزقازيق</p>
+            <p><b>2019:</b> "فنيات المراجعة والتقييم لنظام إدارة الجودة" - مركز A2Z بالتعاون مع الكلية</p>
+            <p><b>2019:</b> "المراجعة الداخلية لمؤسسات التعليم العالي" - مركز ضمان الجودة بجامعة الزقازيق</p>
+            <p><b>2019:</b> "بنك المعرفة المصري Research Quality & Performance" - كلية طب بنين الأزهر - دمياط</p>
+            <p><b>2021:</b> "بناء البرامج التعليمية في ضوء المعايير الأكاديمية" - مركز ضمان الجودة بجامعة الزقازيق</p>
+            <p><b>2021:</b> "المدير الفعال للوحدات المستحدثة" - مركز ضمان الجودة بجامعة الزقازيق</p>
+            <p><b>2021:</b> "مقاربات التحليل المركب واستعمالاتها المنهجية" - منصة الباحثين والأكاديميين- إيفاد</p>
+            <p><b>2021:</b> "تطبيقات عملية لمقياس ليكرت الخماسي" - تطبيق زووم</p>
+            <p><b>2022:</b> "مهارات المشاركة في المؤتمرات والندوات العلمية" - منصة الباحثين والأكاديميين- إيفاد</p>
+            <p><b>2022:</b> "البيانات الضخمة واستخداماتها في البحوث" - منصة الباحثين والأكاديميين- إيفاد</p>
+            <p><b>2022:</b> "بوصلة الباحث العلمي" - منصة الباحثين والأكاديميين- إيفاد</p>
+            <p><b>2023:</b> "توصيف البرامج والمقررات" - مركز ضمان الجودة بجامعة الأزهر</p>
+            <p><b>2023:</b> "إعداد الدراسة الذاتية لمؤسسات التعليم العالي" - مركز ضمان الجودة بجامعة الأزهر</p>
+            <p><b>2023:</b> "نظم الامتحانات وتقويم الطلاب" - مركز ضمان الجودة بجامعة الأزهر</p>
+            <p><b>2023:</b> "فنيات تصميم البحوث العلمية" - مركز ضمان الجودة بجامعة الأزهر</p>
+            <p><b>2023:</b> "مهارات العرض الفعال" - مركز ضمان الجودة بجامعة الأزهر</p>
+        </div>
+
+        <div class="cv-item research-item">
+            <h4>المؤتمرات العلمية</h4>
+            <p><b>2019:</b> "المؤتمر الأول لرواد ومبدري التربية الخاصة ومعلمي" - المنزلة - دقهلية</p>
+            <p><b>2025:</b> "الذكاء الاصطناعي في ظل الذكاء الاصطناعي" - كلية الدراسات الإنسانية - بنات - القاهرة</p>
+        </div>
+
+        <div class="cv-item research-item">
+            <h4>الأنشطة المجتمعية</h4>
+            <p><b>2021:</b> ندوة عن العنف ضد المرأة - المجلس القومي للمرأة، المنصورة</p>
+            <p><b>2021:</b> ندوة عن ختان الإناث - المجلس القومي للمرأة، مركز شباب الاتحاد</p>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Intersection Observer للرسوم المتحركة عند التمرير
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animated').forEach(section => {
+            observer.observe(section);
+        });
+
+        // وظائف النافذة المنبثقة (Modal)
+        const toggleBtn = document.getElementById('toggle-research-btn');
+        const modal = document.getElementById('research-modal');
+        const closeBtn = document.getElementById('close-research-btn');
+
+        if (toggleBtn && modal && closeBtn) {
+            toggleBtn.addEventListener('click', () => {
+                modal.style.display = 'flex';
+            });
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+            window.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+    });
+</script>
+<script src="auth-check.js"></script>
+
+</body>
+</html>

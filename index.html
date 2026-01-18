@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+
+     <meta name="google-site-verification" content="nHYaRRR86YibkzP5B7JrOSyMhFKbSSsfp0lDxmdWcZo" />
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كلية الدراسات الإنسانية - قسم علم الاجتماع </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #0d47a1;
+            --secondary: #6c757d;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 25px;
+        }
+        
+        .welcome-text {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .welcome-text h2 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .welcome-text p {
+            color: var(--dark);
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .login-btn {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+        }
+        
+        .login-btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        .skip-btn {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .skip-btn:hover {
+            background: var(--light);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--white);
+            margin-top: 20px;
+        }
+        
+        .footer p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>كلية الدراسات الإنسانية</h1>
+            <p>نظام إدارة المحتوى والموارد التعليمية</p>
+        </div>
+        
+        <div class="content">
+            <div class="welcome-text">
+                <h2>مرحباً بك في نظامنا</h2>
+                <p>يمكنك تسجيل الدخول للوصول إلى المحتوى المخصص لك، أو تصفح المحتوى العام</p>
+            </div>
+            
+            <div class="options">
+                <button class="btn login-btn" onclick="navigateToLogin()">
+                    <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+                </button>
+                <button class="btn skip-btn" onclick="navigateToMain()">
+                    <i class="fas fa-forward"></i> تصفح كزائر
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>جميع الحقوق محفوظة © كلية الدراسات الإنسانية 2025</p>
+        <p></p>
+    </div>
+
+    <script>
+        function navigateToLogin() {
+            window.location.href = "auth.html";
+        }
+        
+        function navigateToMain() {
+            window.location.href = "main.html";
+        }
+    </script>
+</body>
+
+</html>

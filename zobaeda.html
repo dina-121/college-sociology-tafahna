@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>د. زبيدة محمد محمد عزام | سيرة ذاتية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #0d47a1;
+            --secondary-color: #e3f2fd;
+            --text-color: #212121;
+            --sub-text-color: #757575;
+            --section-title-color: #1a237e;
+            --border-color: #e0e0e0;
+            --highlight-color: #007bff;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            text-align: right;
+            overflow-x: hidden;
+        }
+
+        .main-header {
+            background-color: #fff;
+            padding: 15px 5%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: 600;
+            transition: color 0.3s, transform 0.3s;
+            position: relative;
+        }
+        .nav-link:hover {
+            color: var(--section-title-color);
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeInSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animated {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .animated.visible {
+            animation: fadeInSlideUp 0.8s ease-out forwards;
+        }
+
+        .cv-container {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 40px;
+        }
+        
+        .header-profile {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--primary-color);
+            margin-bottom: 30px;
+        }
+        .profile-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 5px solid var(--primary-color);
+            object-fit: cover;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+        .header-profile h1 {
+            font-size: 2.8em;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin: 0;
+        }
+        .header-profile h2 {
+            font-size: 1.4em;
+            color: var(--section-title-color);
+            font-weight: 500;
+            margin: 5px 0 10px;
+        }
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 1em;
+            color: var(--sub-text-color);
+        }
+        .contact-info span {
+            display: flex;
+            align-items: center;
+        }
+        .contact-info i {
+            margin-left: 8px;
+            color: var(--primary-color);
+        }
+        .contact-info a {
+            color: var(--sub-text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .contact-info a:hover {
+            color: var(--highlight-color);
+        }
+        .contact-info .fa-linkedin, .contact-info .fa-flask {
+            color: var(--highlight-color);
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+        .section-title {
+            font-size: 1.8em;
+            color: var(--section-title-color);
+            font-weight: 700;
+            border-right: 4px solid var(--primary-color);
+            padding-right: 15px;
+            margin-bottom: 20px;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding-right: 0;
+            margin: 0;
+        }
+        ul li {
+            margin-bottom: 15px;
+            padding-right: 20px;
+            position: relative;
+        }
+        ul li::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--primary-color);
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: 1.1em;
+        }
+        
+        .cv-item {
+            margin-bottom: 25px;
+        }
+        .cv-item h3, .cv-item h4 {
+            font-size: 1.2em;
+            color: var(--text-color);
+            font-weight: 600;
+            margin: 0 0 5px;
+        }
+        .cv-item p {
+            margin: 0;
+            color: var(--sub-text-color);
+        }
+        .cv-item span {
+            font-style: italic;
+            font-size: 0.9em;
+            color: var(--sub-text-color);
+        }
+        
+        .skill-tag {
+            background-color: var(--border-color);
+            color: var(--text-color);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            transition: background-color 0.3s, color 0.3s;
+            margin: 4px;
+        }
+        .skill-tag:hover {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .show-more-btn {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            font-size: 1em;
+        }
+        .show-more-btn:hover {
+            background-color: var(--section-title-color);
+            transform: translateY(-2px);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeInSlideUp 0.5s ease-out;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: fadeInSlideUp 0.6s ease-out;
+        }
+        .close-btn {
+            color: var(--sub-text-color);
+            font-size: 30px;
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .close-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .download-btn {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .download-btn:hover {
+            background-color: var(--section-title-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        @media (max-width: 768px) {
+            body { font-size: 14px; }
+            .cv-container { padding: 20px; margin: 20px auto; }
+            .header-profile h1 { font-size: 2em; }
+            .header-profile h2 { font-size: 1.2em; }
+            .contact-info { flex-direction: column; gap: 10px; }
+            .nav-link { font-size: 0.9em; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="main-header">
+    <nav class="nav-links">
+        <a href="main.html" class="nav-link" id="nav-home">الرئيسية</a>
+        <a href="dr.html" class="nav-link" id="nav-faculty">أعضاء هيئة التدريس</a>
+        <a href="call.html" class="nav-link" id="nav-contact">استفسار</a>
+    </nav>
+</header>
+
+<div class="cv-container">
+    <div class="header-profile animated" style="--animation-delay: 0.2s;">
+        <img src="zobaeda.png" alt="صورة د. زبيدة محمد محمد عزام" class="profile-img">
+        <h1>د. زبيدة محمد محمد عزام</h1>
+        <h2>أستاذ مساعد بقسم الاجتماع</h2>
+        <div class="contact-info">
+            <span><i class="fas fa-envelope"></i> <a href="mailto:Drzobida1@gmail.com">Drzobida1@gmail.com</a></span>
+            <span><i class="fas fa-phone"></i> <a href="tel:+201019937888">01019937888</a></span>
+        </div>
+        <a href="[مسار-السيرة-الذاتية].pdf" download class="download-btn">
+            <i class="fas fa-download"></i> تنزيل السيرة الذاتية (PDF)
+        </a>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 0.4s;">
+        <h3 class="section-title">نبذة عني</h3>
+        <p style="font-size: 1em; color: var(--text-color); margin-top: 5px;">
+            أستاذ مساعد بقسم الاجتماع، متخصص في علم الاجتماع الحضري. أمتلك خبرة أكاديمية تزيد عن 22 عامًا في التدريس والبحث والإشراف على الرسائل العلمية. أركز في أبحاثي على قضايا التنمية، والآثار الاجتماعية للتكنولوجيا، ودراسات المرأة.
+        </p>
+    </div>
+
+    <div class="section animated" style="--animation-delay: 0.6s;">
+        <h3 class="section-title" id="education-title">الدرجات العلمية</h3>
+        <div class="cv-item">
+            <h3>ليسانس، اجتماع</h3>
+            <p>جامعة طنطا</p>
+            <span>1993 | تقدير: جيد</span>
+        </div>
+        <div class="cv-item">
+            <h3>ماجستير، اجتماع</h3>
+            <p>جامعة طنطا</p>
+            <span>2000 | تقدير: ممتاز</span>
+        </div>
+        <div class="cv-item">
+            <h3>دكتوراه، اجتماع</h3>
+            <p>جامعة طنطا</p>
+            <span>2006 | تقدير: ممتاز مع مرتبة الشرف</span>
+        </div>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 0.8s;">
+        <h3 class="section-title" id="experience-title">الخبرة المهنية</h3>
+        <div class="cv-item">
+            <h3>معلم (أخصائي اجتماعي)</h3>
+            <p>وزارة التربية والتعليم - محافظة كفر الشيخ</p>
+            <span>2003 - 1994</span>
+        </div>
+        <div class="cv-item">
+            <h3>مدرس مساعد</h3>
+            <p>كلية الدراسات الإنسانية - تفهنا الأشراف</p>
+            <span>2007 - 2003</span>
+        </div>
+        <div class="cv-item">
+            <h3>مدرس</h3>
+            <p>كلية الدراسات الإنسانية - تفهنا الأشراف</p>
+            <span>2018 - 2008</span>
+        </div>
+        <div class="cv-item">
+            <h3>أستاذ مساعد</h3>
+            <p>كلية الدراسات الإنسانية - تفهنا الأشراف</p>
+            <span>2018 - حتى الآن</span>
+        </div>
+    </div>
+
+    <div class="section animated" style="--animation-delay: 1s;">
+        <h3 class="section-title">المهارات والأنشطة التدريبية</h3>
+        <ul id="visible-skills-list">
+            <li>التحول الرقمي - وزارة الاتصالات وتكنولوجيا المعلومات (2023/3/5)</li>
+            <li>الذكاء الاصطناعي (AI) - وزارة الاتصالات وتكنولوجيا المعلومات (2023/3/11)</li>
+        </ul>
+        <button class="show-more-btn" id="toggle-skills-btn">عرض المزيد</button>
+        <div id="hidden-skills-section">
+            <ul>
+                <li>تنمية مهارات معلم تعليم الكبار - جامعة الأزهر - الوجه البحري (2022/3/2)</li>
+                <li>بناء البرامج التعليمية في ضوء المعايير الأكاديمية - جامعة الأزهر (2021/2/18)</li>
+                <li>إدارة الأزمات والكوارث - مركز ضمان الجودة والتدريب (2021/12/4)</li>
+                <li>تنمية المهارات الإدارية والقانونية - جامعة الأزهر - مركز ضمان الجودة والتدريب (2021/12/1)</li>
+                <li>الإدارة الفعالة للوقت وضغوط العمل - جامعة الأزهر - مركز ضمان الجودة والتدريب (2021/12/7)</li>
+                <li>التخطيط الاستراتيجي - جامعة الأزهر - مركز ضمان الجودة والتدريب (2021)</li>
+                <li>كيفية إعداد الاختبار الإلكتروني وتصحيحه - كلية الدراسات الإنسانية - تفهنا الأشراف (2022)</li>
+                <li>ندوة: التواصل بين الوالدين من أجل التربية الإيجابية للأطفال - كلية الدراسات الإنسانية - تفهنا الأشراف (2025/2/27)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section animated" style="--animation-delay: 1.2s;">
+        <h3 class="section-title">المشاركات العلمية والعملية</h3>
+        <ul>
+            <li><b>مؤتمر:</b> المؤتمر الدولي للدراسات الإنسانية - جامعة الأزهر بالقاهرة. <b>عنوان المشاركة:</b> الذكاء الاصطناعي "التحديات والفرص رؤية مستقبلية". <b>نوع المشاركة:</b> بحث. (فبراير 2025)</li>
+            <li><b>مشاركة مجتمعية:</b> مشروع محو الأمية وتعليم الكبار. <b>نوع المشاركة:</b> عضو منسق. (2019-2025)</li>
+            <li><b>لجنة:</b> لجنة الدراسات العليا. <b>نوع المشاركة:</b> عضو. (2024)</li>
+            <li><b>لجنة:</b> لجنة الشكاوي والمقترحات. <b>نوع المشاركة:</b> رئيس اللجنة. (2023)</li>
+        </ul>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 1.4s;">
+        <h3 class="section-title" id="research-title">الأبحاث العلمية المنشورة</h3>
+        <button class="show-more-btn" id="toggle-research-btn">عرض المزيد</button>
+    </div>
+</div>
+
+<div id="research-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" id="close-research-btn">&times;</span>
+        <h3 class="section-title">جميع الأبحاث والمنشورات</h3>
+        
+        <div class="cv-item research-item">
+            <h4>"البيئة الاجتماعية ودورها في تحقيق الإبداع لدى المرأة المصرية 'رؤية سوسيولوجية'"</h4>
+            <p>مجلة الإستواء، مجلة علمية دولية محكمة سنوية - مركز البحوث والدراسات الأندونيسية - جامعة قناة السويس</p>
+            <span>تاريخ النشر: يونيو ٢٠٢٢، العدد ٢٤</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>"الشباب وريادة الأعمال الاجتماعية المستندة إلى القيم الإسلامية: دراسة على عينة من شباب الخريجين في المجتمع المصري"</h4>
+            <p>مجلة الإستواء، مجلة علمية دولية محكمة سنوية - مركز البحوث والدراسات الأندونيسية - جامعة قناة السويس</p>
+            <span>تاريخ النشر: ٢٠٢٢، العدد ٢٧</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>"اتجاهات طلاب جامعة الأزهر نحو تطبيق الذكاء الاصطناعي في التعليم 'دراسة سوسيولوجية'"</h4>
+            <p>مجلة العلوم التربوية - كلية الدراسات العليا للتربية - جامعة القاهرة</p>
+            <span>تاريخ النشر: أبريل ٢٠٢٤، المجلد ٢٢، العدد ٢، جزء ٣</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>"التنمر الوظيفي وعلاقته ببعض العمليات الاجتماعية في بيئة العمل 'مجال التعليم الجامعي نموذجاً'"</h4>
+            <p>مجلة التربية - كلية التربية - جامعة الأزهر</p>
+            <span>تاريخ النشر: يوليو ٢٠٢٤، المجلد ٥، العدد ٥</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>"العوامل الاجتماعية المرتبطة بالإقبال على إجراء الجراحات الروبوتية 'دراسة حالة لعينة من المرضى'"</h4>
+            <p>مجلة التربية - كلية التربية - جامعة الأزهر</p>
+            <span>تاريخ النشر: يناير ٢٠٢٥، المجلد ١، العدد ٢٥</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>"رأس المال البشري وعلاقته بالتنمية المستدامة في ظل المجتمع الرقمي 'دراسة تطبيقية على المنطقة'"</h4>
+            <p>مجلة قطاع الدراسات الإنسانية - جامعة الأزهر</p>
+            <span>تاريخ النشر: يونيو ٢٠٢٥، المجلد ٣٥، العدد ١</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Intersection Observer للرسوم المتحركة عند التمرير
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animated').forEach(section => {
+            observer.observe(section);
+        });
+
+        // وظائف النافذة المنبثقة للأبحاث (Modal)
+        const toggleResearchBtn = document.getElementById('toggle-research-btn');
+        const researchModal = document.getElementById('research-modal');
+        const closeResearchBtn = document.getElementById('close-research-btn');
+
+        if (toggleResearchBtn && researchModal && closeResearchBtn) {
+            toggleResearchBtn.addEventListener('click', () => {
+                researchModal.style.display = 'flex';
+            });
+            closeResearchBtn.addEventListener('click', () => {
+                researchModal.style.display = 'none';
+            });
+        }
+        
+        // وظائف إظهار/إخفاء المهارات
+        const toggleSkillsBtn = document.getElementById('toggle-skills-btn');
+        const hiddenSkillsSection = document.getElementById('hidden-skills-section');
+
+        if (toggleSkillsBtn && hiddenSkillsSection) {
+            toggleSkillsBtn.addEventListener('click', () => {
+                const isHidden = hiddenSkillsSection.style.display === 'none' || hiddenSkillsSection.style.display === '';
+                hiddenSkillsSection.style.display = isHidden ? 'block' : 'none';
+                toggleSkillsBtn.textContent = isHidden ? 'إخفاء' : 'عرض المزيد';
+            });
+            // إخفاء القائمة عند تحميل الصفحة
+            hiddenSkillsSection.style.display = 'none';
+        }
+        
+        window.addEventListener('click', (event) => {
+            if (event.target === researchModal) {
+                researchModal.style.display = 'none';
+            }
+        });
+    });
+</script>
+</body>
+</html>

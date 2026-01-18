@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>د. منال رجب عبد الله عبد الجليل | سيرة ذاتية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #0d47a1; /* أزرق داكن */
+            --secondary-color: #e3f2fd; /* أزرق فاتح */
+            --text-color: #212121;
+            --sub-text-color: #757575;
+            --section-title-color: #1a237e; /* أزرق أغمق للعناوين */
+            --border-color: #e0e0e0;
+            --highlight-color: #007bff; /* لون التمييز */
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            text-align: right;
+            overflow-x: hidden;
+        }
+
+        /* --- الهيدر (شريط التنقل) --- */
+        .main-header {
+            background-color: #fff;
+            padding: 15px 5%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: 600;
+            transition: color 0.3s, transform 0.3s;
+            position: relative;
+        }
+        .nav-link:hover {
+            color: var(--section-title-color);
+            transform: scale(1.05);
+        }
+
+        /* --- الحركات --- */
+        @keyframes fadeInSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animated {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .animated.visible {
+            animation: fadeInSlideUp 0.8s ease-out forwards;
+        }
+
+        /* --- الحاوية الرئيسية --- */
+        .cv-container {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 40px;
+        }
+        
+        /* --- قسم المعلومات الشخصية --- */
+        .header-profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--primary-color);
+            margin-bottom: 30px;
+        }
+        .header-profile h1 {
+            font-size: 2.8em;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin: 0;
+        }
+        .header-profile h2 {
+            font-size: 1.4em;
+            color: var(--section-title-color);
+            font-weight: 500;
+            margin: 5px 0 10px;
+        }
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 1em;
+            color: var(--sub-text-color);
+        }
+        .contact-info span {
+            display: flex;
+            align-items: center;
+        }
+        .contact-info i {
+            margin-left: 8px;
+            color: var(--primary-color);
+        }
+        .contact-info a {
+            color: var(--sub-text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .contact-info a:hover {
+            color: var(--highlight-color);
+        }
+        
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-color);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        /* --- أقسام السيرة الذاتية --- */
+        .section {
+            margin-bottom: 40px;
+        }
+        .section-title {
+            font-size: 1.8em;
+            color: var(--section-title-color);
+            font-weight: 700;
+            border-right: 4px solid var(--primary-color);
+            padding-right: 15px;
+            margin-bottom: 20px;
+        }
+        
+        /* --- القوائم والعناصر --- */
+        .cv-item {
+            margin-bottom: 25px;
+            border-right: 2px solid var(--border-color);
+            padding-right: 15px;
+            transition: border-color 0.3s ease;
+        }
+        .cv-item:hover {
+            border-color: var(--highlight-color);
+        }
+        .cv-item h3, .cv-item h4 {
+            font-size: 1.2em;
+            color: var(--text-color);
+            font-weight: 600;
+            margin: 0 0 5px;
+        }
+        .cv-item p {
+            margin: 0;
+            color: var(--sub-text-color);
+        }
+        .cv-item span {
+            font-style: italic;
+            font-size: 0.9em;
+            color: var(--sub-text-color);
+        }
+        .bio-text {
+            color: var(--sub-text-color);
+            font-size: 1.1em;
+            text-align: justify;
+            margin-top: 10px;
+        }
+        
+        /* تنسيق القوائم لجميع العناصر */
+        .list-unstyled {
+            list-style-type: none;
+            padding-right: 0;
+        }
+        .list-unstyled li {
+            margin-bottom: 15px;
+            padding-right: 25px;
+            position: relative;
+        }
+        .list-unstyled li .fa-check-circle {
+            position: absolute;
+            right: 0;
+            top: 5px;
+            color: var(--highlight-color);
+        }
+        
+        /* تصميم الاستجابة للهواتف */
+        @media (max-width: 768px) {
+            body { font-size: 14px; }
+            .cv-container { padding: 20px; margin: 20px auto; }
+            .header-profile h1 { font-size: 2em; }
+            .header-profile h2 { font-size: 1.2em; }
+            .contact-info { flex-direction: column; gap: 10px; }
+            .nav-link { font-size: 0.9em; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="main-header">
+    <nav class="nav-links">
+        <a href="#about" class="nav-link">السيرة الذاتية</a>
+    </nav>
+</header>
+
+<div class="cv-container">
+    <div class="header-profile animated" style="--animation-delay: 0.2s;">
+        <img src="manal.png" alt="صورة شخصية" class="profile-photo">
+        <h1>د. منال رجب عبد الله عبد الجليل</h1>
+        <h2>أستاذ مساعد - علم الاجتماع الاقتصادي</h2>
+        <div class="contact-info">
+            <span><i class="fas fa-envelope"></i> <a href="mailto:Dr.manalragab@yahoo.com">Dr.manalragab@yahoo.com</a></span>
+            <span><i class="fas fa-phone"></i> ٠١٠٢١٩٧٤١١٤</span>
+            <span><i class="fas fa-building"></i> جهة العمل: كلية الدراسات الإنسانية بنات تفهنا الأشراف - جامعة الأزهر</span>
+            <!-- <span><i class="fas fa-calendar-alt"></i> تاريخ الميلاد: ١٩٧٧/١٢/٢</span> -->
+            <span><i class="fas fa-map-marker-alt"></i> العنوان: عزبة الفقي / تتا - غمرين مركز منوف - محافظة المنوفية</span>
+        </div>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 0.6s;">
+        <h3 class="section-title">التدرج الوظيفي</h3>
+        <ul class="list-unstyled">
+            <li>
+                <div class="cv-item">
+                    <h4>مدرس</h4>
+                    <p>كلية الدراسات الانسانية - تفهنا الاشراف</p>
+                    <span>٢٠١٤ إلى الآن</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    <h4>مدرس مساعد</h4>
+                    <p>كلية الدراسات الانسانية - تفهنا الاشراف</p>
+                    <span>٢٠٠٧ - ٢٠١٤</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    <h4>معيد</h4>
+                    <p>كلية الدراسات الانسانية - تفهنا الاشراف</p>
+                    <span>٢٠٠٢ - ٢٠٠٧</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 0.8s;">
+        <h3 class="section-title">الدرجات العلمية الأساسية</h3>
+        <ul class="list-unstyled">
+            <li>
+                <div class="cv-item">
+                    <h4>الدكتوراه</h4>
+                    <p>جامعة الأزهر</p>
+                    <span>سنة الحصول: ٢٠١٤</span>
+                    <span>التقدير: مرتبة الشرف الأولى</span>
+                    [cite_start]<p>عنوان الرسالة: الأبعاد الاجتماعية والاقتصادية لاتفاقية الكويز "دراسة سيسولوجية لمناطق صناعية مؤهلة" [cite: 57, 58, 59]</p>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    <h4>الماجستير</h4>
+                    <p>جامعة الأزهر</p>
+                    <span>سنة الحصول: ٢٠٠٧</span>
+                    <span>التقدير: ممتاز</span>
+                    [cite_start]<p>عنوان الرسالة: تدريب العمالة الفتية في المؤسسات الصناعية وعلاقتها ببعض المتغيرات الاجتماعية والثقافية "دراسة ميدانية لمنشأة صناعية" [cite: 54, 55, 56]</p>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    <h4>الليسانس</h4>
+                    <p>جامعة الأزهر</p>
+                    <span>سنة الحصول: ٢٠٠٠</span>
+                    <span>التقدير: جيد جدا مع مرتبة الشرف</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="section animated" style="--animation-delay: 1s;">
+        <h3 class="section-title">الأبحاث العلمية</h3>
+        <ul class="list-unstyled">
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>دور أستاذ الجامعة في تكوين رأس المال الاجتماعي وانعكاساته علي الطالبة الجامعية [cite: 130]</h4>
+                    [cite_start]<p>مجلة البحث العلمي في التربية [cite: 130]</p>
+                    [cite_start]<span>تاريخ النشر: يونيو ٢٠١٧ [cite: 130]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>دور الشراكة المجتمعية في الحد من مشكلات المرأة الريفية حديثة الزواج [cite: 145]</h4>
+                    [cite_start]<p>مجلة التربية - كلية التربية للبنين بالقاهرة - جامعة الأزهر [cite: 145]</p>
+                    [cite_start]<span>تاريخ النشر: أغسطس ٢٠٢٠ [cite: 145]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>أسباب حرمان المرأة من ميراثها من وجهة نظر أعضاء هيئة التدريس والهيئة المعاونة بجامعة الأزهر ودور المؤسسات التربوية في التغلب عليها [cite: 145]</h4>
+                    [cite_start]<p>مجلة التربية - كلية التربية للبنين بالقاهرة - جامعة الأزهر [cite: 145]</p>
+                    [cite_start]<span>تاريخ النشر: أكتوبر ٢٠٢١ [cite: 145]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>الحوار الزواجي وعلاقته بالمشاركة الوالدية للزوج وقوة الأنا لدي عينة من أمهات رياض الأطفال [cite: 145]</h4>
+                    [cite_start]<p>مجلة قطاع الدراسات الإنسانية - جامعة الأزهر [cite: 145]</p>
+                    [cite_start]<span>تاريخ النشر: يونيو ٢٠٢٣ [cite: 145]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>دور برنامج تكافل وكرامة في تعزيز الاندماج الاجتماعي للفئات الفقيرة [cite: 145]</h4>
+                    [cite_start]<p>مجلة قطاع الدراسات الإنسانية - جامعة الأزهر [cite: 145]</p>
+                    [cite_start]<span>تاريخ النشر: يونيو - العدد ٣١ [cite: 145]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>اتجاهات طلاب جامعة الأزهر نحو تطبيق الذكاء الاصطناعي في التعليم دراسة سسيولوجية [cite: 145]</h4>
+                    [cite_start]<p>مجلة العلوم التربوية - كلية الدراسات العليا للتربية - جامعة القاهرة [cite: 145]</p>
+                    [cite_start]<span>تاريخ النشر: إبريل ٢٠٢٤ [cite: 145]</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 1.2s;">
+        <h3 class="section-title">المؤتمرات والندوات</h3>
+        <ul class="list-unstyled">
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>القياس والتقويم والمؤسسات التعليمية: الواقع والرؤى المستقبلية [cite: 128]</h4>
+                    <p>نوع المشاركة: حضور</p>
+                    <p>مكان الانعقاد: جامعة الزقازيق</p>
+                    [cite_start]<span>التاريخ: ٣٠ - ٣١ يوليو ٢٠١٦ [cite: 128]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>المؤتمر الدولي السادس لكلية التربية بعنوان "الشراكة المجتمعية وتطوير التعليم" [cite: 128]</h4>
+                    <p>نوع المشاركة: مشاركة</p>
+                    <p>مكان الانعقاد: كلية تربية - جامعة الأزهر</p>
+                    [cite_start]<span>التاريخ: ٢٠٢٠ [cite: 128]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>ملتقى التوظيف السنوي لتأهيل الطالبات لسوق العمل والمجالات المهنية ببرنامج علم الاجتماع [cite: 96]</h4>
+                    <p>نوع المشاركة: ندوة</p>
+                    <p>مكان الانعقاد: كلية الدراسات الإنسانية</p>
+                    [cite_start]<span>التاريخ: ٢٠٢٣ - ٢٠٢٤ [cite: 96]</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 1.4s;">
+        <h3 class="section-title">الدورات التدريبية</h3>
+        <ul class="list-unstyled">
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>دورة رفع الكفاءة العلمية للمعيدين والمدرسين المساعدين [cite: 81]</h4>
+                    <p>مكان الانعقاد: مركز البحوث والدراسات الاجتماعية، جامعة القاهرة</p>
+                    [cite_start]<span>التاريخ: ١١/١٢/٢٠٠٤ إلى ٢٠/١٢/٢٠٠٤ [cite: 81]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>الحزم المتكاملة لمؤسسات التعليم العالي [cite: 81]</h4>
+                    <p>مكان الانعقاد: الهيئة القومية لضمان جودة التعليم والاعتماد</p>
+                    [cite_start]<span>التاريخ: ١٩ يوليو ٢٠٠٩ إلى ٥ أغسطس ٢٠٠٩ [cite: 81]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>دورة تدريبية بعنوان بنك المعرفة المصري [cite: 81]</h4>
+                    <p>مكان الانعقاد: كلية الدراسات الإنسانية بتفهنا الأشراف بالدقهلية</p>
+                    [cite_start]<span>التاريخ: ١٣/٧/٢٠١٦ [cite: 81]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>برنامج تدريبي بعنوان (إعداد الدراسة الذاتية لمؤسسات التعليم العالي) [cite: 81]</h4>
+                    <p>مكان الانعقاد: جامعة الزقازيق - مركز إدارة الجودة</p>
+                    [cite_start]<span>التاريخ: ٢١/١٢/٢٠١٧ [cite: 81]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>دورة تدريبية في التنمية البشرية "كيف تكون أستاذا ناجحا" [cite: 81]</h4>
+                    <p>مكان الانعقاد: كلية الدعوة الإسلامية بالقاهرة</p>
+                    [cite_start]<span>التاريخ: ٢٦/١١/٢٠١٩ [cite: 81]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>القياس والتقويم وإعداد جدول موصفات الاختبار الجيد [cite: 81]</h4>
+                    <p>مكان الانعقاد: كلية الدراسات الإنسانية</p>
+                    [cite_start]<span>التاريخ: ١٨/٨/٢٠٢٠ [cite: 81]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>بناء البرامج التعليمية في ضوء المعايير الأكاديمية [cite: 81, 96]</h4>
+                    <p>مكان الانعقاد: جامعة الزقازيق - مركز إدارة الجودة</p>
+                    [cite_start]<span>التاريخ: ١٦-١٨/٢/٢٠٢١ [cite: 81]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>إعداد الدراسة الذاتية لمؤسسات التعليم العالي [cite: 81, 152]</h4>
+                    <p>مكان الانعقاد: مركز ضمان الجودة والتدريب</p>
+                    [cite_start]<span>التاريخ: ٢٨-٢٩/٦/٢٠٢١ [cite: 81, 152]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>فنيات تصميم وإعداد البحوث العلمية [cite: 81, 152]</h4>
+                    <p>مكان الانعقاد: مركز ضمان الجودة والتدريب</p>
+                    [cite_start]<span>التاريخ: ٣٠/٦/٢٠٢١ [cite: 81, 152]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>نظم الامتحانات وتقويم الطلاب [cite: 81, 152]</h4>
+                    <p>مكان الانعقاد: مركز ضمان الجودة والتدريب</p>
+                    [cite_start]<span>التاريخ: ١/٧/٢٠٢١ [cite: 81, 152]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>مهارات العرض الفعال [cite: 81, 152]</h4>
+                    <p>مكان الانعقاد: مركز ضمان الجودة والتدريب</p>
+                    [cite_start]<span>التاريخ: ٢/٧/٢٠٢١ [cite: 81, 152]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>كيفية إعداد الاختبار الإلكتروني وتصحيحه [cite: 96]</h4>
+                    <p>مكان الانعقاد: كلية الدراسات الإنسانية - قسم علم النفس</p>
+                    [cite_start]<span>التاريخ: ٢٠٢٢ [cite: 96]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>دورة التحول الرقمي (Digital Transformation) [cite: 96]</h4>
+                    <p>مكان الانعقاد: وزارة الاتصالات وتكنولوجيا المعلومات</p>
+                    [cite_start]<span>التاريخ: ٣/٧/٢٠٢١ [cite: 96]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>دورة الذكاء الاصطناعي (Artificial Intelligence) [cite: 96]</h4>
+                    <p>مكان الانعقاد: وزارة الاتصالات وتكنولوجيا المعلومات</p>
+                    [cite_start]<span>التاريخ: ٢٥-٢٧/٨/٢٠٢١ [cite: 96]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>نشر ثقافة الجودة للأطراف المجتمعية [cite: 96]</h4>
+                    <p>مكان الانعقاد: كلية الدراسات الإنسانية</p>
+                    [cite_start]<span>التاريخ: ٢٠٢٣ [cite: 96]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>البرنامج التدريبي لتنمية أعضاء وحدات القياس والتقويم [cite: 96]</h4>
+                    <p>مكان الانعقاد: جامعة الأزهر (مركز القياس والتقويم)</p>
+                    [cite_start]<span>التاريخ: ٣٠/١٠/٢٠٢٢ [cite: 96]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>خرائط المنهج وتوصيف المقررات [cite: 152]</h4>
+                    <p>مكان الانعقاد: مركز ضمان الجودة والتدريب</p>
+                    [cite_start]<span>التاريخ: ٢٦/٦/٢٠٢١ [cite: 152]</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 1.6s;">
+        <h3 class="section-title">المناقشات العلمية</h3>
+        <ul class="list-unstyled">
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>إشراف على رسالة ماجستير: ثقافة الحوار داخل الأسرة وعلاقتها بالبناء الطبقي [cite: 176]</h4>
+                    <p>جامعة الأزهر</p>
+                    [cite_start]<span>تاريخ المناقشة: ٢٠٢٢ [cite: 176]</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 1.8s;">
+        <h3 class="section-title">الأنشطة الطلابية</h3>
+        <ul class="list-unstyled">
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>تنظيم احتفالية الترحيب بالطالبات الجدد [cite: 169]</h4>
+                    <p>مكان الانعقاد: كلية الدراسات الإنسانية</p>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>المشاركة في المعرض الخيري للملابس [cite: 96, 169]</h4>
+                    <p>مكان الانعقاد: كلية الدراسات الإنسانية</p>
+                    [cite_start]<span>التاريخ: ١٥/٣/٢٠٢٣ [cite: 96]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>ندوة عن مهارات التواصل الفعال [cite: 169]</h4>
+                    <p>مكان الانعقاد: كلية الدراسات الإنسانية</p>
+                    [cite_start]<span>التاريخ: ٢٠٢٣ [cite: 169]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>ندوة عن الاستثمار في العنصر البشري استراتيجية البحث عن وظيفة [cite: 169]</h4>
+                    <p>مكان الانعقاد: كلية الدراسات الإنسانية</p>
+                    [cite_start]<span>التاريخ: ٢٠٢٣ [cite: 169]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>ندوة عن الزيادة السكانية وأثرها على الفرد والمجتمع [cite: 169]</h4>
+                    <p>مكان الانعقاد: كلية الدراسات الإنسانية</p>
+                    [cite_start]<span>التاريخ: ٢٠٢٢ [cite: 169]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>ندوة عن إعداد خطة بحثية في العلوم الاجتماعية [cite: 169]</h4>
+                    <p>مكان الانعقاد: كلية الدراسات الإنسانية</p>
+                    [cite_start]<span>التاريخ: ٢٠٢٣ [cite: 169]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>دورة عن مهارات استخدام الذكاء الاصطناعي في التعليم [cite: 169]</h4>
+                    <p>مكان الانعقاد: كلية الدراسات الإنسانية</p>
+                    [cite_start]<span>التاريخ: ٢٠٢٤ [cite: 169]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>ندوة عن وعي الطالبات نحو التوجه للاقتصاد الأخضر وعلاقته بالتنمية المستدامة [cite: 125, 169]</h4>
+                    <p>مكان الانعقاد: كلية الدراسات الإنسانية</p>
+                    [cite_start]<span>التاريخ: ٢٤/١١/٢٠٢٤ [cite: 125, 169]</span>
+                </div>
+            </li>
+            <li>
+                <div class="cv-item">
+                    [cite_start]<h4>عمل بنك أفكار ودراسة جدوى لمشروعات صغيرة [cite: 169]</h4>
+                    <p>مكان الانعقاد: كلية الدراسات الإنسانية</p>
+                    [cite_start]<span>التاريخ: ٢٠٢٤ [cite: 169]</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animated').forEach(section => {
+            observer.observe(section);
+        });
+    });
+</script>
+
+</body>
+</html>

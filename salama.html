@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سالمه محمد السيد جلال الشيخ | سيرة ذاتية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #0d47a1; /* أزرق داكن */
+            --secondary-color: #e3f2fd; /* أزرق فاتح */
+            --text-color: #212121;
+            --sub-text-color: #757575;
+            --section-title-color: #1a237e; /* أزرق أغمق للعناوين */
+            --border-color: #e0e0e0;
+            --highlight-color: #007bff; /* لون التمييز */
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            text-align: right;
+            overflow-x: hidden;
+        }
+
+        /* --- الهيدر (شريط التنقل) --- */
+        .main-header {
+            background-color: #fff;
+            padding: 15px 5%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: 600;
+            transition: color 0.3s, transform 0.3s;
+            position: relative;
+        }
+        .nav-link:hover {
+            color: var(--section-title-color);
+            transform: scale(1.05);
+        }
+
+        /* --- الحركات --- */
+        @keyframes fadeInSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animated {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .animated.visible {
+            animation: fadeInSlideUp 0.8s ease-out forwards;
+        }
+
+        /* --- الحاوية الرئيسية --- */
+        .cv-container {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 40px;
+        }
+        
+        /* --- قسم المعلومات الشخصية --- */
+        .header-profile {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--primary-color);
+            margin-bottom: 30px;
+        }
+        .header-profile h1 {
+            font-size: 2.8em;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin: 0;
+        }
+        .header-profile h2 {
+            font-size: 1.4em;
+            color: var(--section-title-color);
+            font-weight: 500;
+            margin: 5px 0 10px;
+        }
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 1em;
+            color: var(--sub-text-color);
+        }
+        .contact-info span {
+            display: flex;
+            align-items: center;
+        }
+        .contact-info i {
+            margin-left: 8px;
+            color: var(--primary-color);
+        }
+        .contact-info a {
+            color: var(--sub-text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .contact-info a:hover {
+            color: var(--highlight-color);
+        }
+        .contact-info .fa-location-dot {
+            color: #d32f2f; /* لون مميز للموقع */
+        }
+        
+        /* --- أقسام السيرة الذاتية --- */
+        .section {
+            margin-bottom: 40px;
+        }
+        .section-title {
+            font-size: 1.8em;
+            color: var(--section-title-color);
+            font-weight: 700;
+            border-right: 4px solid var(--primary-color);
+            padding-right: 15px;
+            margin-bottom: 20px;
+        }
+        
+        /* --- القوائم والعناصر --- */
+        ul {
+            list-style-type: none;
+            padding-right: 0;
+            margin: 0;
+        }
+        ul li {
+            margin-bottom: 15px;
+            padding-right: 20px;
+            position: relative;
+        }
+        ul li::before {
+            content: "\f058"; /* أيقونة صح */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--primary-color);
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: 1.1em;
+        }
+        
+        .cv-item {
+            margin-bottom: 25px;
+            border-right: 2px solid var(--border-color);
+            padding-right: 15px;
+            transition: border-color 0.3s ease;
+        }
+        .cv-item:hover {
+            border-color: var(--highlight-color);
+        }
+        .cv-item h3, .cv-item h4 {
+            font-size: 1.2em;
+            color: var(--text-color);
+            font-weight: 600;
+            margin: 0 0 5px;
+        }
+        .cv-item p {
+            margin: 0;
+            color: var(--sub-text-color);
+        }
+        .cv-item span {
+            font-style: italic;
+            font-size: 0.9em;
+            color: var(--sub-text-color);
+        }
+        
+        /* تصميم الاستجابة للهواتف */
+        @media (max-width: 768px) {
+            body { font-size: 14px; }
+            .cv-container { padding: 20px; margin: 20px auto; }
+            .header-profile h1 { font-size: 2em; }
+            .header-profile h2 { font-size: 1.2em; }
+            .contact-info { flex-direction: column; gap: 10px; }
+            .nav-link { font-size: 0.9em; }
+        }
+        .profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--primary-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.header-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 3px solid var(--primary-color);
+    margin-bottom: 30px;
+}
+    </style>
+</head>
+<body>
+
+<header class="main-header">
+    <nav class="nav-links">
+        <a href="main.html" class="nav-link" id="nav-home">الرئيسية</a>
+        <a href="dr.html" class="nav-link" id="nav-faculty">أعضاء هيئة التدريس</a>
+        <a href="call.html" class="nav-link" id="nav-contact">استفسار</a>
+    </nav>
+</header>
+
+<div class="header-profile animated" style="--animation-delay: 0.2s;">
+    <img src="salma.png" alt="صورة شخصية" class="profile-photo">
+    <h1>سالمه محمد السيد جلال الشيخ</h1>
+    <h2>مدرس</h2>
+    <div class="contact-info">
+        <span><i class="fas fa-envelope"></i> <a href="mailto:ONaserabdo2000@yahoo.com">ONaserabdo2000@yahoo.com</a></span>
+        <span><i class="fas fa-phone"></i> <a href="tel:+201063526332">01063526332</a></span>
+        <span><i class="fas fa-location-dot"></i> القهقيه - الرحمانية - البحيرة</span>
+    </div>
+</div>
+    
+    <div class="section animated" style="--animation-delay: 0.4s;">
+        <h3 class="section-title" id="education-title">الدرجات العلمية</h3>
+        <div class="cv-item">
+            <h4>ليسانس</h4>
+            <p>جامعة الأزهر</p>
+            <span>التخصص: اجتماع - بتقدير: جيد جدا مع مرتبة الشرف - عام: ٢٠٠٤</span>
+        </div>
+        <div class="cv-item">
+            <h4>ماجستير</h4>
+            <p>جامعة الأزهر</p>
+            <span>التخصص: اجتماع - بتقدير: ممتاز - عام: ٢٠١٧</span>
+        </div>
+        <div class="cv-item">
+            <h4>دكتوراه</h4>
+            <p>جامعة الأزهر</p>
+            <span>التخصص: النظريات الاجتماعية - بتقدير: مرتبة الشرف الأولى - عام: ٢٠٢٢</span>
+        </div>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 0.6s;">
+        <h3 class="section-title">الأبحاث والرسائل</h3>
+        <div class="cv-item">
+            <h4>عنوان رسالة الماجستير:</h4>
+            <p>مكانة المرأة في الانماط الاسرية بين التمكين والتهميش</p>
+        </div>
+        <div class="cv-item">
+            <h4>عنوان رسالة الدكتوراه:</h4>
+            <p>أزمة التنظير في البحوث الاجتماعية: دراسة ميدانية في المجتمع المصري</p>
+        </div>
+    </div>
+
+    <div class="section animated" style="--animation-delay: 0.8s;">
+        <h3 class="section-title" id="experience-title">الخبرة المهنية</h3>
+        <div class="cv-item">
+            <h4>معيد</h4>
+            <p>كلية الدراسات الإنسانية</p>
+            <span>الفترة الزمنية: ٢٠١٢-٢٠١٧</span>
+        </div>
+        <div class="cv-item">
+            <h4>مدرس مساعد</h4>
+            <p>كلية الدراسات الإنسانية</p>
+            <span>الفترة الزمنية: ٢٠١٧ إلى ٢٠٢٢</span>
+        </div>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 1s;">
+        <h3 class="section-title">الدورات والأنشطة التدريبية</h3>
+        <div class="cv-item">
+            <h4>البحث الكمي في العلوم الاجتماعية</h4>
+            <p>مركز البحوث والدراسات الاجتماعية</p>
+            <span>التاريخ: ٢٠١٥</span>
+        </div>
+        <div class="cv-item">
+            <h4>التأسيس المنهجي في العلوم الاجتماعية</h4>
+            <p>مركز البحوث والدراسات الاجتماعية</p>
+            <span>التاريخ: ٢٠١٦</span>
+        </div>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 1.2s;">
+        <h3 class="section-title">إشراف على الرسائل العلمية (دكتوراه)</h3>
+        <div class="cv-item">
+            <h4>العوامل التي تدفع الشباب للانحراف الفكري وأساليب مواجهتها في المجتمع المصري</h4>
+            <p>نوع النشاط: إشراف على رسالة دكتوراه - الكلية: كلية الدراسات الانسانية - الجامعة: جامعة الأزهر</p>
+            <span>التاريخ: ٢٠١٧</span>
+        </div>
+        <div class="cv-item">
+            <h4>التغيرات الاجتماعية والثقافية لساكني حى الأسمرات –دراسة سوسيوأنثروبولوجية</h4>
+            <p>نوع النشاط: إشراف على رسالة دكتوراه - الكلية: كلية الدراسات الانسانية - الجامعة: جامعة الأزهر</p>
+            <span>التاريخ: من ٢٠١٩ حتى ٢٠٢٢</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Intersection Observer للرسوم المتحركة عند التمرير
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animated').forEach(section => {
+            observer.observe(section);
+        });
+    });
+</script>
+<script src="auth-check.js"></script>
+
+</body>
+</html>

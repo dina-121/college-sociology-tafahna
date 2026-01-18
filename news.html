@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أخبار وإعلانات الكلية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .scroll-to-top {
+  position: fixed; /* لتثبيت الزر في مكانه على الشاشة */
+  bottom: 20px; /* المسافة من أسفل الشاشة */
+  right: 20px; /* المسافة من يمين الشاشة */
+  display: none; /* إخفاء الزر مبدئياً */
+  background-color: #007BFF; /* لون خلفية الزر */
+  color: white; /* لون أيقونة السهم */
+  border: none;
+  border-radius: 50%; /* لجعل الزر دائرياً */
+  width: 50px; /* عرض الزر */
+  height: 50px; /* ارتفاع الزر */
+  font-size: 24px; /* حجم أيقونة السهم */
+  cursor: pointer; /* تغيير شكل المؤشر عند الوقوف على الزر */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 1000; /* لضمان ظهور الزر فوق العناصر الأخرى */
+}
+
+/* تنسيق عند مرور المؤشر على الزر */
+.scroll-to-top:hover {
+  background-color: #0056b3;
+  transform: scale(1.1); /* تأثير تكبير بسيط */
+}
+        :root {
+            --primary-color: #2c7be5;
+            --primary-light: #e8f2ff;
+            --secondary-color: #6c757d;
+            --success-color: #00d97e;
+            --danger-color: #e63757;
+            --warning-color: #f6c343;
+            --info-color: #39afd1;
+            --light-color: #f9fafd;
+            --dark-color: #344050;
+            --background-color: #f5f7fb;
+            --card-bg-color: #ffffff;
+            --text-color: #344050;
+            --border-color: #e3ebf6;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Almarai', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1a68d9 100%);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            margin: 0;
+            font-weight: 800;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            border-radius: 8px;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        nav ul li a i {
+            font-size: 1.1rem;
+        }
+
+        /* Container Styles */
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .page-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .page-header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--info-color));
+            border-radius: 2px;
+        }
+
+        .page-header p {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 20px auto 0;
+        }
+
+        /* News Card Styles */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .news-card {
+            background-color: var(--card-bg-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .news-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .news-card-header {
+            padding: 20px 20px 0;
+        }
+
+        .news-card-title {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            margin: 0 0 15px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .news-card-body {
+            padding: 0 20px 20px;
+        }
+
+        .news-card-content {
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.7;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* هنا بتحدد عدد السطور، خليها 2 زي ما طلبت */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .news-card-content.expanded {
+            -webkit-line-clamp: unset;
+            text-overflow: unset;
+        }
+
+        .read-more-btn {
+            background-color: transparent;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding: 0;
+            margin-top: -10px; /* عشان يبقى قريب من النص */
+            display: inline-block;
+        }
+        
+        .read-more-btn:hover {
+            text-decoration: underline;
+        }
+        .news-card-footer {
+            background-color: var(--light-color);
+            padding: 15px 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .news-status {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-badge i {
+            margin-left: 5px;
+            font-size: 0.8rem;
+        }
+
+        .status-active {
+            background-color: rgba(0, 217, 126, 0.15);
+            color: var(--success-color);
+        }
+
+        .status-expiring {
+            background-color: rgba(246, 195, 67, 0.15);
+            color: var(--warning-color);
+        }
+
+        .status-expired {
+            background-color: rgba(230, 55, 87, 0.15);
+            color: var(--danger-color);
+        }
+
+        .news-date {
+            font-size: 0.85rem;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .news-date i {
+            margin-left: 5px;
+        }
+
+        /* Empty State & Error Message */
+        .message-state {
+            text-align: center;
+            padding: 60px 20px;
+            grid-column: 1 / -1;
+        }
+
+        .message-state i {
+            font-size: 4rem;
+            color: var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .message-state h3 {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .message-state p {
+            color: var(--secondary-color);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        /* Loader */
+        .loader {
+            display: none;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .loader i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .header-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                justify-content: center;
+            }
+            
+            .news-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 15px;
+            }
+            
+            .logo-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                gap: 10px;
+            }
+            
+            nav ul li a {
+                padding: 6px 12px;
+                font-size: 0.95rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .news-card-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.3rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .page-header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .news-card-title {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>كلية دراسات انسانيه </h1>
+                    <p>قسم علم الاجتماع </p>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="main.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+                    <!-- <li><a href="control.html"><i class="fas fa-tasks"></i> الكنترول</a></li> -->
+                    <li><a href="dr.html"><i class="fas fa-chalkboard-teacher"></i> هيئة التدريس</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> تواصل معنا</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>أحدث الأخبار والإعلانات</h1>
+            <p>تابع آخر المستجدات والأخبار الهامة في الكلية</p>
+        </div>
+        
+        <div class="news-grid" id="news-list">
+             <!-- هنا ستُعرض الأخبار والإعلانات -->
+             <div id="loader" class="loader"><i class="fas fa-sync-alt"></i></div>
+             <div id="error-message" class="message-state" style="display: none;">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>حدث خطأ في تحميل الأخبار</h3>
+                <p>يرجى المحاولة مرة أخرى لاحقًا</p>
+            </div>
+            <div id="no-content-message" class="message-state" style="display: none;">
+                <i class="fas fa-newspaper"></i>
+                <h3>لا توجد أخبار أو إعلانات حاليًا</h3>
+                <p>سيتم نشر الأخبار والإعلانات الجديدة قريباً</p>
+            </div>
+        </div>
+    </div>
+    <button id="scrollToTopBtn" class="scroll-to-top" title="العودة للأعلى">
+  &uarr;
+</button>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAfjeZnyxSnuatuX7dcXU8x6n0YssPUnvo",
+            authDomain: "college-management-syste-6a3a5.firebaseapp.com",
+            databaseURL: "https://college-management-syste-6a3a5-default-rtdb.firebaseio.com",
+            projectId: "college-management-syste-6a3a5",
+            storageBucket: "college-management-syste-6a3a5.firebasestorage.app",
+            messagingSenderId: "111562294226",
+            appId: "1:111562294226:web:4798af8021b0e234a23e0b"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth(); 
+        
+        // دالة لجلب الأخبار والإعلانات
+       // ... كود الـ JavaScript القديم ...
+
+        // دالة لجلب الأخبار والإعلانات
+        async function fetchAndDisplayNews() {
+            const newsListContainer = document.getElementById('news-list');
+            const loader = document.getElementById('loader');
+            const errorMessage = document.getElementById('error-message');
+            const noContentMessage = document.getElementById('no-content-message');
+
+            loader.style.display = 'block';
+            errorMessage.style.display = 'none';
+            noContentMessage.style.display = 'none';
+            
+            newsListContainer.innerHTML = '';
+
+            try {
+                const newsSnapshot = await db.collection('newsAndAds')
+                    .where('type', '==', 'public') 
+                    .get();
+
+                if (newsSnapshot.empty) {
+                    newsListContainer.innerHTML = '';
+                    newsListContainer.appendChild(noContentMessage); // display a message if there are no news items
+                    noContentMessage.style.display = 'block';
+                } else {
+                    const newsDataArray = [];
+                    newsSnapshot.forEach(doc => {
+                        newsDataArray.push({
+                            id: doc.id,
+                            ...doc.data()
+                        });
+                    });
+
+                    newsDataArray.sort((a, b) => {
+                        const dateA = a.publishedAt ? a.publishedAt.toDate() : new Date(0);
+                        const dateB = b.publishedAt ? b.publishedAt.toDate() : new Date(0);
+                        return dateB - dateA;
+                    });
+                    
+                    newsDataArray.forEach((newsData, index) => {
+                        const expiresAt = newsData.expiresAt ? newsData.expiresAt.toDate() : null;
+                        const now = new Date();
+                        let statusText = '';
+                        let statusClass = '';
+                        let statusIcon = '';
+
+                        if (expiresAt) {
+                            const diffHours = (expiresAt - now) / (1000 * 60 * 60);
+                            if (expiresAt < now) {
+                                statusText = 'منتهي';
+                                statusClass = 'status-expired';
+                                statusIcon = 'fas fa-times-circle';
+                            } else if (diffHours <= 72) { // 72 hours = 3 days
+                                statusText = 'قريبًا سينتهي';
+                                statusClass = 'status-expiring';
+                                statusIcon = 'fas fa-clock';
+                            } else {
+                                statusText = 'نشط';
+                                statusClass = 'status-active';
+                                statusIcon = 'fas fa-check-circle';
+                            }
+                        } else {
+                            statusText = 'نشط';
+                            statusClass = 'status-active';
+                            statusIcon = 'fas fa-check-circle';
+                        }
+                        
+                        const newsCard = document.createElement('div');
+                        newsCard.className = 'news-card';
+                        newsCard.style.animationDelay = `${index * 0.1}s`;
+
+                        // هنا بنحدد هل المحتوى طويل ولا لأ
+                        const isLongContent = newsData.content.split('\n').length > 2 || newsData.content.length > 200; // مثال: لو أكثر من سطرين أو 200 حرف
+                        
+                        newsCard.innerHTML = `
+                            <div class="news-card-header">
+                                <h2 class="news-card-title">${newsData.title}</h2>
+                            </div>
+                            <div class="news-card-body">
+                                <p class="news-card-content">${newsData.content}</p>
+                                ${isLongContent ? '<button class="read-more-btn">عرض المزيد</button>' : ''}
+                            </div>
+                            <div class="news-card-footer">
+                                <div class="news-status">
+                                    <span class="status-badge ${statusClass}">
+                                        <i class="${statusIcon}"></i> ${statusText}
+                                    </span>
+                                </div>
+                                <div class="news-date">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    ${newsData.publishedAt ? newsData.publishedAt.toDate().toLocaleString('ar-EG') : 'غير محدد'}
+                                </div>
+                            </div>
+                        `;
+                        
+                        newsListContainer.appendChild(newsCard);
+
+                        // نضيف event listener لزر "عرض المزيد"
+                        if (isLongContent) {
+                            const readMoreBtn = newsCard.querySelector('.read-more-btn');
+                            const newsContent = newsCard.querySelector('.news-card-content');
+
+                            readMoreBtn.addEventListener('click', () => {
+                                if (newsContent.classList.contains('expanded')) {
+                                    newsContent.classList.remove('expanded');
+                                    readMoreBtn.textContent = 'عرض المزيد';
+                                } else {
+                                    newsContent.classList.add('expanded');
+                                    readMoreBtn.textContent = 'إخفاء';
+                                }
+                            });
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error("Error fetching news:", error);
+                errorMessage.style.display = 'block';
+            } finally {
+                loader.style.display = 'none';
+            }
+        }
+
+        // استدعاء الدالة مباشرة عند تحميل الصفحة
+        fetchAndDisplayNews();
+
+        // استدعاء الدالة مباشرة عند تحميل الصفحة
+        fetchAndDisplayNews();
+
+        // **ملاحظة:** الكود التالي أصبح غير ضروري لأننا لا نحتاج إلى تسجيل دخول لعرض الأخبار العامة.
+        // تم تركه كتعليق فقط كمثال.
+        // auth.onAuthStateChanged((user) => {
+        //     if (!user) {
+        //         // إذا لم يكن المستخدم مسجلاً، توجيه إلى صفحة التسجيل
+        //         window.location.href = 'auth.html';
+        //     } else {
+        //         // إذا كان المستخدم مسجلاً، قم بتحميل الأخبار
+        //         fetchAndDisplayNewsForUsers();
+        //     }
+        // });
+
+        // جلب الزر من HTML باستخدام الـ ID
+const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+// إضافة حدث عند تمرير الصفحة
+window.onscroll = function() {
+  scrollFunction();
+};
+
+function scrollFunction() {
+  // إظهار الزر إذا كانت المسافة من أعلى الصفحة أكبر من 20 بيكسل
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    scrollToTopBtn.style.display = "block";
+  } else {
+    scrollToTopBtn.style.display = "none";
+  }
+}
+
+// إضافة حدث عند الضغط على الزر
+scrollToTopBtn.addEventListener("click", function() {
+  // الانتقال للأعلى بسلاسة
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+    </script>
+</body>
+</html>

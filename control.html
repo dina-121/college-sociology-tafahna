@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أرشيف الكلية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* إخفاء محتوى الصفحة في البداية لتجنب الوميض أثناء التحقق من الصلاحيات */
+        body {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.5s;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* بقية تنسيقات CSS كما هي */
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #6c757d;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --info: #17a2b8;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --white: #ffffff;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        nav ul li a {
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        nav ul li a.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            font-weight: 600;
+        }
+
+        .filter-section {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem auto;
+            max-width: 1200px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .filter-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--light-gray);
+            border-radius: 30px;
+            background: var(--white);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .filter-btn:hover:not(.active) {
+            background: var(--light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+
+        .welcome-section {
+            background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .welcome-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .welcome-section p {
+            font-size: 1.1rem;
+            max-width: 800px;
+        }
+
+        .archive-section {
+            background: #fff;
+            border-radius: 10px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .section-header h2 {
+            color: #1a73e8;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .view-all {
+            color: #1a73e8;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .item-card {
+            background-color: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            height: 100%;
+        }
+
+        .item-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .item-card h3 {
+            margin: 0;
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        .item-card p {
+            margin: 5px 0;
+            line-height: 1.6;
+            color: #666;
+            flex-grow: 1;
+        }
+
+        .item-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .item-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .badge-primary {
+            background-color: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+        }
+
+        .badge-success {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+        }
+
+        .badge-warning {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: var(--warning);
+        }
+
+        .badge-info {
+            background-color: rgba(23, 162, 184, 0.1);
+            color: var(--info);
+        }
+
+        .view-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #1a73e8;
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            align-self: flex-start;
+            transition: background-color 0.3s;
+        }
+
+        .view-btn:hover {
+            background-color: #155bb3;
+        }
+        
+        /* تنسيقات جديدة للمحتوى المخفي وزر المزيد */
+        .item-content {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2; /* عرض سطرين فقط */
+        }
+        
+        .item-card.expanded .item-content {
+            -webkit-line-clamp: unset;
+        }
+        
+        .show-more-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 5px;
+            padding: 0;
+            display: block;
+        }
+
+        .loading-state, .empty-state, .error-state {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            grid-column: 1 / -1;
+        }
+
+        .loading-state i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #1a73e8;
+            animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        footer {
+            background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 1rem 0;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        /* زر العودة للأعلى */
+        #backToTopBtn {
+            display: none; /* مخفي في البداية */
+            position: fixed; /* يبقى في نفس المكان عند التمرير */
+            bottom: 20px;
+            right: 20px;
+            z-index: 99; /* تأكد من أنه يظهر فوق المحتوى الآخر */
+            border: none;
+            outline: none;
+            background-color: var(--primary);
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        #backToTopBtn:hover {
+            background-color: var(--primary-dark);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .items-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .welcome-section p {
+                font-size: 1rem;
+            }
+
+            .filter-options {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>أرشيف الكلية</h1>
+            </div>
+            <nav>
+                <ul id="main-nav-list">
+                    <li><a href="main.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+                    <li><a href="news.html"><i class="fas fa-newspaper"></i> الأخبار</a></li>
+                    <li><a href="dr.html"><i class="fas fa-chalkboard-teacher"></i> هيئة التدريس</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> اتصل بنا</a></li>
+                    <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="filter-section">
+        <div class="filter-title">
+            <i class="fas fa-filter"></i>
+            <h3>تصفية المحتوى حسب السنة الدراسية</h3>
+        </div>
+        <div class="filter-options">
+            <button class="filter-btn active" data-department="all">
+                <i class="fas fa-layer-group"></i> الكل
+            </button>
+            <button class="filter-btn" data-department="أولي">
+                <i class="fas fa-1"></i> أولي
+            </button>
+            <button class="filter-btn" data-department="تانية">
+                <i class="fas fa-2"></i> تانية
+            </button>
+            <button class="filter-btn" data-department="ثالثة">
+                <i class="fas fa-3"></i> ثالثة
+            </button>
+            <button class="filter-btn" data-department="رابعة">
+                <i class="fas fa-4"></i> رابعة
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+        <section class="welcome-section">
+            <h2>مرحباً بك في أرشيف الكلية</h2>
+            <p>هنا ستجد أحدث الجداول الدراسية، الكتب، الأخبار والإعلانات المهمة من الكلية. كل ما تحتاجه في مكان واحد!</p>
+        </section>
+
+        <div class="archive-section">
+            <div class="section-header">
+                <h2><i class="fas fa-newspaper"></i> الأخبار والإعلانات</h2>
+                <a href="news.html" class="view-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
+            </div>
+            <div class="items-grid" id="news-container">
+                <div class="loading-state">
+                    <i class="fas fa-spinner"></i>
+                    <p>جارٍ تحميل الأخبار...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="archive-section">
+            <div class="section-header">
+                <h2><i class="fas fa-calendar-alt"></i> الجداول الدراسية والامتحانات</h2>
+                <a href="#" class="view-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
+            </div>
+            <div class="items-grid" id="schedules-container">
+                <div class="loading-state">
+                    <i class="fas fa-spinner"></i>
+                    <p>جارٍ تحميل الجداول...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="archive-section">
+            <div class="section-header">
+                <h2><i class="fas fa-book"></i> الكتب والمراجع</h2>
+                <a href="#" class="view-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
+            </div>
+            <div class="items-grid" id="books-container">
+                <div class="loading-state">
+                    <i class="fas fa-spinner"></i>
+                    <p>جارٍ تحميل الكتب...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button onclick="topFunction()" id="backToTopBtn" title="الرجوع للأعلى">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; أرشيف الكلية</p>
+            <p>للاتصال: info@college.edu | هاتف: 0123456789</p>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
+    <script>
+        // تهيئة Firebase
+         const firebaseConfig = {
+            apiKey: "AIzaSyAfjeZnyxSnuatuX7dcXU8x6n0YssPUnvo",
+            authDomain: "college-management-syste-6a3a5.firebaseapp.com",
+            databaseURL: "https://college-management-syste-6a3a5-default-rtdb.firebaseio.com",
+            projectId: "college-management-syste-6a3a5",
+            storageBucket: "college-management-syste-6a3a5.firebasestorage.app",
+            messagingSenderId: "111562294226",
+            appId: "1:111562294226:web:4798af8021b0e234a23e0b"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // تحديد قائمة التنقل
+        const navList = document.getElementById('main-nav-list');
+        const controlButtonId = 'control-btn-item';
+
+        // التحقق من حالة تسجيل الدخول وعرض المحتوى بناءً على الصلاحيات
+        auth.onAuthStateChanged(user => {
+            // إزالة زر لوحة التحكم في البداية لتجنب تكراره
+            const existingControlBtn = document.getElementById(controlButtonId);
+            if (existingControlBtn) {
+                navList.removeChild(existingControlBtn);
+            }
+
+            // إذا كان المستخدم مسجلاً الدخول وله صلاحيات
+            if (user) {
+                // عرض محتوى الصفحة
+                document.body.style.visibility = 'visible';
+                document.body.style.opacity = '1';
+                
+                // إضافة زر لوحة التحكم
+                const controlBtn = document.createElement('li');
+                controlBtn.id = controlButtonId;
+                controlBtn.innerHTML = `<a href="control.html"><i class="fas fa-cogs"></i> لوحة التحكم</a>`;
+                // إضافة الزر قبل زر تسجيل الخروج
+                navList.insertBefore(controlBtn, navList.lastElementChild);
+                
+                // جلب البيانات فقط بعد التأكد من الصلاحيات
+                fetchAllContent();
+            } else {
+                // في حالة عدم تسجيل الدخول أو عدم وجود صلاحيات المسؤول، يتم التوجيه إلى الصفحة الرئيسية
+                window.location.href = 'main.html';
+            }
+        });
+        
+        // وظيفة تسجيل الخروج
+        function logout() {
+            auth.signOut().then(() => {
+                // بعد تسجيل الخروج، سيتم إعادة توجيه المستخدم بواسطة onAuthStateChanged
+            }).catch((error) => {
+                console.error('خطأ في تسجيل الخروج:', error);
+            });
+        }
+
+        let currentDepartment = 'all';
+        let allData = {
+            'newsAndAds': [],
+            'schedules': [],
+            'books': []
+        };
+        const containers = {
+            'newsAndAds': 'news-container',
+            'schedules': 'schedules-container',
+            'books': 'books-container'
+        };
+        const sectionTitles = {
+            'newsAndAds': 'الأخبار',
+            'schedules': 'الجداول',
+            'books': 'الكتب'
+        };
+
+        function setupFilterButtons() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    currentDepartment = button.dataset.department;
+                    filterAndDisplayAllContent();
+                });
+            });
+        }
+        
+        function filterAndDisplayAllContent() {
+            for (const key in allData) {
+                const filteredData = currentDepartment === 'all' ? allData[key] : allData[key].filter(item => item.department === currentDepartment || !item.department);
+                displayContent(key, filteredData);
+            }
+        }
+        
+        async function fetchAllContent() {
+            try {
+                const collections = ['newsAndAds', 'schedules', 'books'];
+                for (const collectionName of collections) {
+            const querySnapshot = await db.collection(collectionName).limit(6).get();
+                    allData[collectionName] = querySnapshot.docs.map(doc => {
+                        const data = doc.data();
+                        const date = data.createdAt && data.createdAt.toDate ? data.createdAt.toDate().toLocaleDateString('ar-EG') : 'غير محدد';
+                        return { id: doc.id, ...data, date: date };
+                    });
+                }
+                filterAndDisplayAllContent();
+            } catch (error) {
+                console.error("Error fetching content:", error);
+                for (const key in containers) {
+                    const container = document.getElementById(containers[key]);
+                    container.innerHTML = `<div class="error-state"><i class="fas fa-exclamation-triangle"></i><p>حدث خطأ أثناء جلب ${sectionTitles[key]}.</p></div>`;
+                }
+            }
+        }
+
+        function displayContent(type, dataToShow) {
+            const container = document.getElementById(containers[type]);
+            if (dataToShow.length === 0) {
+                const icon = type === 'newsAndAds' ? 'fas fa-newspaper' : type === 'schedules' ? 'fas fa-calendar-times' : 'fas fa-book-open';
+                const message = type === 'newsAndAds' ? 'لا توجد أخبار متاحة حاليًا.' : type === 'schedules' ? 'لا توجد جداول متاحة حاليًا.' : 'لا توجد كتب متاحة حاليًا.';
+                container.innerHTML = `<div class="empty-state"><i class="${icon}"></i><p>${message}</p></div>`;
+                return;
+            }
+            container.innerHTML = '';
+            dataToShow.forEach(item => {
+                const badgeClass = getBadgeClass(item.department);
+                const card = document.createElement('div');
+                card.classList.add('item-card');
+                
+                const contentText = item.content || item.textContent || 'بلا محتوى';
+                
+ let linkHTML = '';
+// قم بإزالة الشرط الخاص بـ newsAndAds
+if (item.url) {
+    linkHTML = `<a href="${item.url}" target="_blank" class="view-btn">عرض ${sectionTitles[type].slice(0, -1)} <i class="fas fa-external-link-alt"></i></a>`;
+} else {
+    // يمكنك إزالة هذا السطر إذا كنت لا ترغب في إظهار أي شيء
+    linkHTML = ''; 
+}
+                
+                const cardHTML = `
+                    <div>
+                        <span class="item-badge ${badgeClass}">${item.department || 'عام'}</span>
+                        <h3>${item.name || item.title || 'بلا عنوان'}</h3>
+                        <div class="item-content">
+                            <p>${contentText}</p>
+                        </div>
+                    </div>
+                    <div class="item-meta">
+                        <span><i class="far fa-calendar"></i> ${item.date}</span>
+                        ${type === 'newsAndAds' ? `<span><i class="far fa-eye"></i> ${item.views || 0} مشاهدة</span>` : ''}
+                    </div>
+                    ${linkHTML}
+                `;
+                
+                card.innerHTML = cardHTML;
+                
+                const contentDiv = card.querySelector('.item-content');
+                const contentP = contentDiv.querySelector('p');
+                
+                // Add a small delay to allow the browser to render the content and calculate scroll height
+                setTimeout(() => {
+                    if (contentP.scrollHeight > contentP.clientHeight) {
+                        const showMoreBtn = document.createElement('button');
+                        showMoreBtn.classList.add('show-more-btn');
+                        showMoreBtn.textContent = 'عرض المزيد';
+                        
+                        showMoreBtn.addEventListener('click', () => {
+                            if (card.classList.contains('expanded')) {
+                                card.classList.remove('expanded');
+                                showMoreBtn.textContent = 'عرض المزيد';
+                            } else {
+                                card.classList.add('expanded');
+                                showMoreBtn.textContent = 'عرض أقل';
+                            }
+                        });
+                        card.insertBefore(showMoreBtn, card.querySelector('.item-meta'));
+                    }
+                }, 100);
+
+                container.appendChild(card);
+            });
+        }
+        
+        function getBadgeClass(department) {
+            switch(department) {
+                case 'أولي': return 'badge-primary';
+                case 'تانية': return 'badge-success';
+                case 'ثالثة': return 'badge-warning';
+                case 'رابعة': return 'badge-info';
+                default: return 'badge-primary';
+            }
+        }
+        
+        // وظائف زر العودة للأعلى
+        let mybutton = document.getElementById("backToTopBtn");
+
+        // إظهار الزر عند التمرير لأسفل 20 بكسل من أعلى المستند
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // عند النقر على الزر، يتم التمرير بسلاسة إلى أعلى الصفحة
+        function topFunction() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupFilterButtons();
+        });
+    </script>
+</body>
+</html>

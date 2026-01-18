@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دينا علم أحمد محمد الشربيني | سيرة ذاتية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #0d47a1; /* أزرق داكن */
+            --secondary-color: #e3f2fd; /* أزرق فاتح */
+            --text-color: #212121;
+            --sub-text-color: #757575;
+            --section-title-color: #1a237e; /* أزرق أغمق للعناوين */
+            --border-color: #e0e0e0;
+            --highlight-color: #007bff; /* لون التمييز */
+            --modal-bg: rgba(0, 0, 0, 0.7);
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            text-align: right;
+            overflow-x: hidden;
+        }
+
+        /* --- الهيدر (شريط التنقل) --- */
+        .main-header {
+            background-color: #fff;
+            padding: 15px 5%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: 600;
+            transition: color 0.3s, transform 0.3s;
+            position: relative;
+        }
+        .nav-link:hover {
+            color: var(--section-title-color);
+            transform: scale(1.05);
+        }
+
+        /* --- الحركات --- */
+        @keyframes fadeInSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .animated {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .animated.visible {
+            animation: fadeInSlideUp 0.8s ease-out forwards;
+        }
+
+        /* --- الحاوية الرئيسية --- */
+        .cv-container {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 40px;
+        }
+        
+        /* --- قسم المعلومات الشخصية --- */
+        .header-profile {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--primary-color);
+            margin-bottom: 30px;
+        }
+        .profile-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 4px solid var(--primary-color);
+            object-fit: cover;
+            margin-bottom: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .profile-img:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+        .header-profile h1 {
+            font-size: 2.8em;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin: 0;
+        }
+        .header-profile h2 {
+            font-size: 1.4em;
+            color: var(--section-title-color);
+            font-weight: 500;
+            margin: 5px 0 10px;
+        }
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 1em;
+            color: var(--sub-text-color);
+        }
+        .contact-info span {
+            display: flex;
+            align-items: center;
+        }
+        .contact-info i {
+            margin-left: 8px;
+            color: var(--primary-color);
+        }
+        .contact-info a {
+            color: var(--sub-text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .contact-info a:hover {
+            color: var(--highlight-color);
+        }
+        .contact-info .fa-location-dot {
+            color: #d32f2f; /* لون مميز للموقع */
+        }
+        .download-btn {
+            background-color: var(--highlight-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .download-btn:hover {
+            background-color: #0056b3;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        /* --- أقسام السيرة الذاتية --- */
+        .section {
+            margin-bottom: 40px;
+        }
+        .section-title {
+            font-size: 1.8em;
+            color: var(--section-title-color);
+            font-weight: 700;
+            border-right: 4px solid var(--primary-color);
+            padding-right: 15px;
+            margin-bottom: 20px;
+        }
+        
+        /* --- القوائم والعناصر --- */
+        ul {
+            list-style-type: none;
+            padding-right: 0;
+            margin: 0;
+        }
+        ul li {
+            margin-bottom: 15px;
+            padding-right: 20px;
+            position: relative;
+        }
+        ul li::before {
+            content: "\f058"; /* أيقونة صح */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--primary-color);
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: 1.1em;
+        }
+        
+        .cv-item {
+            margin-bottom: 25px;
+            border-right: 2px solid var(--border-color);
+            padding-right: 15px;
+            transition: border-color 0.3s ease;
+        }
+        .cv-item:hover {
+            border-color: var(--highlight-color);
+        }
+        .cv-item h3, .cv-item h4 {
+            font-size: 1.2em;
+            color: var(--text-color);
+            font-weight: 600;
+            margin: 0 0 5px;
+        }
+        .cv-item p {
+            margin: 0;
+            color: var(--sub-text-color);
+        }
+        .cv-item span {
+            font-style: italic;
+            font-size: 0.9em;
+            color: var(--sub-text-color);
+        }
+        
+        .show-more-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .show-more-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.01);
+        }
+
+        /* --- تصميم النافذة المنبثقة (Modal) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--modal-bg);
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            animation: fadeIn 0.3s ease-out;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes popIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .close-btn {
+            color: #aaa;
+            font-size: 35px;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.3s;
+        }
+        .close-btn:hover {
+            color: var(--primary-color);
+            transform: rotate(90deg);
+        }
+        
+        /* تصميم الاستجابة للهواتف */
+        @media (max-width: 768px) {
+            body { font-size: 14px; }
+            .cv-container { padding: 20px; margin: 20px auto; }
+            .header-profile h1 { font-size: 2em; }
+            .header-profile h2 { font-size: 1.2em; }
+            .contact-info { flex-direction: column; gap: 10px; }
+            .nav-link { font-size: 0.9em; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="main-header">
+    <nav class="nav-links">
+        <a href="main.html" class="nav-link" id="nav-home">الرئيسية</a>
+        <a href="dr.html" class="nav-link" id="nav-faculty">أعضاء هيئة التدريس</a>
+        <a href="call.html" class="nav-link" id="nav-contact">استفسار</a>
+    </nav>
+</header>
+
+<div class="cv-container">
+    <div class="header-profile animated" style="--animation-delay: 0.2s;">
+        <img src="dina.jpeg" alt="صورة دينا علم أحمد محمد الشربيني" class="profile-img">
+        <h1>دينا علم أحمد محمد الشربيني</h1>
+        <h2>مدرس</h2>
+        <div class="contact-info">
+            <span><i class="fas fa-envelope"></i> <a href="mailto:d.dinaalsherbiny85@gmail.com">d.dinaalsherbiny85@gmail.com</a></span>
+            <span><i class="fas fa-envelope"></i> <a href="mailto:Dinaalsherbiny65.el.azhar.edu.eg">Dinaalsherbiny65.el.azhar.edu.eg</a></span>
+            <span><i class="fas fa-envelope"></i> <a href="mailto:Dinaalm32@yahoo.com">Dinaalm32@yahoo.com</a></span>
+            <span><i class="fas fa-phone"></i> <a href="tel:+201000936939">٠١٠٠٠٩٣٦٩٣٩</a></span>
+            <span><i class="fas fa-location-dot"></i> دمياط الجديدة - دمياط - مصر</span>
+        </div>
+        <a href="#" download class="download-btn">
+            <i class="fas fa-download"></i> تنزيل السيرة الذاتية (PDF)
+        </a>
+    </div>
+
+    <div class="section animated" style="--animation-delay: 0.4s;">
+        <h3 class="section-title">نبذة شخصية</h3>
+        <p style="font-size: 1em; color: var(--main-text); margin-top: 10px;">
+            مدرس متخصص في علم الاجتماع، بخبرة تزيد عن 14 عامًا في البحث الأكاديمي والتدريس. عملت في مجال المشكلات الاجتماعية وأسهمت في العديد من الأبحاث والمؤتمرات. شغلت منصب مدير المركز الإعلامي ونائب مدير وحدة الجودة بكلية الدراسات الإنسانية بقنا. أسعى إلى تطبيق المعرفة السوسيولوجية لحل القضايا الاجتماعية المعاصرة من خلال البحث العلمي والمشاركة المجتمعية.
+        </p>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 0.6s;">
+        <h3 class="section-title" id="education-title">الدرجات العلمية</h3>
+        <div class="cv-item">
+            <h4>الإجازة العالية (ليسانس)</h4>
+            <p>جامعة الأزهر</p>
+            <span>التخصص: اجتماع - بتقدير: جيد جدا مع مرتبة الشرف - عام: ٢٠٠٦</span>
+        </div>
+        <div class="cv-item">
+            <h4>ماجستير</h4>
+            <p>جامعة الأزهر</p>
+            <span>التخصص: اجتماع - بتقدير: ممتاز مع التوصية بالتبادل بين الجامعات - عام: ٢٠١٥</span>
+        </div>
+        <div class="cv-item">
+            <h4>دكتوراه</h4>
+            <p>جامعة الأزهر</p>
+            <span>التخصص: اجتماع - بتقدير: مرتبة الشرف الأولى مع التوصية بالتبادل بين الجامعات والمعاهد العلمية - عام: ٢٠١٩</span>
+        </div>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 0.8s;">
+        <h3 class="section-title">الأبحاث والرسائل</h3>
+        <div class="cv-item">
+            <h4>عنوان رسالة الماجستير:</h4>
+            <p>أساليب التنشئة الاجتماعية وعلاقتها ببعض القيم لدى طلاب المرحلة الاعدادية والثانوية دراسة ميدانية مقارنة بين الريف والحضر</p>
+        </div>
+        <div class="cv-item">
+            <h4>عنوان رسالة الدكتوراه:</h4>
+            <p>العوامل التي تدفع الشباب إلى الانحراف الفكري وأساليب مواجهتها في المجتمع المصري دراسة ميدانية</p>
+        </div>
+    </div>
+
+    <div class="section animated" style="--animation-delay: 1s;">
+        <h3 class="section-title" id="experience-title">الخبرة المهنية</h3>
+        <div class="cv-item">
+            <h4>معيد</h4>
+            <p>جامعة الأزهر</p>
+            <span>الفترة الزمنية: ٢٠٠٩-٢٠١٥</span>
+        </div>
+        <div class="cv-item">
+            <h4>مدرس مساعد</h4>
+            <p>جامعة الأزهر</p>
+            <span>الفترة الزمنية: من ٢٠١٥ إلى ٢٠١٩</span>
+        </div>
+        <div class="cv-item">
+            <h4>مدرس</h4>
+            <p>جامعة الأزهر</p>
+            <span>الفترة الزمنية: من ٢٠١٩ حتى الآن</span>
+        </div>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 1.2s;">
+        <h3 class="section-title">الدورات والأنشطة التدريبية</h3>
+        <button class="show-more-btn" id="toggle-training-btn">عرض المزيد</button>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 1.4s;">
+        <h3 class="section-title">المشاركات العلمية والعملية (المؤتمرات والندوات)</h3>
+        <button class="show-more-btn" id="toggle-participations-btn">عرض المزيد</button>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 1.6s;">
+        <h3 class="section-title">إشراف على الرسائل العلمية (ماجستير - دكتوراه)</h3>
+        <div class="cv-item">
+            <h4>العوامل التي تدفع الشباب إلى الانحراف الفكري وأساليب مواجهتها في المجتمع المصري</h4>
+            <p>نوع النشاط: إشراف على رسالة دكتوراه - الكلية: دراسات إنسانية - الجامعة: جامعة الأزهر</p>
+            <span>التاريخ: ٢٠١٧</span>
+        </div>
+        <div class="cv-item">
+            <h4>المؤسسات الاجتماعية ودورها في مواجهة الجرائم الإلكترونية</h4>
+            <p>نوع النشاط: إشراف على رسالة دكتوراه - الكلية: دراسات إنسانية تقنا - الجامعة: جامعة الأزهر</p>
+            <span>التاريخ: ٢٠٢٠/١١/١٥</span>
+        </div>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 1.8s;">
+        <h3 class="section-title">عضوية اللجان-الجمعيات-الروابط العلمية</h3>
+        <div class="cv-item">
+            <h4>لجنة التعليم الإلكتروني</h4>
+            <p>طبيعة العضوية: عضو</p>
+        </div>
+        <div class="cv-item">
+            <h4>المركز الإعلامي بجامعة الأزهر</h4>
+            <p>طبيعة العضوية: عضو</p>
+        </div>
+    </div>
+    
+    <div class="section animated" style="--animation-delay: 2s;">
+        <h3 class="section-title">الأنشطة المجتمعية والثقافية والتطوعية العامة</h3>
+        <div class="cv-item">
+            <h4>ندوة عن التحرش المدرسي</h4>
+            <p>طبيعة النشاط: تعليمي</p>
+            <span>التاريخ: شهر ٣ ٢٠١٩</span>
+        </div>
+        <div class="cv-item">
+            <h4>ندوة عن مواجهة التنمر لدى الطلاب</h4>
+            <p>طبيعة النشاط: تعليمي</p>
+            <span>التاريخ: شهر ١١ ٢٠٢٠</span>
+        </div>
+        <div class="cv-item">
+            <h4>خطة الاخلاق بكلية الدراسات الإنسانية بقنا الإشراف</h4>
+            <p>طبيعة النشاط: تعليمي</p>
+            <span>التاريخ: ٢٠٢١</span>
+        </div>
+    </div>
+</div>
+
+<div id="training-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" id="close-training-btn">&times;</span>
+        <h3 class="section-title">جميع الدورات والأنشطة التدريبية</h3>
+        <div class="cv-item research-item">
+            <h4>البرنامج التدريبي المراجعة الداخلية لمؤسسات التعليم العالي وقنيات كتابه التقارير</h4>
+            <p>مكان الانعقاد: مركز إدارة الجودة بجامعة الزقازيق</p>
+            <span>التاريخ: ٢٠١٩/١٢/١١، ٢٠١٩/١٢/١٢</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>دورة بناء البرامج التعليمية في المعايير الأكاديمية</h4>
+            <p>مكان الانعقاد: مركز إدارة الجودة والاعتماد بالزقازيق</p>
+            <span>التاريخ: ٢٠٢١/٢/١٦، ٢٠٢١/٢/١٨</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>التنقيح والمواصفات للمقررات</h4>
+            <p>مكان الانعقاد: القاهرة</p>
+            <span>التاريخ: ٢٠٢١/٨/٢٠</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>اعداد الدراسة الذاتية لمؤسسات التعليم العالي</h4>
+            <p>مكان الانعقاد: القاهرة</p>
+            <span>التاريخ: ٢٠٢١/٨/٢١</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>نظم الامتحانات وتقويم الطلاب</h4>
+            <p>مكان الانعقاد: القاهرة</p>
+            <span>التاريخ: ٢٠٢١/٨/٢٢</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>مهارات العرض الفعال</h4>
+            <p>مكان الانعقاد: القاهرة</p>
+            <span>التاريخ: ٢٠٢١/٨/٢٣</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>فنيات تصميم وإعداد البحوث</h4>
+            <p>مكان الانعقاد: القاهرة</p>
+            <span>التاريخ: ٢٠٢١/٨/٢٤</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>دورة التحليل الإحصائي للبيانات الكمية باستخدام برامج رابطة خريجي الدراسات الاجتماعية</h4>
+            <p>مكان الانعقاد: مركز البحوث والدراسات الاجتماعية - القاهرة</p>
+            <span>التاريخ: ٢٠١٣/١٠/١٢</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>البحث العلمي في العلوم الاجتماعية</h4>
+            <p>مكان الانعقاد: مركز البحوث والدراسات الاجتماعية - القاهرة</p>
+            <span>التاريخ: ٢٠١٦/٥/١٩</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>التحليل الكيفي في العلوم الاجتماعية</h4>
+            <p>مكان الانعقاد: مركز البحوث والدراسات الاجتماعية - القاهرة</p>
+            <span>التاريخ: ٢٠١٧/٩/٢٧</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>التحليل الكمي في العلوم الاجتماعية</h4>
+            <p>مكان الانعقاد: القاهرة</p>
+            <span>التاريخ: ٢٠١٩</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>كيف تكون أستاذاً ناجحاً؟</h4>
+            <p>مكان الانعقاد: جامعة الأزهر - القاهرة</p>
+            <span>التاريخ: ٢٠١٩/١١/٢٦</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>معايير جودة الأداء في العملية التعليمية</h4>
+            <p>مكان الانعقاد: أونلاين - الجهة: إيفاد المنصة الدولية في المملكة المتحدة</p>
+            <span>التاريخ: ٢٠٢١/١/٢٦</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>الأخطاء الشائعة التي يقع فيها الباحثون</h4>
+            <p>مكان الانعقاد: القاهرة - الجهة: المؤسسة العلمية للعلوم التربوية والتكنولوجية والتربية الخاصة</p>
+            <span>التاريخ: ٢٠٢٠/٩/٢٢</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>الشلل الدماغي</h4>
+            <p>مكان الانعقاد: القاهرة - الجهة: المؤسسة العلمية للعلوم التربوية والتكنولوجية والتربية الخاصة</p>
+            <span>التاريخ: ٢٠٢٠/١٠/١</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>المهارات الفنية لكتابة وتوثيق البحوث العلمية</h4>
+            <p>مكان الانعقاد: القاهرة - الجهة: المؤسسة العلمية للعلوم التربوية والتكنولوجية والتربية الخاصة</p>
+            <span>التاريخ: ٢٠٢٠/٩/٣٠</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>دورة المدير الفعال</h4>
+            <p>مكان الانعقاد: الزقازيق - الجهة: مركز إدارة الجودة والاعتماد</p>
+            <span>التاريخ: ٢٠٢١</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>التحليل المنهجي للدراسات السابقة</h4>
+            <p>مكان الانعقاد: أونلاين - الجهة: منصة الباحثين والأكاديميين إيفاد المنصة الدولية في المملكة المتحدة</p>
+            <span>التاريخ: ٢٠٢١/١/٥</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>القواعد الأساسية في بناء المفاهيم العلمية</h4>
+            <p>مكان الانعقاد: أونلاين - الجهة: منصة الباحثين والأكاديميين إيفاد المنصة الدولية في المملكة المتحدة</p>
+            <span>التاريخ: ٢٠٢١/٢/٨</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>إدارة وتبادل الأوراق البحثية باستخدام برنامج Mendeley</h4>
+            <p>مكان الانعقاد: أونلاين - الجهة: منصة الباحثين والأكاديميين إيفاد المنصة الدولية في المملكة المتحدة</p>
+            <span>التاريخ: ٢٠٢١/٢/١</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>واقع التعليم الإلكتروني</h4>
+            <p>مكان الانعقاد: أونلاين - الجهة: منصة الباحثين والأكاديميين إيفاد المنصة الدولية في المملكة المتحدة</p>
+            <span>التاريخ: ٢٠٢١/١٢/٢</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>الابداع والبحث العلمي</h4>
+            <p>مكان الانعقاد: أونلاين - الجهة: منصة الباحثين والأكاديميين إيفاد المنصة الدولية في المملكة المتحدة</p>
+            <span>التاريخ: ٢٠٢١/١٢/٤</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>جودة أداء البحث</h4>
+            <p>مكان الانعقاد: دمياط كلية الطب</p>
+            <span>التاريخ: ٢٠١٩/١١/٨</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>التخطيط الاستراتيجي</h4>
+            <p>مكان الانعقاد: أونلاين - الجهة: أكاديمية أهداف الدولية للتعليم والتدريب والاستشارات</p>
+            <span>التاريخ: ٢٠٢٣/٧/٢٢</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>ندوة عن التحرش المدرسي</h4>
+            <p>نوع المشاركة: المحاضر - مكان الانعقاد: مدرسة الإمام محمد عبده</p>
+            <span>التاريخ: ٢٠٢٠</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>دورة الأزمات والكوارث</h4>
+            <p>نوع المشاركة: المدرب - مكان الانعقاد: كلية الدراسات الإنسانية بـ قنا الإشراف</p>
+            <span>التاريخ: ٢٠٢٣</span>
+        </div>
+    </div>
+</div>
+
+<div id="participations-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" id="close-participations-btn">&times;</span>
+        <h3 class="section-title">جميع المشاركات العلمية والعملية</h3>
+        <div class="cv-item research-item">
+            <h4>ملتقى المشاركة المجتمعية والطريق الى الاعتماد</h4>
+            <p>المجال: اجتماع - نوع المشاركة: حضور</p>
+            <span>مكان الانعقاد: جامعة الأزهر - التاريخ: ٢٠١٨/٢/٥</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>المؤتمر الأول لرواد ومدربي التربية الخاصة ومعلمي رياض الأطفال</h4>
+            <p>المجال: اجتماع - نوع المشاركة: حضور</p>
+            <span>مكان الانعقاد: أكاديمية تحدي الاستشارات وتاهيل ذوي الاحتياجات الخاصة - التاريخ: ٢٠١٩/١١/٩</span>
+        </div>
+        <div class="cv-item research-item">
+            <h4>ندوة عن التحرش المدرسي</h4>
+            <p>المجال: اجتماع - نوع المشاركة: المحاضر</p>
+            <span>مكان الانعقاد: مدرسة الإمام محمد عبده - التاريخ: ٢٠١٩/١٢/٢</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Intersection Observer for fade-in animations
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animated').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Modal functionality
+        const toggleTrainingBtn = document.getElementById('toggle-training-btn');
+        const trainingModal = document.getElementById('training-modal');
+        const closeTrainingBtn = document.getElementById('close-training-btn');
+
+        const toggleParticipationsBtn = document.getElementById('toggle-participations-btn');
+        const participationsModal = document.getElementById('participations-modal');
+        const closeParticipationsBtn = document.getElementById('close-participations-btn');
+
+        const openModal = (modal) => {
+            modal.style.display = 'flex';
+        };
+
+        const closeModal = (modal) => {
+            modal.style.display = 'none';
+        };
+
+        toggleTrainingBtn.addEventListener('click', () => {
+            openModal(trainingModal);
+        });
+
+        closeTrainingBtn.addEventListener('click', () => {
+            closeModal(trainingModal);
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === trainingModal) {
+                closeModal(trainingModal);
+            }
+        });
+
+        toggleParticipationsBtn.addEventListener('click', () => {
+            openModal(participationsModal);
+        });
+
+        closeParticipationsBtn.addEventListener('click', () => {
+            closeModal(participationsModal);
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === participationsModal) {
+                closeModal(participationsModal);
+            }
+        });
+    });
+</script>
+<script src="auth-check.js"></script>
+
+</body>
+</html>
